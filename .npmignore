@@ -1,0 +1,7 @@
+/src/
+/test/
+.babelrc
+karma.conf.js
+webpack.config.js
+*.tgz
+*.log

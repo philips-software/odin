@@ -1,0 +1,18 @@
+{
+  "presets": [
+    ["env", {
+      "targets": "node"
+      }]
+    ],
+    "plugins": [    
+      "transform-decorators-legacy",
+      "transform-class-properties"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  }
