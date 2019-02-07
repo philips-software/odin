@@ -5,15 +5,15 @@ module.exports = {
   entry: {
     odin: './src/index.js',
   },
-  
+
   output: {
     path: path.resolve(__dirname),
     filename: '[name].js'
   },
-  
-  devtool: 'inline-source-map',
+
+  devtool: 'eval-source-map',
   mode: 'development',
-  
+
   module: {
     rules: [
       {

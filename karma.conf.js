@@ -3,23 +3,30 @@ const webpack = require('./webpack.config');
 module.exports = (config) => {
   config.set({
     frameworks: ['jasmine'],
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
     browsers: ['ChromeHeadless'],
     files: [
-      { pattern: 'src/*.spec.js', watched: false },
-      { pattern: 'src/**/*.spec.js', watched: false }
+      { pattern: 'src/**/*.js', watched: false }
     ],
 
     preprocessors: {
-      // add webpack as preprocessor
-      'src/*.spec.js': [ 'webpack', 'sourcemap' ],
-      'src/**/*.spec.js': [ 'webpack', 'sourcemap' ]
+      'src/**/*.spec.js': ['webpack', 'sourcemap'],
+      'src/**/!(*spec).js': ['webpack', 'sourcemap', 'coverage'],
     },
 
     webpack,
 
+    webpackServer: { noInfo: true },
+
     webpackMiddleware: {
       stats: 'errors-only'
+    },
+
+    coverageReporter: {
+      reporters: [
+        { type: 'text-summary' },
+        { type: 'html', dir: 'coverage/' },
+      ]
     }
   });
 };
