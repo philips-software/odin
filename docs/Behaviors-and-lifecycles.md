@@ -8,7 +8,7 @@ That said, let's get started with an overview of Odin's lifecycle, which can be 
 ## Registration
 ![Registration Lifecycle](./imgs/life-cycle--registration.png "Registration Lifecycle")
 
-There are two agents acting during registration phase: The JavaScript engine (browser or node) and Odin.
+There are two agents acting during the registration phase: The JavaScript engine (browser or node) and Odin.
 
 - The engine is responsible for evaluating the application code;
 - Each time that a Odin decorator (i.e. `@Injectable`) is found, the dependency annotated is registered into Odin;
@@ -22,7 +22,7 @@ There are two agents acting during registration phase: The JavaScript engine (br
 
  - The application is responsible for retrieving **dependency containers** from Odin;
 
- - The application uses these **dependency containers**, typically called just as _containers_ for the sake of simplicity, to retrieve the current value of any of its dependencies;
+ - The application uses these **dependency containers**, typically called just _containers_ for the sake of simplicity, to retrieve the current value of any of its dependencies;
 
 Basically, Odin is responsible for providing the _containers_, which are capable of resolving dependencies, considering their scope and managing their lifecycle.
 
