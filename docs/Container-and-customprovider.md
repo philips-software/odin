@@ -3,9 +3,13 @@
 
 ## Container
 
-The `container` provides instances of dependencies, managing them by kind.
+The `container` is responsible for resolving registred dependencies, instantiating or forwarding dependencies values accordingly.
 
-By default, ODIN only registers `class` as dependency. To provide another kind of dependency, ODIN allows to create a **Custom Provider**, that must be used when creating a container.
+By default, Odin containers can only provide instances of `class` types, i.e., the values provided by the containers are typically objects. However, Odin also offers the possibility of implementing a **Custom Provider** to handle specific scenarios, when injecting a non-object value to a variable is required, for example.
+
+## Custom Provider
+
+In order to configure a container to use a **Custom Provider**, an instance of such custom provider should be passed as an argument to the container's factory method, as shown below.
 
 ```javascript
   import odin, { CustomProvider } from '@philips/odin';
@@ -15,19 +19,15 @@ By default, ODIN only registers `class` as dependency. To provide another kind o
   ...
 ```
 
-## Custom Provider
-
-Custom Provider allows to create a provider for special dependencies.
-
-It has only two methods: `register` and `get`.
+The Custom Provider object has only two public methods: `register` and `get`.
 
 ### register
 
-The method `register` receives two params: `name` and a intance of `ValueResolver`, the name will be used to make the resolver available to inject through container's instance.
+The method `register` receives two params: `name` and an instance of a `ValueResolver`. The `name` will be used by Odin to identify which resolver it should use to evaluate dependencies, comparing this `name` with the name of the resquested dependencies.
 
 The `ValueResolver` must receive a function in the constructor - which is the value generator, and has a method `get` that invokes the function retrieving the value.
 
-Besides `ValueResolver`, ODIN still provides another implementation of *resolver*: `FinalValueResolver`. It only evaluates the value once and returns always the first invocation value when calling `get` again.
+Besides `ValueResolver`, Odin also provides another implementation of *resolver*: `FinalValueResolver`. It only evaluates the value once and returns always the first invocation value when calling `get` again.
 
 ```javascript
   import odin, { CustomProvider, ValueResolver, FinalValueResolver } from '@philips/odin';
@@ -58,9 +58,7 @@ Besides `ValueResolver`, ODIN still provides another implementation of *resolver
   container.provide('customButFinal', true); // 4;
 ```
 
-When the *resolver* is invoked by `container.provide(...)`, no arguments would be passed.
-
-But if invoked by dependency resolution - uses of `@Inject`, the instance requiring the dependency will be received as argument.
+When the *resolver* is invoked by `container.provide(...)`, no arguments is passed. But if invoked by dependency resolution - any use of `@Inject`, the instance which is requiring the dependency will be passed as argument.
 
 ```javascript
   import odin, { CustomProvider, ValueResolver} from '@philips/odin';
@@ -95,7 +93,7 @@ But if invoked by dependency resolution - uses of `@Inject`, the instance requir
 
 ```
 
-When using `FinalValueResolver` not matter the context, once evaluated the value never changes.
+When using `FinalValueResolver`, no matter the context, once evaluated the value never changes.
 
 ```javascript
   import odin, { CustomProvider, FinalValueResolver} from '@philips/odin';
@@ -130,14 +128,4 @@ When using `FinalValueResolver` not matter the context, once evaluated the value
   myInjectable.getCustom(); // undefined
 ```
 
-
-The instance of `CustomProvider` might be shared between containers, and isn't mandatory to create these ones. Sharing the instance or not, take care about leaking resources or keeping large states.
-
----------------------
-#### See more
-
-- [Behaviors and life-cicles](./behaviors-and-life-cicles.md)
-- [Kinds of dependencies](./kinds-of-dependencies.md)
-- [How to define a dependency](./define-dependency.md)
-- [Bundles & Inject](./bundle-and-inject.md)
-- [Configuration](./configuration.md)
+An instance of `CustomProvider` can be shared between containers, instead of creating new ones each time. Sharing the instances or not, take care about leaking resources or keeping large states.

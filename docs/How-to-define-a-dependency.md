@@ -1,14 +1,14 @@
 # Define Dependency
 
-The easier way to define a dependecy is using the *decorators* `@Injectable` and `@Singleton`.
+Dependency definitions on Odin are typically realized by applying the *decorators* `@Injectable` and `@Singleton` to class definitions.
 
 ## @Injectable
 
-The `@Injectable` decorator defines a ODIN dependecy, and it has a non-mandatory param `domain`.
+The `@Injectable` decorator defines a Odin dependency, and it has a non-mandatory parameter `domain`.
 
-> The `domain` determines the scope of the dependecy; in other words, it defines a kind of hierarchy inside the ODIN register, see more [here](./bundle-and-inject.md).
+> The `domain` determines the scope of the dependecy. In other words, it defines a type of hierarchy inside Odin's register, see more [here](./Bundle-and-Inject#domain).
 >
-> This hierarchy determines which dependencies are available when creating a container - that provides the dependencies instances.
+> This hierarchy determines which dependencies are available when creating a container - which provides the dependencies instances.
 
 ```javascript
   import { Injectable } from '@philips/odin';
@@ -20,15 +20,16 @@ The `@Injectable` decorator defines a ODIN dependecy, and it has a non-mandatory
 
 ```
 
-ODIN's registry always begin with `root` scope, and dependencies registered inside it can be injected from any container - no matter the scope or domain.
+Odin's registry always has a `root` scope, and dependencies registered inside it can be injected from any container - no matter the scope or domain.
 
-Any container create through ODIN registry is able to instance these dependencies, but:
+Any container created through Odin's registry is able to instantiate these dependencies, but:
+
 ### `EACH CONTAINER HAS ITS OWN INSTANCES`.
 
 ---------------------
 ## @Singleton
 
-Differently from `@Injectable`, dependencies of the kind `@Singleton` are not exclusive for each instance. It means, the first instance will be kept by ODIN and reused everywhere it be `@Inject`ed - again, **into the same container**.
+Differently from `@Injectable`, dependencies of the type `@Singleton` are not exclusive for each instance. It means, the first instance will be kept by Odin and reused everywhere it is `@Injected` - again, **into the same container**.
 
 ```javascript
   import odin, { Singleton, Injectable } from '@philips/odin';
@@ -85,7 +86,7 @@ Differently from `@Injectable`, dependencies of the kind `@Singleton` are not ex
 ## Defining dependency without *@decorator*
 
 The `@Injectable` and `@Singleton` decorators are sugars to define dependencies.
-Using the main export `odin` and `Secrets` is possible to declare dependencies without any @.
+By using the main export `odin` and `Secrets`, it is possible to declare dependencies without any decorator ( i.e. `@Singleton`).
 
 ```javascript
   import odin from '@philips/odin';
@@ -103,12 +104,12 @@ Using the main export `odin` and `Secrets` is possible to declare dependencies w
   }
 
   const bundle = odin.bundle();
-  // the second param 'args' will passed on MyDependecy constructor each time
+  // the second param 'args' will be passed on MyDependecy constructor each time
   bundle.register(MyDependency, { prop1: 'Potato' });
 
 ```
 
-Or even, built your own decorators.
+Or even, build your own decorators.
 
 ```javascript
   import odin, { Secrets } from '@philips/odin';
@@ -134,12 +135,3 @@ Or even, built your own decorators.
   }
 
 ```
-
----------------------
-#### See more
-
-- [Behaviors and life-cicles](./behaviors-and-life-cicles.md)
-- [Kinds of dependencies](./kinds-of-dependencies.md)
-- [Bundles & Inject](./bundle-and-inject.md)
-- [Custom Provider](./container-and-custom-provider.md)
-- [Configuration](./configuration.md)
