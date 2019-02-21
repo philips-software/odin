@@ -1,5 +1,8 @@
 # ODIN
 
+[![Build Status](https://travis-ci.com/philips-software/odin.svg?branch=master)](https://travis-ci.com/philips-software/odin)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=philips-software_odin&metric=alert_status)](https://sonarcloud.io/dashboard?id=philips-software_odin)
+
 ODIN (On-demand Dependency InjectioN) is a Dependency Injection library inspired by Java CDI, enabling lazy loading pattern on JavaScript applications, providing every resource on-demand.
 
 Dependency Injection (DI) is a technique used to reduce programmer's concern about objects creation and life-cycle. Delegating the management to DI, is possible to build a **flexible coupling** among resources and parts of the application.
