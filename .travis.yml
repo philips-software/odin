@@ -1,7 +1,14 @@
+dist: trusty
 language: node_js
 cache: yarn
 node_js:
 - 8
+addons:
+  sonarcloud:
+    organization: "philips-software"
+    token:
+      secure: o0bMDIWi4lYOC0l4yLWKvoGW9ApPQX9CsTF7V8eVfTrgTYOPzuQFYyBOC6Ua3xSINcLOnC5UQeEgBmThOq2G+nmW5FsNryJi7rdD/G7gKRzbe6pm1+N7Hb+Fifzapg93RKJ78hZogGI48dWGS39tWoAxzQGOZ7G7J+RLvnQF3cLh5hkEXwdOUFhqZNB/XTPSysq+s9pRuffEODxutcWvf0Q+ZE3vBWGPLOBmPo9Ljt5FnWmaHG83w8Apvw5cY7brHTCrQNoAsDUYJZ7+4L10puSLBAzaqAhrnyMNT1mUD5NI87oPIt14B+F4lETYAa1Fu4Vm0R+z/e7warO8LmccwS68sadMiZe/lmwGj24Zju+7eTvroUZsKzrKTJs9ftNzq8XAwUTLairdqk1aHMw+VOL1xfweRvLtSxJZqvBDcPkk/apiGJE9M1VdkjQMdZuf964dkFzwaViK2pMCPo07Nc74pYoVF/EMB+qxTRttNsRKetV6NqBzYzJ7+fvK13WoMJ3BJ/UgFaF7BTOqw3Dvqb/30pLrAfzj/ZbXyMaD/McQZUUdmfvkTcmwGSzVCuEeg4PAmnlMNtKeD44nQZm71UI/oigxzWQ+w3HRsflHn1uhLwBttXAgeErkWG+y1DVHXj5BMFrFjL8fDKOqVgm9O3w10rXAyw89WVBzA5I2zjw=
 script:
 - yarn
 - yarn test
+- sonar-scanner    
