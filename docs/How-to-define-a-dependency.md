@@ -11,7 +11,7 @@ The `@Injectable` decorator defines a Odin dependency, and it has a non-mandator
 > This hierarchy determines which dependencies are available when creating a container - which provides the dependencies instances.
 
 ```javascript
-  import { Injectable } from '@philips/odin';
+  import { Injectable } from '@odinjs/odin';
 
   @Injectable({ domain: 'scope1' })
   class MyInjectable {
@@ -32,7 +32,7 @@ Any container created through Odin's registry is able to instantiate these depen
 Differently from `@Injectable`, dependencies of the type `@Singleton` are not exclusive for each instance. It means, the first instance will be kept by Odin and reused everywhere it is `@Injected` - again, **into the same container**.
 
 ```javascript
-  import odin, { Singleton, Injectable } from '@philips/odin';
+  import odin, { Singleton, Injectable } from '@odinjs/odin';
 
   @Singleton
   class MySingleton {
@@ -89,7 +89,7 @@ The `@Injectable` and `@Singleton` decorators are sugars to define dependencies.
 By using the main export `odin` and `Secrets`, it is possible to declare dependencies without any decorator ( i.e. `@Singleton`).
 
 ```javascript
-  import odin from '@philips/odin';
+  import odin from '@odinjs/odin';
 
   class MyDependency {
 
@@ -112,7 +112,7 @@ By using the main export `odin` and `Secrets`, it is possible to declare depende
 Or even, build your own decorators.
 
 ```javascript
-  import odin, { Secrets } from '@philips/odin';
+  import odin, { Secrets } from '@odinjs/odin';
 
   function MySingleton(definition) {
 
