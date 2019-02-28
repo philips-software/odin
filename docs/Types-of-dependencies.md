@@ -12,7 +12,7 @@ The current available *marks* are: `singleton`, `discardable` and `custom`. They
 By default ODIN has only two types of dependency: `Injectable` and `Singleton`.
 
 ```javascript
-  import { Injectable, Singleton } from '@philips/odin';
+  import { Injectable, Singleton } from '@odinjs/odin';
 
   @Injectable
   class MyInjectable {
