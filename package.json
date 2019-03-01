@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/philips-software/odin.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
