@@ -12,6 +12,7 @@ script:
 - yarn
 - yarn test
 - sonar-scanner
+- yarn build
 deploy:
   provider: npm
   email: philips-software@philips.com
