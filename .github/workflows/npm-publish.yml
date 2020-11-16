@@ -1,8 +1,8 @@
 # This workflow is responsible for building, testing and publishing the library when a new release tag is created.
 # The workflow is composed by two jobs, `build` and `publish-npm`. The `build` job will build and test the code, and then,
-# if everything is working correctly, it will try and publish the code the
+# if everything is working correctly, it will try and publish the code to the specified registry.
 
-name: 'Odin's NPM Release'
+name: Odin's NPM Release
 
 on:
   release:
@@ -40,7 +40,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Publish
-        run: yarn publish --access publich
+        run: yarn publish --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
