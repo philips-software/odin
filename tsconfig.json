@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.settings",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "exclude": [
+    "lib",
+    "karma.conf.js",
+    "webpack.config.js"
+  ]
+}

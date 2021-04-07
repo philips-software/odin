@@ -16,12 +16,13 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib",
-    "lint": "eslint src",
     "babel": "babel -d lib src --copy-files --source-maps --ignore '**/*.spec.js'",
-    "build": "npm run clean && npm run lint && npm run babel",
-    "test": "BABEL_ENV=test karma start --single-run",
-    "test:watch": "karma start"
+    "build:compile": "tsc --build",
+    "build": "npm-run-all --sequential lint build:compile",
+    "clean": "rimraf lib **/.eslintcache **/*.log **/*.tsbuildinfo **/test/coverage",
+    "lint": "eslint . --ext .js,.ts --cache --max-warnings 0",
+    "test:watch": "karma start",
+    "test": "BABEL_ENV=test karma start --single-run"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -43,7 +44,9 @@
     "karma-mocha-reporter": "^2.2.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
-    "rimraf": "^2.6.2",
+    "npm-run-all": "4.1.5",
+    "typescript": "4.2.3",
+    "rimraf": "3.0.2",
     "webpack": "^4.3.0",
     "webpack-cli": "^2.0.13"
   }
