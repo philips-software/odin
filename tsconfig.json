@@ -5,6 +5,7 @@
     "rootDir": "src"
   },
   "exclude": [
+    "**/*.spec.js",
     "lib",
     "jest.config.js",
     "karma.conf.js",
