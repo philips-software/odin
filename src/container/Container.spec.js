@@ -3,16 +3,16 @@ import Container from './Container';
 import { FinalValueResolver, ValueResolver } from './ValueResolver';
 import Secrets from './Secrets';
 
-export class Nothing {
+class Nothing {
   constructor(args) { this.args = args; }
 }
 
-export class Singleton extends Nothing {
+class Singleton extends Nothing {
   potato = null;
 }
 Secrets.setSingleton(Singleton);
 
-export class Discardable extends Nothing {
+class Discardable extends Nothing {
   onBla() {
     return this.args.cow;
   }

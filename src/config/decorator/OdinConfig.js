@@ -16,7 +16,7 @@ export default function OdinConfig(definition, params = {}) {
     return validate;
   }
 
-  if (params.hasOwnProperty('strict')) {
+  if (Object.prototype.hasOwnProperty.call(params, 'strict')) {
     Config.setStrict(params.strict);
   }
 
