@@ -12,11 +12,11 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "lib": [
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018",
-      "es2019",
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
       "ScriptHost"
     ],
     "module": "ES6",
