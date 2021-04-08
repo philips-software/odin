@@ -157,7 +157,7 @@ describe('[ODIN]', function() {
         expect(bundle.getId('cow')).toBe('teste2');
       });
 
-      it('should get the right id no matter the bundle level', () => {
+      it('should get the right id from the bundler', () => {
         parent.register(Teste3, { name: 'potato', cow: 7 });
 
         const def = bundle.get('POTATO');

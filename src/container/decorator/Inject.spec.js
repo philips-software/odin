@@ -5,27 +5,34 @@ import Singleton from './Singleton';
 import Secrets from '../Secrets';
 import Config from '../../config/Config';
 
+/* eslint-disable */
+
+// This block is disabled because these classes aren't used by the usual way,
+// but instead requested directly from within Odin's container bundler.
+
 @Injectable
-export class RootInjectable { }
+class RootInjectable { }
 
 @Injectable({ domain: 'parent' })
-export class ParentInjectable { }
+class ParentInjectable { }
 
 @Injectable({ domain: 'parent/child' })
-export class ChildInjectable { }
+class ChildInjectable { }
 
 @Singleton
-export class RootSingleton { }
+class RootSingleton { }
 
 @Singleton({ domain: 'parent' })
-export class ParentSingleton { }
+class ParentSingleton { }
 
 @Singleton({ domain: 'parent/child' })
-export class ChildSingleton { }
+class ChildSingleton { }
 
 @Singleton
-export class RootDiscardable { }
+class RootDiscardable { }
 Secrets.setDiscardable(RootDiscardable);
+
+/* eslint-enable */
 
 describe('[ODIN]', function() {
 
