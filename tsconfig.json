@@ -8,7 +8,5 @@
     "**/*.spec.js",
     "lib",
     "jest.config.js",
-    "karma.conf.js",
-    "webpack.config.js",
   ]
 }
