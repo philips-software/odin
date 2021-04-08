@@ -1,11 +1,8 @@
-/**
- * @typedef {import('ts-jest/dist/types').InitialOptionsTsJest} TSJestOptions
- */
+/* eslint-env node */
 
 const path = require('path');
 
-
-/** @type {TSJestOptions} */
+/** @type {{import('ts-jest/dist/types').InitialOptionsTsJest}} */
 module.exports = {
   automock: false,
   collectCoverage: false,
