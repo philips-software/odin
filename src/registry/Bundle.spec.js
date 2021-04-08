@@ -1,5 +1,5 @@
-import Bundle from "./Bundle";
-import InjectableDef from "./InjectableDef";
+import Bundle from './Bundle';
+import InjectableDef from './InjectableDef';
 
 class Teste { }
 class Teste2 { }
@@ -10,7 +10,7 @@ class Teste3 {
   }
 }
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
 
   describe('Bundle', () => {
 

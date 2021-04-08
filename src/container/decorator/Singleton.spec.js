@@ -1,9 +1,9 @@
-import Singleton from "./Singleton";
-import Secrets from "../Secrets";
+import Singleton from './Singleton';
+import Secrets from '../Secrets';
 import odin from '../../Odin';
-import Inject from "./Inject";
+import Inject from './Inject';
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
   
   describe('@Singleton', () => {
     
@@ -76,7 +76,6 @@ describe("[ODIN]", function() {
         @Inject({ name: 'CyclicalSingleton1', eager: true })
         cyclical;
       } 
-
 
       const container = odin.container('cyclical');
 

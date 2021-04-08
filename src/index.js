@@ -7,7 +7,7 @@ import PostConstruct from './container/decorator/PostConstruct';
 import Inject from './container/decorator/Inject';
 import Secrets from './container/Secrets';
 import CustomProvider from './container/CustomProvider';
-import { ValueResolver, FinalValueResolver } from './container/ValueResolver';
+import { FinalValueResolver, ValueResolver } from './container/ValueResolver';
 import MetaValidator from './utils/MetaValidator';
 import * as Logger from './utils/Logger';
 
@@ -26,5 +26,5 @@ export {
   FinalValueResolver,
   MetaValidator,
   Logger,
-  OdinConfig
+  OdinConfig,
 };

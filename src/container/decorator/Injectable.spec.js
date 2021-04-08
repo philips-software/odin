@@ -1,9 +1,9 @@
-import Injectable from "./Injectable";
-import Secrets from "../Secrets";
+import Injectable from './Injectable';
+import Secrets from '../Secrets';
 import odin from '../../Odin';
-import Inject from "./Inject";
+import Inject from './Inject';
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
   
   describe('@Injectable', () => {
     
@@ -76,7 +76,6 @@ describe("[ODIN]", function() {
         @Inject({ name: 'CyclicalInjectable1' })
         cyclical;
       } 
-
 
       const container = odin.container('cyclical');
 

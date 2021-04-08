@@ -1,6 +1,6 @@
 import Config from '../config/Config';
-import { error } from "../utils/Logger";
-import InjectableDef from "./InjectableDef";
+import { error } from '../utils/Logger';
+import InjectableDef from './InjectableDef';
 
 /**
 * Describes the expected class registered as injectable.

@@ -1,4 +1,4 @@
-import { error } from "../utils/Logger";
+import { error } from '../utils/Logger';
 import { ValueResolver } from './ValueResolver';
 
 /**
@@ -27,7 +27,7 @@ export default class CustomProvider {
 
     this.injectables[name] = {
       name,
-      resolver
+      resolver,
     };
     return name;
   }

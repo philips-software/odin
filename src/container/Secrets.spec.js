@@ -1,4 +1,4 @@
-import Secrets from "./Secrets";
+import Secrets from './Secrets';
 
 export class Nothing { 
   constructor(args) { this.args = args; }
@@ -17,7 +17,7 @@ export class Discardable extends Nothing {
 Secrets.setSingleton(Discardable);
 Secrets.setDiscardable(Discardable);
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
   
   describe('Secrets', () => {
     
@@ -34,7 +34,6 @@ describe("[ODIN]", function() {
       expect(Secrets.isSingleton(Discardable)).toBe(true);
       expect(Secrets.isDiscardable(Discardable)).toBe(true);
     });
-    
     
   });
   

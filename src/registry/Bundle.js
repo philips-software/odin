@@ -49,7 +49,6 @@ export default class Bundle {
     this.parent = parent;
   }
 
-
   /**
   * Create a new child bundle.
   *
@@ -65,7 +64,7 @@ export default class Bundle {
     if (!child) {
       child = this.children[lowerName] = {
         id,
-        bundle: new Bundle(id, this)
+        bundle: new Bundle(id, this),
       };
     }
     return child.bundle;
@@ -101,7 +100,7 @@ export default class Bundle {
   */
   instantiate(def) {
     const { definition, args } = def;
-    const argsCopy = Object.assign({}, args);
+    const argsCopy = { ...args };
     return new definition(argsCopy);
   }
 
