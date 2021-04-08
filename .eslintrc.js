@@ -95,7 +95,7 @@ function overrideForJestTestFiles() {
       'plugin:jest/recommended',
     ],
     rules: {
-      'jext/expect-expect': ['error', {
+      'jest/expect-expect': ['error', {
         assertFunctionNames: ['assert*', 'expect*'],
       }],
     },
