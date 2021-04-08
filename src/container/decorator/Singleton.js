@@ -1,4 +1,4 @@
-import { register, paramsValidator } from './Injectable';
+import { paramsValidator, register } from './Injectable';
 import MetaValidator from '../../utils/MetaValidator';
 import Secrets from '../Secrets';
 

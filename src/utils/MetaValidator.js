@@ -17,7 +17,7 @@ export default class MetaValidator {
       number: (name, mandatory, depends) => newProp(name, 'number', mandatory, depends),
       validator: () => {
         return createValidator(meta);
-      }
+      },
     };
 
     function newProp(name, type, mandatory = false, depends = []) {
@@ -109,24 +109,20 @@ function validateParams(knewProps, mandatories, foundParams, defName, field = ''
   const props = Object.getOwnPropertyNames(foundParams);
   props.forEach(prop => {
     const tp = knewProps[prop];
-    if (!tp)
-    logError(defName, field, `unknow property '${prop}'`);
+    if (!tp) logError(defName, field, `unknow property '${prop}'`);
 
     const typeOfParam = typeof foundParams[prop];
-    if (tp && typeOfParam !== tp.type)
-    logError(defName, field, `expected property '${prop}' as '${tp.type}', found '${typeOfParam}'`);
+    if (tp && typeOfParam !== tp.type) logError(defName, field, `expected property '${prop}' as '${tp.type}', found '${typeOfParam}'`);
 
     if (tp && tp.depends) {
       tp.depends.forEach(dep => {
-        if (props.indexOf(dep) === -1)
-        logError(defName, field, `when has '${prop}', props '${tp.depends}' are mandatory`);
+        if (props.indexOf(dep) === -1) logError(defName, field, `when has '${prop}', props '${tp.depends}' are mandatory`);
       });
     }
   });
 
   mandatories.forEach(prop => {
-    if (foundParams[prop] === undefined)
-    logError(defName, field, `mandatory property '${prop}' not found`);
+    if (foundParams[prop] === undefined) logError(defName, field, `mandatory property '${prop}' not found`);
   });
 }
 

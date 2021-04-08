@@ -1,12 +1,12 @@
-import Registry from "./Registry";
-import InjectableDef from "./InjectableDef";
+import Registry from './Registry';
+import InjectableDef from './InjectableDef';
 import Config from '../config/Config';
 
 class teste { }
 class Teste { }
 class Teste2 { }
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
 
   describe('Registry', () => {
 

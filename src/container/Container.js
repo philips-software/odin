@@ -1,16 +1,14 @@
 import Secrets from './Secrets';
 import CustomProvider from './CustomProvider';
-import { ValueResolver, FinalValueResolver } from './ValueResolver';
+import { FinalValueResolver, ValueResolver } from './ValueResolver';
 import autobind from './autobind';
 
 const INJECTABLE_DEF = Symbol('injectable-def');
 const CONTAINER_ACCESSOR = Symbol('container-accessor'); //NEVER export!
 
-
 function noop() {
   // do nothing :|
 }
-
 
 /**
 * Describes the expected class registered as injectable.
@@ -50,7 +48,6 @@ export default class Container {
   * @type {Object.<string, ValueResolver>}
   */
   resolvers = { };
-  
   
   constructor(bundle, resolver = new CustomProvider()) {
     this.bundle = bundle;
@@ -149,7 +146,7 @@ export default class Container {
       this.instances[id] = instance;
       this.resolvers[id] = resolver;
     }
-    instance[INJECTABLE_DEF] = Object.assign({}, injectable);
+    instance[INJECTABLE_DEF] = { ...injectable };
     setContainer(instance, this);
     this.invokeEagers(instance);
     this.invokePostConstruct(instance);

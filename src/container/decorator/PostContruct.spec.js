@@ -1,7 +1,7 @@
-import PostConstruct from "./PostConstruct";
-import Secrets from "../Secrets";
+import PostConstruct from './PostConstruct';
+import Secrets from '../Secrets';
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
   
   describe('@PostConstruct', () => {
     

@@ -1,8 +1,8 @@
-import odin from "../../Odin";
-import Inject from "./Inject";
-import Injectable from "./Injectable";
-import Singleton from "./Singleton";
-import Secrets from "../Secrets";
+import odin from '../../Odin';
+import Inject from './Inject';
+import Injectable from './Injectable';
+import Singleton from './Singleton';
+import Secrets from '../Secrets';
 import Config from '../../config/Config';
 
 @Injectable
@@ -27,7 +27,7 @@ export class ChildSingleton { }
 export class RootDiscardable { }
 Secrets.setDiscardable(RootDiscardable);
 
-describe("[ODIN]", function() {
+describe('[ODIN]', function() {
 
   describe('@Inject', () => {
 
@@ -172,7 +172,7 @@ describe("[ODIN]", function() {
         expect(injection.carrot instanceof Cows).toBe(true);
       });
 
-      it('should respect lowercase/uppercase names whitin @Inject ', () => {
+      it('should respect lowercase/uppercase names whitin @Inject', () => {
         @Injectable
         class Cats { }
 
