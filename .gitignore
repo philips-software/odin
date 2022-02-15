@@ -18,7 +18,7 @@
 **/coverage/
 **/lib/
 **/node_modules/
-**/package-lock.json
+**/yarn.lock
 
 **/*.tsbuildinfo
 **/.eslintcache
