@@ -2,45 +2,41 @@
 # The workflow is composed by two jobs, `build` and `publish-npm`. The `build` job will build and test the code, and then,
 # if everything is working correctly, it will try and publish the code to the specified registry.
 
-name: Odin's NPM Release
+name: npm release
 
 on:
   release:
     types: [created]
+
+env:
+  node: 16.11
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/node@v2
         with:
-          node-version: 14
-      - name: Install dependencies
-        run: yarn
-      - name: Build
-        run: yarn build
-      - name: Tests
-        run: yarn test
+          cache: npm
+          node-version: ${{ env.node }}
+      - run: npm run ci:setup
+      - run: npm run ci:build
+      - run: npm run ci:test
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/node@v2
         with:
-          node-version: 14
-          registry: https://registry.npmjs.org/
+          cache: npm
+          node-version: ${{ env.node }}
+          registry-url: https://registry.npmjs.org/
           scope: '@odinjs'
-      - name: Install dependencies
-        run: yarn
-      - name: Build
-        run: yarn build
-      - name: Publish
-        run: yarn publish --access public
+      - run: npm run ci:setup
+      - run: npm run ci:build
+      - run: npm publish --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
