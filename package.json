@@ -18,7 +18,13 @@
   "scripts": {
     "build": "npm-run-all --sequential lint build:compile",
     "build:compile": "tsc --build",
+    "ci:build": "npm run build:compile",
+    "ci:setup": "npm ci",
+    "ci:test": "npm run test -- --ci",
     "clean": "rimraf lib **/.eslintcache **/*.log **/*.tsbuildinfo **/test/coverage",
+    "env:fresh": "npm-run-all --sequential env:reset env:setup",
+    "env:reset": "npm run clean && npx rimraf node_modules",
+    "env:setup": "npm run ci:setup",
     "lint": "eslint . --ext .js,.ts --cache --max-warnings 0",
     "test": "jest --config jest.config.js",
     "test:clear-cache": "jest --clearCache",
@@ -37,5 +43,9 @@
     "rimraf": "3.0.2",
     "ts-jest": "27.1.3",
     "typescript": "4.5.5"
+  },
+  "engines": {
+    "node": ">= 16.11",
+    "npm": ">= 8"
   }
 }
