@@ -33,7 +33,6 @@ jobs:
         with:
           cache: npm
           node-version: ${{ env.node }}
-          registry-url: https://registry.npmjs.org/
           scope: '@odinjs'
       - run: npm run ci:setup
       - run: npm run ci:build
