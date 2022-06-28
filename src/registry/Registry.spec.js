@@ -42,6 +42,19 @@ describe('[ODIN]', function() {
         expect(id).toBe('teste2');
       });
 
+      it('should unregister a class', () => {
+        registry.register(Teste);
+
+        expect(registry.has(Teste.name)).toBe(true);
+
+        registry.unregister(Teste);
+
+        expect(registry.has(Teste.name)).toBe(false);
+
+        expect(() => {
+          registry.register(Teste);
+        }).not.toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+      });
     });
 
     describe('Custom Register', () => {

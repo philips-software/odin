@@ -44,6 +44,19 @@ describe('[ODIN]', function() {
         }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
+      it('should unregister a class', () => {
+        bundle.register(Teste);
+
+        expect(bundle.has(Teste.name)).toBe(true);
+
+        bundle.unregister(Teste);
+
+        expect(bundle.has(Teste.name)).toBe(false);
+
+        expect(() => {
+          bundle.register(Teste);
+        }).not.toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+      });
     });
 
     describe('Multi Level Bundle Register', () => {

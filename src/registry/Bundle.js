@@ -90,7 +90,18 @@ export default class Bundle {
   */
   register(definition, args = {}) {
     this.checkHas(definition, args.name);
+
     return this.injectables.register(definition, args);
+  }
+
+  /**
+  * Unregister a injectable for this Bundle.
+  *
+  * @param {Injectable} definition class definition for the injectable.
+  * @param {string} otherArgs other arguments.
+  */
+  unregister(definition, args = {}) {
+    return this.injectables.unregister(definition, args);
   }
 
   /**

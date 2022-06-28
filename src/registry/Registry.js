@@ -56,6 +56,35 @@ export default class Registry {
   }
 
   /**
+  * Unregister a injectable class.
+  * The class should be retrieved using the class name or a custom name.
+  * The custom name must be inside the parameter args as property `name`.
+  *
+  * @param {Injectable} definition injectable class.
+  * @param {string} args object containing other arguments.
+  */
+  unregister(definition, args = {}) {
+    const { name } = args;
+
+    const id = getAsString(definition.name);
+
+    if (!this.injectables[id]) {
+      return;
+    }
+
+    delete this.injectables[id];
+
+    if (name) {
+      const lowerName = getAsString(name);
+
+      const index = this.names.findIndex(n => n === lowerName);
+      this.names.splice(index, 1);
+
+      delete this.identifierByName[lowerName];
+    }
+  }
+
+  /**
   * Check if exists an injectable with the given identifier.
   * It checks if exists another injectable using the custom name, as well.
   *
