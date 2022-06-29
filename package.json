@@ -1,6 +1,6 @@
 {
   "name": "@odinjs/odin",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "On-demand Dependency InjectioN",
   "author": "Thiago Teixeira <thiago.teixeira@philips.com>",
   "license": "MIT",
