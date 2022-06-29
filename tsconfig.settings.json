@@ -17,9 +17,11 @@
       "ES2017",
       "ES2018",
       "ES2019",
+      "ES2020",
+      "ES2021",
       "ScriptHost"
     ],
-    "module": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "newLine": "LF",
     "noImplicitAny": true,

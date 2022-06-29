@@ -6,7 +6,7 @@
   },
   "exclude": [
     "**/*.spec.js",
-    "lib",
     "jest.config.js",
+    "lib"
   ]
 }
