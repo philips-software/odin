@@ -12,9 +12,11 @@ export default class MetaValidator {
   static create() {
     const meta = {};
     const mim = {
-      str: (name, mandatory, depends) => newProp(name, 'string', mandatory, depends),
       bool: (name, mandatory, depends) => newProp(name, 'boolean', mandatory, depends),
+      fn: (name, mandatory, depends) => newProp(name, 'function', mandatory, depends),
       number: (name, mandatory, depends) => newProp(name, 'number', mandatory, depends),
+      object: (name, mandatory, depends) => newProp(name, 'object', mandatory, depends),
+      str: (name, mandatory, depends) => newProp(name, 'string', mandatory, depends),
       validator: () => {
         return createValidator(meta);
       },
