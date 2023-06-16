@@ -1,7 +1,6 @@
 import Secrets from './Secrets';
 import CustomProvider from './CustomProvider';
 import { FinalValueResolver, ValueResolver } from './ValueResolver';
-import autobind from './autobind';
 
 const INJECTABLE_DEF = Symbol('injectable-def');
 const CONTAINER_ACCESSOR = Symbol('container-accessor'); //NEVER export!
@@ -130,7 +129,6 @@ export default class Container {
     const { id, definition } = injectable;
     
     let instance = this.bundle.instantiate(injectable);
-    autobind(instance);
     
     let resolver = this.resolvers[id];
     

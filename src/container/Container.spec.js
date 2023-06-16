@@ -180,4 +180,3 @@ describe('[ODIN]', function() {
   });
 
 });
-
