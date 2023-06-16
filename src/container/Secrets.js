@@ -1,6 +1,7 @@
 const SINGLETON_DEF = Symbol('singleton-def'); //NEVER export!
 const DISCARDABLE_DEF = Symbol('discardable-def'); //NEVER export!
 const CUSTOM_DEF = Symbol('custom-def'); //NEVER export!
+const NAMED_DEF = Symbol('named-def'); //NEVER export!
 
 const POST_CONSTRUCTOR_ACCESSOR = Symbol('post-contructor-accessor'); //NEVER export!
 const EAGER_ACCESSOR = Symbol('eager-accessor'); //NEVER export!
@@ -9,57 +10,57 @@ const EAGER_ACCESSOR = Symbol('eager-accessor'); //NEVER export!
 * Helper responsible to mark and check tag Injectable's.
 */
 export default class Secrets {
-  
+
   /**
   * Mark Injectable as singleton.
-  * 
+  *
   * @param {Injectable} definition the injectable to mark.
   */
   static setSingleton(definition) {
     definition[SINGLETON_DEF] = true;
   }
-  
+
   /**
   * Check if Injectable is singleton.
-  * 
+  *
   * @param {Injectable} definition the injectable to check.
   * @returns {boolean} true if it is.
   */
   static isSingleton(definition) {
     return definition[SINGLETON_DEF] === true;
   }
-  
+
   /**
   * Mark Injectable as discardable.
-  * 
+  *
   * @param {Injectable} definition the injectable to mark.
   */
   static setDiscardable(definition) {
     definition[DISCARDABLE_DEF] = true;
   }
-  
+
   /**
   * Check if Injectable is discardable.
-  * 
+  *
   * @param {Injectable} definition the injectable to check.
   * @returns {boolean} true if it is.
   */
   static isDiscardable(definition) {
     return definition[DISCARDABLE_DEF] === true;
   }
-  
+
   /**
   * Mark Injectable as custom.
-  * 
+  *
   * @param {Injectable} definition the injectable to mark.
   */
   static setCustom(definition) {
     definition[CUSTOM_DEF] = true;
   }
-  
+
   /**
   * Check if Injectable is custom.
-  * 
+  *
   * @param {Injectable} definition the injectable to check.
   * @returns {boolean} true if it is.
   */
@@ -69,7 +70,7 @@ export default class Secrets {
 
   /**
    * Set postContruct method name into definition.
-   * 
+   *
    * @param {Injectable} definition the injectable to set.
    * @param {string} name the postContruct method name.
    */
@@ -79,7 +80,7 @@ export default class Secrets {
 
   /**
    * Get postConstruct method name from definition.
-   * 
+   *
    * @param {Injectable} definition the injectable to get from.
    * @returns {string} the method name.
    */
@@ -89,7 +90,7 @@ export default class Secrets {
 
   /**
    * Push eager prop into definition.
-   * 
+   *
    * @param {Injectable} definition the injectable to define.
    * @param {string} name the eager prop name.
    */
@@ -100,7 +101,7 @@ export default class Secrets {
 
   /**
    * Get eager props name from definition.
-   * 
+   *
    * @param {Injectable} definition the injectable to get from.
    * @returns the eager props name.
    */
@@ -108,4 +109,32 @@ export default class Secrets {
     return definition[EAGER_ACCESSOR] || [];
   }
 
+  /**
+   * Set a definition as named one.
+   *
+   * @param {Injectable} definition the injectable to get from.
+   */
+  static setNamed(definition, name) {
+    definition[NAMED_DEF] = name;
+  }
+
+  /**
+   * Get name attribute from a `Injectable`.
+   *
+   * @param {Injectable} definition the injectable to get from.
+   * @returns {string} `Injectable` name.
+   */
+  static getNamed(definition) {
+    return definition[NAMED_DEF];
+  }
+
+  /**
+   * Check if an `Injectable` is a named one.
+   *
+   * @param {Injectable} definition the injectable to get from.
+   * @returns {boolean} If the `Injectable` is named or not.
+   */
+  static isNamed(definition) {
+    return Boolean(definition[NAMED_DEF]);
+  }
 }

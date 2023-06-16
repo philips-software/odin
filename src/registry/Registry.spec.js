@@ -25,6 +25,16 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste2.name)).toBe(false);
       });
 
+       it('should deregister class', () => {
+        registry.register(Teste, { name: 'myTest' });
+
+        expect(registry.has(Teste.name)).toBe(true);
+        expect(registry.has('myTest')).toBe(true);
+        expect(registry.deregister(Teste)).toBe(true);
+        expect(registry.has(Teste.name)).toBe(false);
+        expect(registry.has('myTest')).toBe(false);
+      });
+
       it('should not register same class twice', () => {
         registry.register(Teste);
 
@@ -32,6 +42,14 @@ describe('[ODIN]', function() {
         expect(() => {
           registry.register(Teste);
         }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+      });
+
+      it('should register the same class twice if the previous was removed.', () => {
+        registry.register(Teste);
+
+        expect(registry.has(Teste.name)).toBe(true);
+        expect(registry.deregister(Teste)).toBe(true);
+        expect(registry.register(Teste)).toBe('teste');
       });
 
       it('should return the id when register class', () => {
@@ -42,19 +60,6 @@ describe('[ODIN]', function() {
         expect(id).toBe('teste2');
       });
 
-      it('should unregister a class', () => {
-        registry.register(Teste);
-
-        expect(registry.has(Teste.name)).toBe(true);
-
-        registry.unregister(Teste);
-
-        expect(registry.has(Teste.name)).toBe(false);
-
-        expect(() => {
-          registry.register(Teste);
-        }).not.toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
-      });
     });
 
     describe('Custom Register', () => {
@@ -185,7 +190,7 @@ describe('[ODIN]', function() {
         expect(def.id).toBe('Teste');
       });
 
-      it('should throw when there\'s a injectable with the same name and char case', () => {
+      it(`should throw when there's a injectable with the same name and char case`, () => {
         registry.register(Teste, { name: 'Test' });
 
         expect(() => {

@@ -1,6 +1,7 @@
 import Config from '../config/Config';
 import { error } from '../utils/Logger';
 import InjectableDef from './InjectableDef';
+import Secrets from '../container/Secrets';
 
 /**
 * Describes the expected class registered as injectable.
@@ -50,38 +51,37 @@ export default class Registry {
       const lowerName = getAsString(name);
       this.names.push(lowerName);
       this.identifierByName[lowerName] = id;
+      Secrets.setNamed(definition, lowerName);
     }
 
     return id;
   }
 
   /**
-  * Unregister a injectable class.
-  * The class should be retrieved using the class name or a custom name.
-  * The custom name must be inside the parameter args as property `name`.
+  * Deregister an injectable class.
+  * This method should be called before re-registering a definition.
   *
   * @param {Injectable} definition injectable class.
-  * @param {string} args object containing other arguments.
+  * @returns {boolean} if definition has been removed or not.
   */
-  unregister(definition, args = {}) {
-    const { name } = args;
-
+  deregister(definition) {
     const id = getAsString(definition.name);
 
     if (!this.injectables[id]) {
-      return;
+      return false;
     }
 
     delete this.injectables[id];
 
-    if (name) {
+    if (Secrets.isNamed(definition)) {
+      const name = Secrets.getNamed(definition);
       const lowerName = getAsString(name);
 
-      const index = this.names.findIndex(n => n === lowerName);
-      this.names.splice(index, 1);
-
+      this.names = this.names.filter(name => name !== lowerName);
       delete this.identifierByName[lowerName];
     }
+
+    return true;
   }
 
   /**
