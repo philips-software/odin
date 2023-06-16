@@ -5,6 +5,7 @@ const NAMED_DEF = Symbol('named-def'); //NEVER export!
 
 const POST_CONSTRUCTOR_ACCESSOR = Symbol('post-contructor-accessor'); //NEVER export!
 const EAGER_ACCESSOR = Symbol('eager-accessor'); //NEVER export!
+const WRAPPED_INJECTABLE_ACCESSOR = Symbol('wrapped-injectable-accessor'); //NEVER export!
 
 /**
 * Helper responsible to mark and check tag Injectable's.
@@ -107,6 +108,37 @@ export default class Secrets {
    */
   static getEagers(definition) {
     return definition[EAGER_ACCESSOR] || [];
+  }
+
+  /**
+   * Set a wrapper property in a definition insttance
+   *
+   * @param {Injectable} definition the injectable to set the wrapper.
+   * @param {object} wrapperObj the wrapper object
+   */
+  static setWrapper(definition, wrapperObj) {
+    definition[WRAPPED_INJECTABLE_ACCESSOR] = wrapperObj;
+  }
+
+  /**
+   * Check if a definition has a wrapper property.
+   *
+   * @param {Injectable} definition the injectable to get from.
+   * @returns {boolean} is the definition is a wrapper or not.
+   */
+  static isWrapper(definition) {
+    if (!definition) return false;
+    return definition[WRAPPED_INJECTABLE_ACCESSOR] ? true : false;
+  }
+
+  /**
+   * Get a wrapper property object from a `Injectable` instance.
+   *
+   * @param {Injectable} definition the injectable to get from.
+   * @returns {object} wrapper instance.
+   */
+  static getWrapper(definition) {
+    return definition[WRAPPED_INJECTABLE_ACCESSOR];
   }
 
   /**
