@@ -81,11 +81,11 @@ export default class Bundle {
   }
 
   /**
-  * Register a injectable for this Bundle.
-  * It checks if alread exists an injectable with the given idenfier or name.
+  * Registers an injectable for this Bundle.
+  * It checks if already exists an injectable with the given id or name.
   *
   * @param {Injectable} definition class definition for the injectable.
-  * @param {string} otherArgs other arguments.
+  * @param {string} args arguments.
   * @returns {string} the registered name.
   */
   register(definition, args = {}) {
@@ -95,13 +95,15 @@ export default class Bundle {
   }
 
   /**
-  * Unregister a injectable for this Bundle.
+  * Deregisters an injectable for this Bundle.
+  * If injectable has been removed will return `true`.
+  * If injectable has NOT been removed, or does not exist, will return `false`.
   *
   * @param {Injectable} definition class definition for the injectable.
-  * @param {string} otherArgs other arguments.
+  * @returns {boolean} if the injectable has been removed or not.
   */
-  unregister(definition, args = {}) {
-    return this.injectables.unregister(definition, args);
+  deregister(definition) {
+    return this.injectables.deregister(definition);
   }
 
   /**

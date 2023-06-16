@@ -35,6 +35,18 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste2.name)).toBe(false);
       });
 
+      it('should deregister class', () => {
+        bundle.register(Teste);
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(bundle.deregister(Teste)).toBe(true);
+        expect(bundle.has(Teste.name)).toBe(false);
+
+        expect(bundle.has(Teste2.name)).toBe(false);
+        expect(bundle.deregister(Teste2)).toBe(false);
+        expect(bundle.has(Teste2.name)).toBe(false);
+      });
+
       it('should not register same class twice', () => {
         bundle.register(Teste);
 
@@ -44,19 +56,14 @@ describe('[ODIN]', function() {
         }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
-      it('should unregister a class', () => {
+      it('should be able to register the same class twice if the previous has been removed.', () => {
         bundle.register(Teste);
 
         expect(bundle.has(Teste.name)).toBe(true);
-
-        bundle.unregister(Teste);
-
-        expect(bundle.has(Teste.name)).toBe(false);
-
-        expect(() => {
-          bundle.register(Teste);
-        }).not.toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        expect(bundle.deregister(Teste)).toBe(true);
+        expect(bundle.register(Teste)).toBe('teste');
       });
+
     });
 
     describe('Multi Level Bundle Register', () => {
@@ -75,6 +82,16 @@ describe('[ODIN]', function() {
         expect(bundle.has('potato')).toBe(true);
       });
 
+      it('should deregister class', () => {
+        parent.register(Teste, { name: 'potato' });
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(bundle.has('potato')).toBe(true);
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.has(Teste.name)).toBe(false);
+        expect(bundle.has('potato')).toBe(false);
+      });
+
       it('should has on both when registered by parent', () => {
         parent.register(Teste);
 
@@ -82,11 +99,27 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
       });
 
+      it('should not be available on child bundle when deregistered on parent bundle.', () => {
+        parent.register(Teste);
+        parent.deregister(Teste);
+
+        expect(parent.has(Teste.name)).toBe(false);
+        expect(bundle.has(Teste.name)).toBe(false);
+      });
+
       it('should has only at bundle when registered by child', () => {
         bundle.register(Teste);
 
         expect(parent.has(Teste.name)).toBe(false);
         expect(bundle.has(Teste.name)).toBe(true);
+      });
+
+      it('should not be available on parent bundle when deregistered on child bundle.', () => {
+        bundle.register(Teste);
+        bundle.deregister(Teste);
+
+        expect(parent.has(Teste.name)).toBe(false);
+        expect(bundle.has(Teste.name)).toBe(false);
       });
 
       it('should not register same class twice, event when first try use different name', () => {
@@ -98,6 +131,16 @@ describe('[ODIN]', function() {
         }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
+      it('should register class on child bundle with same name of parent bundle one, when it has been deregistered on parent bundle.', () => {
+        parent.register(Teste, { name: 'potato' });
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.has(Teste.name)).toBe(false);
+        expect(bundle.register(Teste)).toBe('teste');
+        expect(bundle.has(Teste.name)).toBe(true);
+      });
+
       it('should not register same class twice, event when second try use different name', () => {
         parent.register(Teste);
 
@@ -105,6 +148,24 @@ describe('[ODIN]', function() {
         expect(() => {
           bundle.register(Teste, { name: 'potato' });
         }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+      });
+
+      it('should not be able to deregister a class registered on the parent\'s bundle.', () => {
+        parent.register(Teste);
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(bundle.deregister(Teste)).toBe(false);
+        expect(() => {
+          bundle.register(Teste, { name: 'potato' });
+        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+      });
+
+      it('should deregister only on the bundle that the class was registered before.', () => {
+        parent.register(Teste, { name: 'potato' });
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.register(Teste)).toBe('teste');
       });
 
       it('should not register different classes, when same name', () => {
@@ -116,6 +177,15 @@ describe('[ODIN]', function() {
         }).toThrowError(`[ODIN] There already is a injectable named 'potato' registered.`);
       });
 
+      it('should be able to register a class on the child bundle after it has been deregistered on the parent.', () => {
+        parent.register(Teste, { name: 'potato' });
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.has(Teste.name)).toBe(false);
+        expect(bundle.register(Teste2, { name: 'potato' })).toBe('teste2');
+      });
+
       it('should not register different classes, when name already used as class name', () => {
         parent.register(Teste);
 
@@ -123,6 +193,21 @@ describe('[ODIN]', function() {
         expect(() => {
           bundle.register(Teste2, { name: 'Teste' });
         }).toThrowError(`[ODIN] There already is a injectable 'Teste' registered.`);
+      });
+
+      it('should register on child bundle a class with same custom name of a class that was deregistered on parent bundle.', () => {
+        parent.register(Teste);
+
+        expect(bundle.has(Teste.name)).toBe(true);
+        expect(parent.has(Teste.name)).toBe(true);
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.register(Teste2, { name: 'Teste' })).toBe('teste2');
+
+        expect(bundle.has('Teste')).toBe(true);
+        expect(bundle.has('Teste2')).toBe(true);
+
+        expect(parent.has('Teste')).toBe(false);
+        expect(parent.has('Teste2')).toBe(false);
       });
 
       it('should not register different classes, when class name already used as name', () => {
@@ -145,12 +230,32 @@ describe('[ODIN]', function() {
         expect(def.definition).toBe(Teste);
       });
 
+      it(`should return null when trying to get a deregistered injectable by it's identifier.`, () => {
+        const id = bundle.register(Teste, { teste: 123 });
+        bundle.deregister(Teste);
+
+        const def = bundle.get(id);
+
+        expect(def).toBe(null);
+      });
+
       it('should return same InjectableDef when use class name or name', () => {
         parent.register(Teste, { name: 'potato' });
 
         const def = bundle.get('teste');
         const def2 = bundle.get('potato');
         expect(def).toBe(def2);
+      });
+
+      it('should return null when trying to get a deregistered injectable by class name or name.', () => {
+        parent.register(Teste, { name: 'potato' });
+        parent.deregister(Teste);
+
+        const def = bundle.get('teste');
+        const def2 = bundle.get('potato');
+
+        expect(def).toBe(null);
+        expect(def2).toBe(null);
       });
 
       it('should get the right id no matter the bundle level', () => {
@@ -179,6 +284,27 @@ describe('[ODIN]', function() {
         expect(instance instanceof Teste3).toBe(true);
         expect(instance.potato.cow).toBe(7);
       });
+
+      it('should NOT get the right id if the injectable has been deregistered.', () => {
+        parent.register(Teste, { name: 'potato' });
+        bundle.register(Teste2, { name: 'cow' });
+
+        expect(parent.getId('potato')).toBe('teste');
+        expect(parent.getId('cow')).toBe('cow');
+
+        expect(bundle.getId('potato')).toBe('teste');
+        expect(bundle.getId('cow')).toBe('teste2');
+
+        expect(parent.deregister(Teste)).toBe(true);
+        expect(bundle.deregister(Teste2)).toBe(true);
+
+        expect(parent.getId('potato')).toBe('potato');
+        expect(parent.getId('cow')).toBe('cow');
+
+        expect(bundle.getId('potato')).toBe('potato');
+        expect(bundle.getId('cow')).toBe('cow');
+      });
+
     });
 
   });
