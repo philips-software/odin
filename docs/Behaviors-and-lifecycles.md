@@ -41,4 +41,3 @@ See the dependency resolution flow below.
 > As seen at [Registration](#registration), Odin works with a `Registry`. There is a *root registry* which is fully available in all dependency injector context. It means that, every dependency registered into Odin's *root registry* is available for injection throughout the application.
 >
 > In order to get isolated registries for bounded-context dependencies, **domain** based registries should be used. See more [here](./How-to-define-a-dependency).
-
