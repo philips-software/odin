@@ -1,15 +1,12 @@
 {
   "name": "@odinjs/odin",
   "version": "1.5.4",
-  "description": "On-demand Dependency InjectioN",
-  "author": "Thiago Teixeira <thiago.teixeira@philips.com>",
+  "description": "On-demand dependency injection",
+  "author": "Philips EMR",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/philips-software/odin.git"
-  },
-  "publishConfig": {
-    "access": "public"
+    "url": "github:philips-software/odin"
   },
   "main": "lib/index.js",
   "files": [
@@ -47,5 +44,8 @@
   "engines": {
     "node": ">= 16.11",
     "npm": ">= 8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
