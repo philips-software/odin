@@ -4,7 +4,7 @@
 
 **/.gradle/
 **/.idea/
-**/.vscode
+**/.vscode/
 
 **/*.7z
 **/*.ear
@@ -20,5 +20,5 @@
 **/node_modules/
 **/yarn.lock
 
+**/*.eslintcache
 **/*.tsbuildinfo
-**/.eslintcache
