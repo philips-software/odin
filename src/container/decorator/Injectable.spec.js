@@ -4,9 +4,9 @@ import odin from '../../Odin';
 import Inject from './Inject';
 
 describe('[ODIN]', function() {
-  
+
   describe('@Injectable', () => {
-    
+
     it('should register class', () => {
       expect(() => {
         @Injectable
@@ -64,18 +64,18 @@ describe('[ODIN]', function() {
 
     it('should accept cyclical dependency', () => {
       @Injectable({ domain: 'cyclical' })
-      class CyclicalInjectable1 { 
+      class CyclicalInjectable1 {
 
         @Inject({ name: 'CyclicalInjectable2', eager: true })
         cyclical;
-      } 
+      }
 
       @Injectable({ domain: 'cyclical' })
-      class CyclicalInjectable2 { 
+      class CyclicalInjectable2 {
 
         @Inject({ name: 'CyclicalInjectable1' })
         cyclical;
-      } 
+      }
 
       const container = odin.container('cyclical');
 
@@ -87,5 +87,5 @@ describe('[ODIN]', function() {
     });
 
   });
-  
+
 });

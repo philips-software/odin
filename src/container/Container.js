@@ -24,35 +24,35 @@ function noop() {
 *
 */
 export default class Container {
-  
+
   /**
   * Bundle containing the dependecies definition.
   * @type Bundle
   */
   bundle = null;
-  
+
   /**
   * Resolve to non-default injectables.
   */
   resolver = null;
-  
+
   /**
   * Holds the injectable instances.
   * @type {Object.<string, object>}
   */
   instances = { };
-  
+
   /**
   * Holds the resolvers for injetable values.
   * @type {Object.<string, ValueResolver>}
   */
   resolvers = { };
-  
+
   constructor(bundle, resolver = new CustomProvider()) {
     this.bundle = bundle;
     this.resolver = resolver;
   }
-  
+
   /**
   * Check if there is an instance of the injectable with the given identifier.
   *
@@ -61,7 +61,7 @@ export default class Container {
   has(identifier) {
     return !!this.instances[identifier];
   }
-  
+
   /**
   * Get or provide a resolver of the injectable by the given identifier.
   * The resolve may be a instance of ValueResolver or VolatileValue.
@@ -75,26 +75,26 @@ export default class Container {
   */
   provide(identifier, resolve = false) {
     const ref = this.bundle.getId(identifier);
-    
+
     let resolver = null;
     if (this.has(ref)) {
       resolver = this.get(ref);
       return resolve ? resolver.get() : resolver;
     }
-    
+
     const injectable = this.bundle.get(ref);
     if (injectable) {
       resolver = this.resolve(injectable);
     } else {
       resolver = this.resolver.resolve(identifier);
     }
-    
+
     if (resolver && resolve) {
       return resolver.get() || null;
     }
     return resolver || null;
   }
-  
+
   /**
   * Get an instance of the injectable with the given identifier.
   *
@@ -104,7 +104,7 @@ export default class Container {
     const ref = this.bundle.getId(identifier);
     return this.resolvers[ref] || null;
   }
-  
+
   /**
   * Discard the injectable value.
   * It's only possible to dicard injectables marked as `singleton`, if it is marked as `dicardable`.
@@ -119,7 +119,7 @@ export default class Container {
       delete this.instances[def.id];
     }
   }
-  
+
   /**
   * Resolve an instance of the given injectable definition.
   *
@@ -127,11 +127,11 @@ export default class Container {
   */
   resolve(injectable) {
     const { id, definition } = injectable;
-    
+
     let instance = this.bundle.instantiate(injectable);
-    
+
     let resolver = this.resolvers[id];
-    
+
     if (!resolver) {
       if (!Secrets.isSingleton(definition) || !Secrets.isDiscardable(definition)) {
         resolver = new FinalValueResolver(() => instance);
@@ -139,7 +139,7 @@ export default class Container {
         resolver = this.createValueResolver(injectable, id);
       }
     }
-    
+
     if (Secrets.isSingleton(definition)) {
       this.instances[id] = instance;
       this.resolvers[id] = resolver;
@@ -148,10 +148,10 @@ export default class Container {
     setContainer(instance, this);
     this.invokeEagers(instance);
     this.invokePostConstruct(instance);
-    
+
     return resolver;
   }
-  
+
   createValueResolver(injectable, id) {
     return new ValueResolver(() => {
       if (!this.instances[id]) {
@@ -160,7 +160,7 @@ export default class Container {
       return this.instances[id] || null;
     });
   }
-  
+
   /**
   * Invoke the eager injected properties to bootstrap them.
   *
@@ -170,7 +170,7 @@ export default class Container {
     const eagers = Secrets.getEagers(instance);
     eagers.forEach(eager => noop(instance[eager]));
   }
-  
+
   /**
   * Invoke the method decorated with PostConstruct.
   *
@@ -182,7 +182,7 @@ export default class Container {
       instance[methodName]();
     }
   }
-  
+
   /**
   * Obtain the definitions of the injectable.
   * It returns an object containing: { id, definition, args }.
@@ -192,7 +192,7 @@ export default class Container {
   getDef(instance) {
     return instance[INJECTABLE_DEF];
   }
-  
+
 }
 
 /**

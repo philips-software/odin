@@ -30,7 +30,7 @@ export class FinalValueResolver extends ValueResolver {
   get(instance) {
     if (this[VALUE] === undefined) {
       this[VALUE] = super.get(instance);
-    } 
+    }
     return this[VALUE];
   }
 

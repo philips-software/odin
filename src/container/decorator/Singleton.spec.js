@@ -4,9 +4,9 @@ import odin from '../../Odin';
 import Inject from './Inject';
 
 describe('[ODIN]', function() {
-  
+
   describe('@Singleton', () => {
-    
+
     it('should register class', () => {
       expect(() => {
         @Singleton
@@ -30,7 +30,7 @@ describe('[ODIN]', function() {
 
     it('should not mark class as singleton, discardable or custom', () => {
       @Singleton
-      class S4 { } 
+      class S4 { }
 
       expect(Secrets.isSingleton(S4)).toBe(true);
       expect(Secrets.isDiscardable(S4)).toBe(false);
@@ -68,14 +68,14 @@ describe('[ODIN]', function() {
 
         @Inject({ name: 'CyclicalSingleton2', eager: true })
         cyclical;
-      } 
+      }
 
       @Singleton({ domain: 'cyclical' })
       class CyclicalSingleton2 { //eslint-disable-line
 
         @Inject({ name: 'CyclicalSingleton1', eager: true })
         cyclical;
-      } 
+      }
 
       const container = odin.container('cyclical');
 
@@ -87,5 +87,5 @@ describe('[ODIN]', function() {
     });
 
   });
-  
+
 });
