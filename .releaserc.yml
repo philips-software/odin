@@ -9,12 +9,6 @@ dryRun: true
 plugins:
   - - '@semantic-release/commit-analyzer'
     - preset: angular
-      releaseRules: # already handles feat, fix, perf, breaking changes and reverts
-      - { type: build, release: false }
-      - { type: ci, release: false }
-      - { type: docs, release: patch }
-      - { type: refactor, release: patch }
-      - { type: test, release: patch }
 
   - - '@semantic-release/release-notes-generator'
     - preset: angular
