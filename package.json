@@ -33,7 +33,6 @@
     "eslint-plugin-jest": "27.2.2",
     "eslint-plugin-jest-formatting": "3.1.0",
     "jest": "28.1.1",
-    "npm-run-all": "4.1.5",
     "rimraf": "5.0.1",
     "semantic-release": "21.0.5",
     "semantic-release-license": "1.0.3",
