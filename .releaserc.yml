@@ -5,7 +5,6 @@ branches:
   - { name: rc, prerelease: true }
 ci: true
 debug: true
-dryRun: true
 plugins:
   - - '@semantic-release/commit-analyzer'
     - preset: angular
