@@ -1,7 +1,7 @@
-import Config from '../config/Config';
-import { error } from '../utils/Logger';
-import InjectableDef from './InjectableDef';
-import Secrets from '../container/Secrets';
+import Config from '../configuration/config.js';
+import { error } from '../utils/logger.js';
+import InjectableDef from './injectable-def.js';
+import Secrets from '../container/secrets.js';
 
 /**
 * Describes the expected class registered as injectable.

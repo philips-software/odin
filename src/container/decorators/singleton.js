@@ -1,6 +1,6 @@
-import { paramsValidator, register } from './Injectable';
-import MetaValidator from '../../utils/MetaValidator';
-import Secrets from '../Secrets';
+import { paramsValidator, register } from './injectable.js';
+import MetaValidator from '../../utils/meta-validator.js';
+import Secrets from '../secrets.js';
 
 /**
  * Decorator used to bind a singleton to odin.

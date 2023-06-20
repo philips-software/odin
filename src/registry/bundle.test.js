@@ -1,5 +1,5 @@
-import Bundle from './Bundle';
-import InjectableDef from './InjectableDef';
+import Bundle from './bundle.js';
+import InjectableDef from './injectable-def.js';
 
 class Teste { }
 class Teste2 { }

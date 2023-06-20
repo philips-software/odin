@@ -1,7 +1,7 @@
-import Bundle from './registry/Bundle';
-import Container from './container/Container';
-import CustomProvider from './container/CustomProvider';
-import { error } from './utils/Logger';
+import Bundle from './registry/bundle.js';
+import Container from './container/container.js';
+import CustomProvider from './container/custom-provider.js';
+import { error } from './utils/logger.js';
 
 const BUNDLE = Symbol('bundle');
 

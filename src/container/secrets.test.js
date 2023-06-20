@@ -1,4 +1,4 @@
-import Secrets from './Secrets';
+import Secrets from './secrets.js';
 
 class Nothing {
   constructor(args) { this.args = args; }

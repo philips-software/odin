@@ -1,7 +1,7 @@
-import Bundle from '../registry/Bundle';
-import Container from './Container';
-import { FinalValueResolver, ValueResolver } from './ValueResolver';
-import Secrets from './Secrets';
+import Bundle from '../registry/bundle.js';
+import Container from './container.js';
+import { FinalValueResolver, ValueResolver } from './value-resolver.js';
+import Secrets from './secrets.js';
 
 class Nothing {
   constructor(args) { this.args = args; }

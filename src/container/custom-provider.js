@@ -1,5 +1,5 @@
-import { error } from '../utils/Logger';
-import { ValueResolver } from './ValueResolver';
+import { error } from '../utils/logger.js';
+import { ValueResolver } from './value-resolver.js';
 
 /**
 * Custom provider to retrieve non odin provide values.

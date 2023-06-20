@@ -1,7 +1,7 @@
-import Config from '../Config';
+import Config from '../config.js';
 
-import { error } from '../../utils/Logger';
-import MetaValidator from '../../utils/MetaValidator';
+import { error } from '../../utils/logger.js';
+import MetaValidator from '../../utils/meta-validator.js';
 
 const paramsValidator = MetaValidator.create().bool('strict', true).validator();
 

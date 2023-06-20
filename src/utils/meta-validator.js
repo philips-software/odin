@@ -1,4 +1,4 @@
-import { error } from './Logger';
+import { error } from './logger.js';
 
 /**
 * Helper to generate a validator to check the decorators meta info.

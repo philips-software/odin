@@ -5,7 +5,7 @@
     "rootDir": "src"
   },
   "exclude": [
-    "**/*.spec.js",
+    "**/*.test.js",
     "jest.config.js",
     "lib"
   ]
