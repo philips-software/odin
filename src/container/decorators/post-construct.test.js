@@ -1,5 +1,5 @@
-import PostConstruct from './PostConstruct';
-import Secrets from '../Secrets';
+import PostConstruct from './post-construct.js';
+import Secrets from '../secrets.js';
 
 describe('[ODIN]', function() {
 

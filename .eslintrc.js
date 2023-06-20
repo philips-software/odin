@@ -41,8 +41,10 @@ function commonRules() {
     'computed-property-spacing': ['error', 'never'],
     'eol-last': ['error', 'always'],
     'import/extensions': ['error', {
-      js: 'never',
-      json: 'always',
+      js: 'ignorePackages',
+      jsx: 'never',
+      ts: 'never',
+      tsx: 'never',
     }],
     'import/first': 'error',
     'import/namespace': 'error',

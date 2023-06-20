@@ -1,6 +1,6 @@
-import { error } from '../../utils/Logger';
-import MetaValidator from '../../utils/MetaValidator';
-import Secrets from '../Secrets';
+import { error } from '../../utils/logger.js';
+import MetaValidator from '../../utils/meta-validator.js';
+import Secrets from '../secrets.js';
 
 /**
  * Decorator used to bind the method that must be invoked when the injectable is built.

@@ -1,6 +1,6 @@
-import Secrets from './Secrets';
-import CustomProvider from './CustomProvider';
-import { FinalValueResolver, ValueResolver } from './ValueResolver';
+import Secrets from './secrets.js';
+import CustomProvider from './custom-provider.js';
+import { FinalValueResolver, ValueResolver } from './value-resolver.js';
 
 const INJECTABLE_DEF = Symbol('injectable-def');
 const CONTAINER_ACCESSOR = Symbol('container-accessor'); //NEVER export!
