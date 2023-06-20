@@ -1,0 +1,33 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+env:
+  node: 16.11
+  scope: '@odinjs'
+
+permissions:
+  contents: write # to be able to publish a GitHub release
+  id-token: write # to enable use of OIDC for npm provenance
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: npm
+          node-version: ${{ env.node }}
+          scope: ${{ env.scope }}
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test -- --ci
+      - run: npm run release -- --ci
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
