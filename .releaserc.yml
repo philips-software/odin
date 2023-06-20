@@ -1,0 +1,41 @@
+branches:
+  - { name: main }
+  - { name: alpha, prerelease: true }
+  - { name: beta, prerelease: true }
+  - { name: rc, prerelease: true }
+ci: true
+debug: true
+dryRun: true
+plugins:
+  - - '@semantic-release/commit-analyzer'
+    - preset: angular
+      releaseRules: # already handles feat, fix, perf, breaking changes and reverts
+      - { type: build, release: false }
+      - { type: ci, release: false }
+      - { type: docs, release: patch }
+      - { type: refactor, release: patch }
+      - { type: test, release: patch }
+
+  - - '@semantic-release/release-notes-generator'
+    - preset: angular
+
+  - - '@semantic-release/changelog'
+    - changelogFile: CHANGELOG.md
+
+  - - 'semantic-release-license'
+    - license:
+        path: LICENSE.md
+
+  - - '@semantic-release/npm'
+    - npmPublish: true
+
+  - - '@semantic-release/git'
+    - assets:
+        - CHANGELOG.md
+        - LICENSE.md
+        - package.json
+        - package-lock.json
+      message: "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+
+  - - '@semantic-release/github'
+    - addReleases: bottom

@@ -1,14 +1,17 @@
-# Workflow responsible for building and testing the library when a new pull request is opened or updated.
-
 name: ci
 
 on:
   pull_request:
-    branches: [main, next]
+    branches:
+      - main
+      - alpha
+      - beta
+      - rc
     paths-ignore:
       - '**.md'
   push:
-    branches: [main]
+    branches:
+      - main
     paths-ignore:
       - '**.md'
   workflow_dispatch:
@@ -17,25 +20,15 @@ env:
   node: 16.11
 
 jobs:
-  build-and-test:
+  build-lint-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           cache: npm
           node-version: ${{ env.node }}
-      - run: npm run ci:setup
-      - run: npm run ci:build
-      - run: npm run ci:test
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          cache: npm
-          node-version: ${{ env.node }}
-      - run: npm run ci:setup
+      - run: npm ci
+      - run: npm run build
       - run: npm run lint
+      - run: npm run test -- --ci
