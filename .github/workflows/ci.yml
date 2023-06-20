@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 env:
-  node: 16.11
+  node: 18
 
 jobs:
   build-lint-test:
