@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "tsc --build",
-    "clean": "rimraf lib **/.eslintcache **/*.log **/*.tsbuildinfo **/coverage",
+    "clean": "rimraf --glob lib **/.eslintcache **/*.log **/*.tsbuildinfo **/coverage",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --cache --max-warnings 0",
     "release": "semantic-release",
     "test": "jest --config jest.config.js",
@@ -33,7 +33,7 @@
     "eslint-plugin-jest": "26.5.3",
     "jest": "28.1.1",
     "npm-run-all": "4.1.5",
-    "rimraf": "3.0.2",
+    "rimraf": "5.0.1",
     "semantic-release": "21.0.5",
     "semantic-release-license": "1.0.3",
     "ts-jest": "28.0.5",
