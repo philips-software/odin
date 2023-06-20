@@ -19,7 +19,7 @@ describe('[ODIN]', function() {
           @PostConstruct potato() { }
           @PostConstruct potato2() { }
         }
-      }).toThrowError(`[ODIN] The class 'PC2' must constains no more than one PostConstruct method.`);
+      }).toThrow(`[ODIN] The class 'PC2' must constains no more than one PostConstruct method.`);
     });
 
   });

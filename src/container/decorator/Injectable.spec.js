@@ -11,21 +11,21 @@ describe('[ODIN]', function() {
       expect(() => {
         @Injectable
         class I1 { } //eslint-disable-line
-      }).not.toThrowError();
+      }).not.toThrow();
     });
 
     it('should throw error, using () withou params', () => {
       expect(() => {
         @Injectable()
         class I2 { } //eslint-disable-line
-      }).toThrowError(`[ODIN] Injectable: If there are no params, remove the ().`);
+      }).toThrow(`[ODIN] Injectable: If there are no params, remove the ().`);
     });
 
     it('should throw error, unkown param', () => {
       expect(() => {
         @Injectable({ potato: 'test' })
         class I3 { } //eslint-disable-line
-      }).toThrowError(`[ODIN] I3[Injectable]: unknow property 'potato'.`);
+      }).toThrow(`[ODIN] I3[Injectable]: unknow property 'potato'.`);
     });
 
     it('should not mark class as singleton, discardable or custom', () => {
@@ -52,14 +52,14 @@ describe('[ODIN]', function() {
       expect(() => {
         @Injectable({ domain: 'potato /test' })
         class I6 { } //eslint-disable-line
-      }).toThrowError(`[ODIN] Invalid domain 'potato /test', should not has empty spaces in 'potato '.`);
+      }).toThrow(`[ODIN] Invalid domain 'potato /test', should not has empty spaces in 'potato '.`);
     });
 
     it('should not accept domain with empty chunks', () => {
       expect(() => {
         @Injectable({ domain: 'potato //test' })
         class I7 { } //eslint-disable-line
-      }).toThrowError(`[ODIN] Invalid domain 'potato //test', should not has empty spaces in 'potato '.`);
+      }).toThrow(`[ODIN] Invalid domain 'potato //test', should not has empty spaces in 'potato '.`);
     });
 
     it('should accept cyclical dependency', () => {

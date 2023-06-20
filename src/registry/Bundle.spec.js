@@ -12,17 +12,17 @@ class Teste3 {
 
 describe('[ODIN]', function() {
 
-  describe('Bundle', () => {
+  describe('bundle', () => {
 
     let bundle = null;
 
     it('should throw error when try to create without id', () => {
       expect(() => {
         new Bundle();
-      }).toThrowError(`[ODIN] Invalid bundle id 'undefined'.`);
+      }).toThrow(`[ODIN] Invalid bundle id 'undefined'.`);
     });
 
-    describe('Single Level Bundle Register', () => {
+    describe('single Level Bundle Register', () => {
 
       beforeEach(() => {
         bundle = new Bundle('root');
@@ -53,7 +53,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste);
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should be able to register the same class twice if the previous has been removed.', () => {
@@ -66,7 +66,7 @@ describe('[ODIN]', function() {
 
     });
 
-    describe('Multi Level Bundle Register', () => {
+    describe('multi Level Bundle Register', () => {
 
       let parent = null;
 
@@ -128,7 +128,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste);
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should register class on child bundle with same name of parent bundle one, when it has been deregistered on parent bundle.', () => {
@@ -147,7 +147,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste, { name: 'potato' });
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should not be able to deregister a class registered on the parent\'s bundle.', () => {
@@ -157,7 +157,7 @@ describe('[ODIN]', function() {
         expect(bundle.deregister(Teste)).toBe(false);
         expect(() => {
           bundle.register(Teste, { name: 'potato' });
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should deregister only on the bundle that the class was registered before.', () => {
@@ -174,7 +174,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste2, { name: 'potato' });
-        }).toThrowError(`[ODIN] There already is a injectable named 'potato' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable named 'potato' registered.`);
       });
 
       it('should be able to register a class on the child bundle after it has been deregistered on the parent.', () => {
@@ -192,7 +192,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste2, { name: 'Teste' });
-        }).toThrowError(`[ODIN] There already is a injectable 'Teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'Teste' registered.`);
       });
 
       it('should register on child bundle a class with same custom name of a class that was deregistered on parent bundle.', () => {
@@ -216,7 +216,7 @@ describe('[ODIN]', function() {
         expect(bundle.has(Teste.name)).toBe(true);
         expect(() => {
           bundle.register(Teste2);
-        }).toThrowError(`[ODIN] There already is a injectable named 'teste2' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable named 'teste2' registered.`);
       });
 
       it('should return a InjectableDef when register class', () => {
@@ -236,7 +236,7 @@ describe('[ODIN]', function() {
 
         const def = bundle.get(id);
 
-        expect(def).toBe(null);
+        expect(def).toBeNull();
       });
 
       it('should return same InjectableDef when use class name or name', () => {
@@ -254,8 +254,8 @@ describe('[ODIN]', function() {
         const def = bundle.get('teste');
         const def2 = bundle.get('potato');
 
-        expect(def).toBe(null);
-        expect(def2).toBe(null);
+        expect(def).toBeNull();
+        expect(def2).toBeNull();
       });
 
       it('should get the right id no matter the bundle level', () => {

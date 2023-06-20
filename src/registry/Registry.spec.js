@@ -8,7 +8,7 @@ class Teste2 { }
 
 describe('[ODIN]', function() {
 
-  describe('Registry', () => {
+  describe('registry', () => {
 
     let registry = new Registry();
 
@@ -16,7 +16,7 @@ describe('[ODIN]', function() {
       registry = new Registry();
     });
 
-    describe('Simple Register', () => {
+    describe('simple', () => {
 
       it('should register class', () => {
         registry.register(Teste);
@@ -41,7 +41,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste);
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should register the same class twice if the previous was removed.', () => {
@@ -62,7 +62,7 @@ describe('[ODIN]', function() {
 
     });
 
-    describe('Custom Register', () => {
+    describe('custom', () => {
 
       it('should register class', () => {
         registry.register(Teste, { name: 'potato' });
@@ -77,7 +77,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste);
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should not register same class twice, event when second try use different name', () => {
@@ -86,7 +86,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste, { name: 'potato' });
-        }).toThrowError(`[ODIN] There already is a injectable 'teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'teste' registered.`);
       });
 
       it('should not register different classes, when same name', () => {
@@ -95,7 +95,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste2, { name: 'potato' });
-        }).toThrowError(`[ODIN] There already is a injectable named 'potato' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable named 'potato' registered.`);
       });
 
       it('should not register different classes, when name already used as class name', () => {
@@ -104,7 +104,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste2, { name: 'Teste' });
-        }).toThrowError(`[ODIN] There already is a injectable 'Teste' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable 'Teste' registered.`);
       });
 
       it('should not register different classes, when class name already used as name', () => {
@@ -113,7 +113,7 @@ describe('[ODIN]', function() {
         expect(registry.has(Teste.name)).toBe(true);
         expect(() => {
           registry.register(Teste2);
-        }).toThrowError(`[ODIN] There already is a injectable named 'teste2' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable named 'teste2' registered.`);
       });
 
     });
@@ -173,7 +173,7 @@ describe('[ODIN]', function() {
       expect(def).toBe(def2);
     });
 
-    describe('Strict Mode', () => {
+    describe('strict mode', () => {
 
       beforeEach(() => {
         Config.setStrict(true);
@@ -195,14 +195,14 @@ describe('[ODIN]', function() {
 
         expect(() => {
           registry.register(teste, { name: 'Test' });
-        }).toThrowError(`[ODIN] There already is a injectable named 'Test' registered.`);
+        }).toThrow(`[ODIN] There already is a injectable named 'Test' registered.`);
       });
 
       it('should allow a injectable with the same name but with different char case', () => {
         expect(() => {
           registry.register(Teste, { name: 'Test' });
           registry.register(teste, { name: 'test' });
-        }).not.toThrowError();
+        }).not.toThrow();
       });
 
       it('should not has using name, using other char case', () => {

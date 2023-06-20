@@ -16,12 +16,11 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'import',
-    'jest',
   ],
   root: true,
   rules: commonRules(),
   overrides: [
-    overrideForJestTestFiles(),
+    overrideForTestFiles(),
     overrideForTypescriptFiles(),
   ],
   settings: {
@@ -80,7 +79,7 @@ function commonRules() {
   };
 }
 
-function overrideForJestTestFiles() {
+function overrideForTestFiles() {
   return {
     files: [
       '*spec.js',
@@ -92,12 +91,24 @@ function overrideForJestTestFiles() {
       'jest/globals': true,
     },
     extends: [
-      'plugin:jest/recommended',
+      'plugin:jest/all',
+      'plugin:jest-formatting/strict',
+    ],
+    plugins: [
+      'jest',
+      'jest-formatting',
     ],
     rules: {
       'jest/expect-expect': ['error', {
         assertFunctionNames: ['assert*', 'expect*'],
       }],
+      'jest-formatting/padding-around-all': 'off',
+      'jest-formatting/padding-around-expect-groups': 'off',
+      'jest/max-expects': 'off',
+      'jest/no-hooks': 'off',
+      'jest/prefer-expect-assertions': 'off',
+      'jest/require-hook': 'off',
+      'jest/unbound-method': 'off',
     },
   }
 }
