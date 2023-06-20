@@ -1,5 +1,5 @@
-import odin from '../../Odin';
-import MetaValidator from '../../utils/MetaValidator';
+import odin from '../../odin.js';
+import MetaValidator from '../../utils/meta-validator.js';
 
 export const paramsValidator = MetaValidator.create().str('domain').validator();
 

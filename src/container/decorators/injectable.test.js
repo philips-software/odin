@@ -1,7 +1,7 @@
-import Injectable from './Injectable';
-import Secrets from '../Secrets';
-import odin from '../../Odin';
-import Inject from './Inject';
+import Injectable from './injectable.js';
+import Secrets from '../secrets.js';
+import odin from '../../odin.js';
+import Inject from './inject.js';
 
 describe('[ODIN]', function() {
 

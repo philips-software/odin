@@ -1,6 +1,6 @@
-import Registry from './Registry';
-import InjectableDef from './InjectableDef';
-import Config from '../config/Config';
+import Registry from './registry.js';
+import InjectableDef from './injectable-def.js';
+import Config from '../config/config.js';
 
 class teste { }
 class Teste { }

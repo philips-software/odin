@@ -1,9 +1,9 @@
-import Secrets from '../Secrets';
-import Config from '../../config/Config';
-import { error } from '../../utils/Logger';
-import MetaValidator from '../../utils/MetaValidator';
-import { FinalValueResolver } from '../ValueResolver';
-import { getContainer } from '../Container';
+import Secrets from '../secrets.js';
+import Config from '../../config/config.js';
+import { error } from '../../utils/logger.js';
+import MetaValidator from '../../utils/meta-validator.js';
+import { FinalValueResolver } from '../value-resolver.js';
+import { getContainer } from '../container.js';
 
 /**
 * Decorator used to bind injected properties.

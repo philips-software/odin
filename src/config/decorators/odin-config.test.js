@@ -1,5 +1,5 @@
-import Config from '../Config';
-import OdinConfig from './OdinConfig';
+import Config from '../config.js';
+import OdinConfig from './odin-config.js';
 
 describe('[ODIN]', () => {
 

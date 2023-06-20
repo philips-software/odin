@@ -1,9 +1,9 @@
-import odin from '../../Odin';
-import Inject from './Inject';
-import Injectable from './Injectable';
-import Singleton from './Singleton';
-import Secrets from '../Secrets';
-import Config from '../../config/Config';
+import odin from '../../odin.js';
+import Inject from './inject.js';
+import Injectable from './injectable.js';
+import Singleton from './singleton.js';
+import Secrets from '../secrets.js';
+import Config from '../../config/config.js';
 
 /* eslint-disable */
 
