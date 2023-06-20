@@ -24,6 +24,7 @@ jobs:
           node-version: ${{ env.node }}
           scope: ${{ env.scope }}
       - run: npm ci
+      - run: npm audit signatures
       - run: npm run build
       - run: npm run lint
       - run: npm run test -- --ci
