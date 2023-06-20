@@ -22,7 +22,7 @@ Secrets.setDiscardable(Discardable);
 
 describe('[ODIN]', function() {
 
-  describe('Container', () => {
+  describe('container', () => {
 
     const parent = new Bundle('parent');
     parent.register(Nothing);
@@ -63,7 +63,7 @@ describe('[ODIN]', function() {
       expect(container.get('disc')).toBeNull();
     });
 
-    describe('Injectable', () => {
+    describe('injectable', () => {
 
       it('should provide FinalValueResolver', () => {
         const nothing = container.provide('Nothing');
@@ -103,7 +103,7 @@ describe('[ODIN]', function() {
 
     });
 
-    describe('Singleton', () => {
+    describe('singleton', () => {
 
       it('should provide FinalValueResolver', () => {
         const singleton = container.provide('Singleton');
@@ -154,7 +154,7 @@ describe('[ODIN]', function() {
 
     });
 
-    describe('Discardable', () => {
+    describe('discardable', () => {
 
       it('shouldnt keep resolver when discard and return another instance', () => {
         const discardable = container.provide('Discardable');

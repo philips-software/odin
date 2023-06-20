@@ -5,20 +5,20 @@ describe('[ODIN]', () => {
 
   describe('@OdinConfig', () => {
 
-    it(`Should throw error without mandatory 'strict' parameter`, () => {
-      expect(() => {
-
-        @OdinConfig
-        class Configuration { } //eslint-disable-line
-      }).toThrowError(`[ODIN] Configuration[OdinConfig]: mandatory property 'strict' not found.`);
-    });
-
     afterEach(() => {
       Config.setStrict(false);
       Config.setInitialized(false);
     });
 
-    it('should put Odin in Strict Mode', () => {
+    it(`should throw error without mandatory 'strict' parameter`, () => {
+      expect(() => {
+
+        @OdinConfig
+        class Configuration { } //eslint-disable-line
+      }).toThrow(`[ODIN] Configuration[OdinConfig]: mandatory property 'strict' not found.`);
+    });
+
+    it('should put odin in strict mode', () => {
       @OdinConfig({ strict: true })
       class Configuration { } //eslint-disable-line
 
@@ -35,7 +35,7 @@ describe('[ODIN]', () => {
 
         @OdinConfig({ strict: false })
         class ConfigurationTwo { } //eslint-disable-line
-      }).toThrowError('[ODIN] @OdinConfig can only be used once');
+      }).toThrow('[ODIN] @OdinConfig can only be used once');
     });
 
   });

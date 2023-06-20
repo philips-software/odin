@@ -44,7 +44,7 @@ describe('[ODIN]', function() {
       container = odin.container('parent/child');
     });
 
-    describe ('Root', () => {
+    describe ('root', () => {
       it('should inject @Injectable into @Injectable from root', () => {
         @Injectable
         class Inj1 {
@@ -141,11 +141,11 @@ describe('[ODIN]', function() {
           class Inj7 { //eslint-disable-line
             @Inject('RootInjectable', true) strawberry;
           }
-        }).toThrowError('[ODIN] @Inject should receive only one argument.');
+        }).toThrow('[ODIN] @Inject should receive only one argument.');
       });
     });
 
-    describe('Strict Mode', () => {
+    describe('strict mode', () => {
       beforeEach(() => {
         Config.setStrict(true);
       });
@@ -154,13 +154,13 @@ describe('[ODIN]', function() {
         Config.setStrict(false);
       });
 
-      it('should throw error if @Inject is used without a name in Strict mode', () => {
+      it('should throw error if @Inject is used without a name in strict mode', () => {
         expect(() => {
           @Injectable
           class Inj8 { //eslint-disable-line
             @Inject({ }) potato;
           }
-        }).toThrowError(`[ODIN] Inj8[Inject]: mandatory property 'name' not found.`);
+        }).toThrow(`[ODIN] Inj8[Inject]: mandatory property 'name' not found.`);
       });
 
       it('should return correct @Injectable when using a different name than the property', () => {

@@ -19,7 +19,7 @@ Secrets.setDiscardable(Discardable);
 
 describe('[ODIN]', function() {
 
-  describe('Secrets', () => {
+  describe('secrets', () => {
 
     it('should has the right secrets', () => {
       expect(Secrets.isCustom(Nothing)).toBe(false);
