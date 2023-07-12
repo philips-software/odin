@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "lib",
+  ],
+  "include": [
+    ".eslintrc.js",
+    "src",
+    "test",
+    "vitest.config.ts"
+  ]
+}

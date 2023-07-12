@@ -15,7 +15,7 @@
 **/*.war
 **/*.zip
 
-**/coverage/
+**/.coverage/
 **/lib/
 **/node_modules/
 **/yarn.lock

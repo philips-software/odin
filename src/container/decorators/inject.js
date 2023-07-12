@@ -23,8 +23,8 @@ export default function Inject(definition, name, descriptor, params = {}) {
     definition = { name: definition };
   }
 
-const paramsValidator = MetaValidator.create().str('name', Config.isStrict()).bool('eager').validator();
-const validate = MetaValidator.validateDecorator(Inject, paramsValidator, definition, params);
+  const paramsValidator = MetaValidator.create().str('name', Config.isStrict()).bool('eager').validator();
+  const validate = MetaValidator.validateDecorator(Inject, paramsValidator, definition, params);
 
   if (validate) {
     return validate;
@@ -38,7 +38,7 @@ const validate = MetaValidator.validateDecorator(Inject, paramsValidator, defini
     const container = getContainer(this);
 
     if (!container) {
-      error(`There is no container at '${definition}'.`);
+      error(`There is no container at '${definition?.constructor?.name}'.`);
     }
 
     const injectableName = params.name || name;

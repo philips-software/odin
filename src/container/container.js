@@ -202,7 +202,7 @@ export default class Container {
 * @param {object} injectable the injectable instance to receive the hidden property.
 * @param {object} container the container instance to store into the injectable.
 */
-function setContainer(injectable, container) {
+export function setContainer(injectable, container) {
   injectable[CONTAINER_ACCESSOR] = container;
 }
 
