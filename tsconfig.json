@@ -35,8 +35,9 @@
     "target": "ES2017"
   },
   "exclude": [
-    "**/*.test.js",
-    "jest.config.js",
-    "lib"
+    ".eslintrc.js",
+    "lib",
+    "test",
+    "vitest.config.ts"
   ]
 }

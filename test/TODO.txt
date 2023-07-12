@@ -1,0 +1,3 @@
+Test all secret getters/setters.
+Test discardable on injectables.
+Test parent/child scopes using the fixture classes already defined. Only root is used at the moment.

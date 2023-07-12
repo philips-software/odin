@@ -10,6 +10,7 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: 'tsconfig-lint.json',
     sourceType: 'module',
     warnOnUnsupportedTypeScriptVersion: true,
   },
@@ -19,9 +20,9 @@ module.exports = {
   ],
   root: true,
   rules: commonRules(),
-  overrides: [
-    overrideForTestFiles(),
+  overrides: [ // the order is important
     overrideForTypescriptFiles(),
+    overrideForTypescriptTestFiles(),
   ],
   settings: {
     'import/parsers': {
@@ -81,40 +82,6 @@ function commonRules() {
   };
 }
 
-function overrideForTestFiles() {
-  return {
-    files: [
-      '*spec.js',
-      '*spec.ts',
-      '*test.js',
-      '*test.ts',
-    ],
-    env: {
-      'jest/globals': true,
-    },
-    extends: [
-      'plugin:jest/all',
-      'plugin:jest-formatting/strict',
-    ],
-    plugins: [
-      'jest',
-      'jest-formatting',
-    ],
-    rules: {
-      'jest/expect-expect': ['error', {
-        assertFunctionNames: ['assert*', 'expect*'],
-      }],
-      'jest-formatting/padding-around-all': 'off',
-      'jest-formatting/padding-around-expect-groups': 'off',
-      'jest/max-expects': 'off',
-      'jest/no-hooks': 'off',
-      'jest/prefer-expect-assertions': 'off',
-      'jest/require-hook': 'off',
-      'jest/unbound-method': 'off',
-    },
-  }
-}
-
 function overrideForTypescriptFiles() {
   return {
     files: [
@@ -145,12 +112,7 @@ function overrideForTypescriptFiles() {
         allowTypedFunctionExpressions: true,
       }],
       '@typescript-eslint/explicit-member-accessibility': 'off',
-
-      // switching this off because it doesn't really understand type guards
-      // and it's less strict than @typescript-eslint/explicit-function-return-type anyway
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-      '@typescript-eslint/indent': ['error', 2],
+      '@typescript-eslint/indent': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-extra-non-null-assertion': 'error',
       '@typescript-eslint/no-extra-semi': 'error',
@@ -161,6 +123,9 @@ function overrideForTypescriptFiles() {
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
       '@typescript-eslint/no-object-literal-type-assertion': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/prefer-as-const': 'error',
@@ -171,4 +136,40 @@ function overrideForTypescriptFiles() {
       '@typescript-eslint/unbound-method': 'off',
     },
   };
+}
+
+function overrideForTypescriptTestFiles() {
+  return {
+    files: [
+      '*.test.ts',
+    ],
+    excludedFiles: [
+      '*.js',
+    ],
+    env: {
+      'jest/globals': false,
+    },
+    extends: [
+      'plugin:jest-formatting/recommended',
+      'plugin:jest/all',
+    ],
+    plugins: [
+      'jest',
+      'jest-formatting',
+    ],
+    rules: {
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'jest-formatting/padding-around-expect-groups': 'off',
+      'jest/expect-expect': ['error', {
+        assertFunctionNames: ['assert*', 'expect*'],
+      }],
+      'jest/max-expects': 'off',
+      'jest/no-deprecated-functions': 'off',
+      'jest/no-hooks': 'off',
+      'jest/prefer-expect-assertions': 'off',
+      'jest/require-hook': 'off',
+      'jest/unbound-method': 'off',
+    },
+  }
 }
