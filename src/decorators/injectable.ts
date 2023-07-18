@@ -24,7 +24,7 @@ interface InjectableOptions {
   singleton?: boolean;
 }
 
-const knownInjectableOptions = [
+const knownInjectableOptions: Array<keyof InjectableOptions> = [
   'domain',
   'singleton',
 ];
@@ -108,7 +108,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     }
 
     const bundle = odin.bundle(options.domain);
-    bundle.register(constructor, { ...options });
+    bundle.register(constructor);
 
     // @ts-ignore: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return constructor;

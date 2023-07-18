@@ -25,7 +25,7 @@ describe('decorators', () => {
     });
 
     test('should be called when instantiating the injectable', () => {
-      const initializerSpy = vi.fn(() => 0);
+      const initializerSpy = vi.fn(() => void 0);
 
       @Injectable
       class InitializerCalled {

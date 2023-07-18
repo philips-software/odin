@@ -20,11 +20,21 @@ interface InjectOptions {
    * The name of the injectable to inject.
    */
   name?: string;
+
+  /**
+   * Defines the inject as optional.
+   * If {@link true}, it will inject undefined when not being provided by a container.
+   * If {@link false}, it will throw an {@link Error} when not being provided by a container.
+   *
+   * @default false
+   */
+  optional?: boolean;
 }
 
-const knownInjectOptions = [
+const knownInjectOptions: Array<keyof InjectOptions> = [
   'eager',
   'name',
+  'optional',
 ];
 
 /**
