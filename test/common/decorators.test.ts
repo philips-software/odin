@@ -35,7 +35,7 @@ describe('common', () => {
         applyEagers(Fixture, instance);
         expect(Secrets.getEagers(Fixture)).toStrictEqual([name]);
 
-        const spy = vi.fn(() => 0);
+        const spy = vi.fn(() => void 0);
         Object.defineProperty(instance, name, { get: spy });
 
         invokeEagers(Fixture, instance);
@@ -47,7 +47,7 @@ describe('common', () => {
       const name = 'initializer';
 
       test('should stash, apply and invoke', () => {
-        const spy = vi.fn(() => 0);
+        const spy = vi.fn(() => void 0);
 
         class Fixture {
           [name](): void {

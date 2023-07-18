@@ -66,8 +66,10 @@ function applyInitializers(injectable: Injectable, instance: Instance): void {
 function applyInjects(injectable: Injectable, instance: Instance): void {
   const injects = instance[injectsSymbol] ?? [];
 
-  for (const [propertyName, injectableName] of injects) {
+  for (const [propertyName, injectableName, options] of injects) {
     logger.decorators.debug('applying inject:', propertyName, 'for', injectableName);
+
+    const descriptor = Object.getOwnPropertyDescriptor(instance, propertyName);
 
     Object.defineProperty(instance, propertyName, {
       get(): any {
@@ -82,10 +84,26 @@ function applyInjects(injectable: Injectable, instance: Instance): void {
               ? { value }
               : { get: () => resolver.get(this) };
 
+            // redefines the descriptor to skip this custom getter on the next calls
             Object.defineProperty(this, propertyName, descriptor);
+
+            // returns the value resolved so far
             return value;
           }
+
+          // no resolver, no value
           return undefined;
+        }
+
+        if (options.optional) {
+          // remove this custom getter, so it does not get called again
+          Object.defineProperty(this, propertyName, { get: undefined });
+
+          // restore original descriptor value
+          Object.defineProperty(this, propertyName, { value: descriptor?.value });
+
+          // returns value using the original descriptor, so the current get is already consistent with the next
+          return descriptor?.value;
         }
 
         throw new Error(logger.createMessage(`There is no container at '${injectable?.name}'.`));

@@ -47,7 +47,9 @@ class Descriptor {
         this.identifier = name;
       }
 
-      this.options = { ...rest };
+      if (Object.getOwnPropertyNames(rest).length > 0) {
+        this.options = { ...rest };
+      }
     }
 
     this.identifier = normalizeNameOrIdentifier(this.identifier);

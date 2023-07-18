@@ -5,7 +5,7 @@ import { Bundle } from '../../src/stores/bundle.js';
 describe('bundle', () => {
 
   test('should set domain', () => {
-    const domain = 'parent';
+    const domain = 'domain';
 
     const bundle = new Bundle(domain);
     expect(bundle).toBeInstanceOf(Bundle);

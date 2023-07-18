@@ -14,7 +14,7 @@ interface ConfigurationOptions {
   strict: boolean;
 }
 
-const knownConfigurationOptions = [
+const knownConfigurationOptions: Array<keyof ConfigurationOptions> = [
   'strict',
 ];
 
