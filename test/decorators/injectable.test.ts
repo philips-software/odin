@@ -1,94 +1,105 @@
 import { describe, expect, test } from 'vitest';
 
-import odin from '../../src/odin.js';
-import Inject from '../../src/container/decorators/inject.js';
-import Injectable from '../../src/container/decorators/injectable.js';
-import Secrets from '../../src/container/secrets.js';
+import { Secrets } from '../../src/common/secrets.js';
+import { Inject } from '../../src/decorators/inject.js';
+import { Injectable } from '../../src/decorators/injectable.js';
+import { odin } from '../../src/singletons/odin.js';
 
-describe('decorators', function() {
+describe('decorators', () => {
   describe('@Injectable', () => {
 
-    test('should be registered', () => {
-      expect(() => {
-        @Injectable
-        class InjectableToRegister { }
-      }).not.toThrow();
-    });
-
-    test('should not mark class as singleton, discardable or custom', () => {
+    test('should decorate and define secrets', () => {
       @Injectable
-      class InjectableDefaults { }
+      class InjectableDefaults {}
 
       expect(Secrets.isSingleton(InjectableDefaults)).toBe(false);
       expect(Secrets.isDiscardable(InjectableDefaults)).toBe(false);
-      expect(Secrets.isCustom(InjectableDefaults)).toBe(false);
     });
 
-    test('should use domain to define the target bundle', () => {
-      @Injectable({ domain: 'parent/child' })
-      class InjectableWithValidDomain { }
+    test('should support circular dependencies', () => {
+      const domain = 'circular';
 
-      const direct = odin.bundle('parent/child');
-      expect(direct.has(InjectableWithValidDomain.name)).toBe(true);
-
-      const parent = odin.bundle('parent');
-      expect(parent.has(InjectableWithValidDomain.name)).toBe(false);
-
-      const child = parent.child('child');
-      expect(child.has(InjectableWithValidDomain.name)).toBe(true);
-    });
-
-    test('should allow circular dependencies', () => {
-      @Injectable({ domain: 'circular' })
-      class CircularInjectable1 {
-        @Inject({ name: 'CircularInjectable2', eager: true })
-        circular;
+      @Injectable({ domain })
+      class CircularInjectableA {
+        @Inject({ name: 'CircularInjectableB', eager: true })
+        // @ts-expect-error: not initialized
+        circular: CircularInjectableB;
       }
 
-      @Injectable({ domain: 'circular' })
-      class CircularInjectable2 {
-        @Inject({ name: 'CircularInjectable1' })
-        circular;
+      @Injectable({ domain })
+      class CircularInjectableB {
+        @Inject({ name: 'CircularInjectableA' })
+        // @ts-expect-error: not initialized
+        circular: CircularInjectableA;
       }
 
-      const container = odin.container('circular');
+      const container = odin.container(domain);
 
-      const provided1 = container.provide('CircularInjectable1', true);
-      const provided2 = container.provide('CircularInjectable2', true);
+      const providedA = container.provide<CircularInjectableA>(CircularInjectableA.name, true);
+      const providedB = container.provide<CircularInjectableB>(CircularInjectableB.name, true);
 
-      expect(provided1.circular instanceof CircularInjectable2).toBe(true);
-      expect(provided2.circular instanceof CircularInjectable1).toBe(true);
+      expect(providedA.circular).toBeInstanceOf(CircularInjectableB);
+      expect(providedB.circular).toBeInstanceOf(CircularInjectableA);
     });
 
-    describe('errors', () => {
+    test('should throw error when called without any arguments', () => {
+      expect(() => {
 
-      test('should throw error when called without parameters', () => {
-        expect(() => {
-          @Injectable()
-          class InjectableCalledWithoutParameters { }
-        }).toThrow(`[ODIN] Injectable: If there are no params, remove the ().`);
-      });
+        // @ts-expect-error: called without any arguments
+        @Injectable()
+        // @ts-expect-error: unused class
+        class InjectableCalledWithoutAnyArguments {}
 
-      test('should throw error when called with unknown parameters', () => {
-        expect(() => {
-          @Injectable({ potato: 'test' })
-          class InjectableCalledWithUnknownParameters { }
-        }).toThrow(`[ODIN] InjectableCalledWithUnknownParameters[Injectable]: unknow property 'potato'.`);
-      });
-
-      test('should throw error when the domain has empty spaces', () => {
-        expect(() => {
-          @Injectable({ domain: 'parent / child' })
-          class InjectableWithInvalidDomainWithEmptySpaces { }
-        }).toThrow(`[ODIN] Invalid domain 'parent / child', should not has empty spaces in 'parent '.`);
-      });
-
-      test('should throw error when the domain has empty chunks', () => {
-        expect(() => {
-          @Injectable({ domain: 'parent//child' })
-          class InjectableWithInvalidDomainWithEmptyChunks { }
-        }).toThrow(`[ODIN] Invalid domain 'parent//child', remove empty chunks.`);
-      });
+      }).toThrow(`[odin]: The @Injectable decorator cannot be called without any arguments. Add an argument or remove the ().`);
     });
+
+    test('should throw error when called with too many arguments', () => {
+      expect(() => {
+
+        // @ts-expect-error: with too many arguments
+        @Injectable(1, 2)
+        // @ts-expect-error: unused class
+        class InjectableCalledWithTooManyArguments {}
+
+      }).toThrow(`[odin]: The @Injectable decorator cannot be called with more than one argument.`);
+    });
+
+    test('should throw error when called with unknown options', () => {
+      expect(() => {
+
+        // @ts-expect-error: unknown option
+        @Injectable({ something: 123 })
+        // @ts-expect-error: unused class
+        class InjectableCalledWithUnknownParameters {}
+
+      }).toThrow(`[odin]: Invalid decorator options. The unknown options are not allowed: something.`);
+    });
+
+    test('should throw error when decorating a class field', () => {
+      expect(() => {
+
+        // @ts-expect-error: unused class
+        class InjectableDecoratingClassField {
+          // @ts-expect-error: cannot decorate a class field
+          @Injectable({})
+          field: any;
+        }
+
+      }).toThrow(`[odin]: The @Injectable decorator can only decorate a class. Check the field named 'field'.`);
+    });
+
+    test('should throw error when decorating a class method', () => {
+      expect(() => {
+
+        // @ts-expect-error: unused class
+        class InjectableDecoratingClassMethod {
+          // @ts-expect-error: cannot decorate a class method
+          @Injectable
+          method(): void {}
+        }
+
+      }).toThrow(`[odin]: The @Injectable decorator can only decorate a class. Check the method named 'method'.`);
+    });
+
   });
 });

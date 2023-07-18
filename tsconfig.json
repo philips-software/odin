@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "assumeChangesOnlyAffectDirectDependencies": false,
     "declaration": true,
     "declarationMap": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": false,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "inlineSourceMap": false,
     "inlineSources": false,
     "isolatedModules": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
     "newLine": "LF",
+    "noEmit": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -24,20 +25,16 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "lib",
     "pretty": true,
     "removeComments": false,
-    "rootDir": "src",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2017"
+    "target": "ES2021"
   },
-  "exclude": [
-    ".eslintrc.js",
-    "lib",
-    "test",
-    "vitest.config.ts"
-  ]
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true
+  }
 }
