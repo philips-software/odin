@@ -14,7 +14,7 @@ interface ConfigurationOptions {
   strict: boolean;
 }
 
-const knownConfigurationOptions: Array<keyof ConfigurationOptions> = [
+const knownConfigurationOptions: (keyof ConfigurationOptions)[] = [
   'strict',
 ];
 
@@ -37,7 +37,7 @@ function Configuration<Target extends ClassDecoratorTarget>(target: Configuratio
     throw new Error(logger.createMessage(`The @Configuration decorator cannot be called without any arguments. Add an argument or remove the ().`));
   }
 
-  // @ts-ignore: yes the type doesn't like it but necessary for consistency and validation
+  // @ts-expect-error: yes the type doesn't like it but necessary for consistency and validation
   let options: ConfigurationOptions = {};
 
   if (typeof target === 'function' && context) {
@@ -52,7 +52,7 @@ function Configuration<Target extends ClassDecoratorTarget>(target: Configuratio
 
   return ConfigurationDecorator;
 
-  function ConfigurationDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | void {
+  function ConfigurationDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | undefined {
     logger.decorators.debug('ConfigurationDecorator:', { target, context });
 
     if (context.kind !== 'class') {
@@ -71,6 +71,8 @@ function Configuration<Target extends ClassDecoratorTarget>(target: Configuratio
 
     configuration.setStrict(options.strict);
     configuration.setInitialized(true);
+
+    return;
   }
 }
 

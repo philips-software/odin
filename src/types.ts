@@ -5,21 +5,17 @@ type ClassDecoratorCallback = (...args: any[]) => any;
 type ClassDecoratorTarget = Injectable;
 
 type ClassFieldDecorator<This> = DecoratorFunction<ClassFieldDecoratorTarget, ClassFieldDecoratorContext<This>>;
-type ClassFieldDecoratorCallback = (initialValue: unknown) => unknown | void;
+type ClassFieldDecoratorCallback = (initialValue: unknown) => unknown;
 type ClassFieldDecoratorTarget = undefined;
 
 type ClassMethodDecorator<This> = DecoratorFunction<ClassMethodDecoratorTarget<This>, ClassMethodDecoratorContext<This, ClassMethodDecoratorTarget<This>>>;
-type ClassMethodDecoratorCallback = (initialValue: unknown) => unknown | void;
+type ClassMethodDecoratorCallback = (initialValue: unknown) => unknown;
 type ClassMethodDecoratorTarget<This> = (this: This, ...args: any[]) => any;
 
-type DecoratorFunction<Target, Context> = (target: Target, context: Context) => Target | void;
+type DecoratorFunction<Target, Context> = (target: Target, context: Context) => Target | undefined;
 
 type Injectable = new (...args: any[]) => any;
-
-interface PermissiveOptions {
-  [key: string]: unknown;
-}
-
+type PermissiveOptions = Record<string, unknown>;
 type Resolver<T = unknown> = (injectable?: Injectable) => T;
 
 interface Store {

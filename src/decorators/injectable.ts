@@ -24,7 +24,7 @@ interface InjectableOptions {
   singleton?: boolean;
 }
 
-const knownInjectableOptions: Array<keyof InjectableOptions> = [
+const knownInjectableOptions: (keyof InjectableOptions)[] = [
   'domain',
   'singleton',
 ];
@@ -69,7 +69,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
 
   return InjectableDecorator;
 
-  function InjectableDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | void {
+  function InjectableDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | undefined {
     logger.decorators.debug('InjectableDecorator"', { target, context });
 
     if (context.kind !== 'class') {
@@ -110,7 +110,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     const bundle = odin.bundle(options.domain);
     bundle.register(constructor);
 
-    // @ts-ignore: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
+    // @ts-expect-error: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return constructor;
   }
 }
