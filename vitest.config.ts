@@ -1,8 +1,12 @@
 import ts from 'typescript';
+import { mergeConfig } from 'vite';
 import { vitePluginTypescriptTransform } from 'vite-plugin-typescript-transform';
 import { defaultExclude, defaultInclude, defineConfig } from 'vitest/config';
+import type { UserConfig } from 'vitest/config';
 
-export default defineConfig({
+import viteConfiguration from './vite.config.js';
+
+const vitestConfiguration = defineConfig({
   plugins: [
     vitePluginTypescriptTransform({
       enforce: 'pre',
@@ -24,9 +28,6 @@ export default defineConfig({
       all: true,
       clean: true,
       cleanOnRerun: true,
-      include: [
-        'src/**',
-      ],
       provider: 'v8',
       reportsDirectory: '.coverage',
       watermarks: {
@@ -60,4 +61,9 @@ export default defineConfig({
       './test/setup/configuration.ts',
     ],
   },
-});
+}) as UserConfig;
+
+export default mergeConfig(
+  viteConfiguration,
+  vitestConfiguration,
+);
