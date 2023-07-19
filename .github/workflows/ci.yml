@@ -16,9 +16,6 @@ on:
       - '**.md'
   workflow_dispatch:
 
-env:
-  node: 18
-
 jobs:
   build-lint-test:
     runs-on: ubuntu-latest
@@ -27,7 +24,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: npm
-          node-version: ${{ env.node }}
+          check-latest: true
+          node-version-file: .nvmrc
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
