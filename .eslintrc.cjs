@@ -15,7 +15,7 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig-lint.json',
+    project: true,
     sourceType: 'module',
     warnOnUnsupportedTypeScriptVersion: true,
   },

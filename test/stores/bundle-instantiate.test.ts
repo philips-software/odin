@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { DescriptorOptions } from '../../lib/common/descriptor.js';
+import type { DescriptorOptions } from '../../src/common/descriptor.js';
 
 import { Bundle } from '../../src/stores/bundle.js';
 

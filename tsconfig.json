@@ -3,15 +3,9 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "assumeChangesOnlyAffectDirectDependencies": false,
-    "declaration": true,
-    "declarationMap": true,
-    "emitDecoratorMetadata": false,
     "esModuleInterop": true,
-    "experimentalDecorators": false,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "inlineSourceMap": false,
-    "inlineSources": false,
     "isolatedModules": true,
     "module": "ESNext",
     "moduleResolution": "NodeNext",
@@ -26,13 +20,23 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "pretty": true,
-    "removeComments": false,
+    "removeComments": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "ES2021"
   },
+  "exclude": [
+    "dist",
+  ],
+  "include": [
+    ".eslintrc.cjs",
+    "src",
+    "test",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
   "ts-node": {
     "esm": true,
     "transpileOnly": true

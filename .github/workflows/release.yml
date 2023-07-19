@@ -28,9 +28,10 @@ jobs:
           scope: ${{ env.scope }}
       - run: npm ci
       - run: npm audit signatures
-      - run: npm run build
+      - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
+      - run: npm run build
       - run: npm run release -- --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
