@@ -16,6 +16,7 @@ type Injectable = BaseInjectable & {
 /**
 * Manages secrets of injectables.
 */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class Secrets {
 
   /**

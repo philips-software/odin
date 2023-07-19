@@ -7,7 +7,7 @@ import { logger } from '../singletons/logger.js';
  */
 class CustomProvider<T = unknown, Resolver extends ValueResolver<T> = ValueResolver<T>> {
 
-  private readonly resolvers: Map<string, Resolver> = new Map();
+  private readonly resolvers = new Map<string, Resolver>();
 
   /**
    * Register a custom injectable resolver.

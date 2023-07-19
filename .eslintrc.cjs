@@ -7,6 +7,11 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:@typescript-eslint/strict-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -27,7 +32,6 @@ module.exports = {
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': [
-        '.js',
         '.ts',
       ],
     },
@@ -87,15 +91,6 @@ function overrideForTypescriptFiles() {
     files: [
       '*.ts',
     ],
-    excludedFiles: [
-      '*.js',
-    ],
-    extends: [
-      'plugin:@typescript-eslint/eslint-recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:@typescript-eslint/recommended-requiring-type-checking',
-      'plugin:import/typescript',
-    ],
     rules: {
       '@typescript-eslint/ban-ts-comment': ['off', {
         minimumDescriptionLength: 20,
@@ -113,6 +108,7 @@ function overrideForTypescriptFiles() {
       }],
       '@typescript-eslint/explicit-member-accessibility': 'off',
       '@typescript-eslint/indent': 'off',
+      '@typescript-eslint/no-confusing-void-expression': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-extra-non-null-assertion': 'error',
       '@typescript-eslint/no-extra-semi': 'error',
@@ -123,6 +119,7 @@ function overrideForTypescriptFiles() {
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
       '@typescript-eslint/no-object-literal-type-assertion': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
@@ -146,9 +143,6 @@ function overrideForTypescriptTestFiles() {
     files: [
       'test/**/*.ts',
     ],
-    excludedFiles: [
-      '*.js',
-    ],
     env: {
       'jest/globals': false,
     },
@@ -162,6 +156,7 @@ function overrideForTypescriptTestFiles() {
     ],
     rules: {
       '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'jest-formatting/padding-around-expect-groups': 'off',
       'jest/expect-expect': ['error', {

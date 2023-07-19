@@ -32,8 +32,10 @@ function Initializer<This, Target extends ClassMethodDecoratorTarget<This>>(targ
 
     context.addInitializer(function InitializerDecoratorInitializer(): void {
       logger.decorators.debug('InitializerDecoratorInitializer:', { target, context });
-      stashInitializer(this, context.name);
+      stashInitializer(this as any, String(context.name));
     });
+
+    return;
   }
 }
 

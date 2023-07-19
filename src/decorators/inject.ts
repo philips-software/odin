@@ -31,7 +31,7 @@ interface InjectOptions {
   optional?: boolean;
 }
 
-const knownInjectOptions: Array<keyof InjectOptions> = [
+const knownInjectOptions: (keyof InjectOptions)[] = [
   'eager',
   'name',
   'optional',
@@ -84,7 +84,7 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
 
   return InjectDecorator;
 
-  function InjectDecorator<This, Target extends ClassFieldDecoratorTarget>(target: Target, context: ClassFieldDecoratorContext<This>): Target | void {
+  function InjectDecorator<This, Target extends ClassFieldDecoratorTarget>(target: Target, context: ClassFieldDecoratorContext<This>): Target | undefined {
     logger.decorators.debug('InjectDecorator:', { target, context });
 
     if (context.kind !== 'field') {
@@ -96,14 +96,14 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
       known: knownInjectOptions,
     });
 
-    // @ts-ignore: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
-    return function InjectDecoratorInitializer<This>(this: This, initialValue: unknown): unknown | void {
+    // @ts-expect-error: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
+    return function InjectDecoratorInitializer<This>(this: This, initialValue: unknown): unknown {
       logger.decorators.debug('InjectDecoratorInitializer:', { target, context, initialValue });
 
       if (options.eager) {
-        stashEager(this, context.name);
+        stashEager(this as any, String(context.name));
       }
-      stashInject(this, context.name, options.name ?? context.name, options);
+      stashInject(this as any, String(context.name), String(options.name ?? context.name), options);
     };
   }
 }

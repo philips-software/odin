@@ -9,9 +9,9 @@ import type { Injectable, Store } from '../types.js';
  */
 class Registry implements Store {
 
-  private readonly descriptorsByIdentifier: Map<string, Descriptor> = new Map();
-  private readonly descriptorsByInjectable: WeakMap<Injectable, Descriptor> = new WeakMap();
-  private readonly descriptorsByName: Map<string, Descriptor> = new Map();
+  private readonly descriptorsByIdentifier = new Map<string, Descriptor>();
+  private readonly descriptorsByInjectable = new WeakMap<Injectable, Descriptor>();
+  private readonly descriptorsByName = new Map<string, Descriptor>();
 
   register(injectable: Injectable, options?: DescriptorOptions): string {
     this.validateRegistration(injectable, options);

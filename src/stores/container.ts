@@ -23,8 +23,8 @@ class Container<
   declare private readonly bundle: Bundle;
   declare private readonly provider: Provider;
 
-  private readonly instances: Map<string, InstanceType<Injectable>> = new Map();
-  private readonly resolvers: Map<string, Resolver> = new Map();
+  private readonly instances = new Map<string, InstanceType<Injectable>>();
+  private readonly resolvers = new Map<string, Resolver>();
 
   /**
    * Creates a new container.
@@ -90,7 +90,7 @@ class Container<
    * @returns the resolved value when resolve is true.
    */
   provide<T = unknown>(nameOrIdentifier: string, resolve: true): T;
-  provide<T = unknown, R extends ValueResolver<T> = ValueResolver<T>>(nameOrIdentifier: string, resolve?: false): R;
+  provide<T = unknown, R extends ValueResolver<T> = ValueResolver<T>>(nameOrIdentifier: string, resolve?: false): R | undefined;
   provide<T = unknown, R extends ValueResolver<T> = ValueResolver<T>>(nameOrIdentifier: string, resolve = false): T | R | undefined {
     if (this.has(nameOrIdentifier)) {
       const resolver = this.get<T, R>(nameOrIdentifier);

@@ -10,7 +10,7 @@ const eagersSymbol = Symbol('odin-eagers');
 const initializersSymbol = Symbol('odin-initializers');
 const injectsSymbol = Symbol('odin-injects');
 
-type Instance = InstanceType<Injectable> & {
+type Instance = Record<string, unknown> & {
   [containerSymbol]?: Container;
   [eagersSymbol]?: string[];
   [initializersSymbol]?: string[];
@@ -43,13 +43,13 @@ function applyEagers(injectable: Injectable, instance: Instance): void {
  */
 function applyInitializers(injectable: Injectable, instance: Instance): void {
   if (Secrets.hasInitializer(injectable)) {
-    throw new Error(logger.createMessage(`The injectable '${injectable?.name}' already has an initializer named '${Secrets.getInitializer(injectable)}'.`));
+    throw new Error(logger.createMessage(`The injectable '${injectable.name}' already has an initializer named '${Secrets.getInitializer(injectable)}'.`));
   }
 
   const initializers = instance[initializersSymbol] ?? [];
 
   if (initializers.length > 1) {
-    throw new Error(logger.createMessage(`The injectable '${injectable?.name}' cannot define more than one @Initializer.`));
+    throw new Error(logger.createMessage(`The injectable '${injectable.name}' cannot define more than one @Initializer.`));
   }
 
   const [name] = initializers;
@@ -106,7 +106,7 @@ function applyInjects(injectable: Injectable, instance: Instance): void {
           return descriptor?.value;
         }
 
-        throw new Error(logger.createMessage(`There is no container at '${injectable?.name}'.`));
+        throw new Error(logger.createMessage(`There is no container at '${injectable.name}'.`));
       },
     });
   }
@@ -118,7 +118,7 @@ function applyInjects(injectable: Injectable, instance: Instance): void {
  * @param instance the injectable instance where to stash the container.
  * @returns the container.
  */
-function getContainer(instance: Instance): Container {
+function getContainer(instance: Instance): Container | undefined {
   logger.decorators.debug('getting container');
 
   return instance[containerSymbol];
@@ -135,12 +135,7 @@ function invokeEagers(injectable: Injectable, instance: Instance): void {
     logger.decorators.debug('invoking eager:', eager);
 
     // forces get to be called
-    noop(instance[eager]);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function noop(_: any): void {
-    // ¯\_(ツ)_/¯
+    instance[eager];
   }
 }
 
@@ -155,7 +150,12 @@ function invokeInitializer(injectable: Injectable, instance: Instance): void {
 
   if (initializer) {
     logger.decorators.debug('invoking initializer:', initializer);
-    instance[initializer]();
+
+    const initialize = instance[initializer];
+
+    if (typeof initialize === 'function') {
+      initialize();
+    }
   }
 }
 
@@ -177,7 +177,7 @@ function stashContainer(instance: Instance, container: Container): void {
  * @param instance the injectable instance where to stash the eager class field name.
  * @param name the eager class field name.
  */
-function stashEager(instance: Instance, name: string | symbol): void {
+function stashEager(instance: Instance, name: string): void {
   logger.decorators.debug('stashing eager:', name);
 
   instance[eagersSymbol] = instance[eagersSymbol] ?? [];
@@ -190,7 +190,7 @@ function stashEager(instance: Instance, name: string | symbol): void {
  * @param instance the injectable instance where to stash the initializer class method name.
  * @param name the class method name.
  */
-function stashInitializer(instance: Instance, name: string | symbol): void {
+function stashInitializer(instance: Instance, name: string): void {
   logger.decorators.debug('stashing initializer:', name);
 
   instance[initializersSymbol] = instance[initializersSymbol] ?? [];
@@ -205,7 +205,7 @@ function stashInitializer(instance: Instance, name: string | symbol): void {
  * @param id the injectable name to be injected into the class field.
  * @param options the inject options.
  */
-function stashInject(instance: Instance, name: string | symbol, id: string | symbol, options: InjectOptions): void {
+function stashInject(instance: Instance, name: string, id: string, options: InjectOptions): void {
   logger.decorators.debug('stashing inject:', name, 'for', id);
 
   instance[injectsSymbol] = instance[injectsSymbol] ?? [];

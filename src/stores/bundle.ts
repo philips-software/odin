@@ -12,11 +12,11 @@ import { Registry } from './registry.js';
  */
 class Bundle implements Store {
 
-  // @ts-ignore: never read
+  // @ts-expect-error: never read
   private readonly domain: string;
   private readonly parent?: Bundle;
 
-  private readonly children: Map<string, Bundle> = new Map();
+  private readonly children = new Map<string, Bundle>();
   private readonly registry: Registry = new Registry();
 
   /**
@@ -50,8 +50,7 @@ class Bundle implements Store {
 
   has(nameOrIdentifier?: string): boolean {
     return this.registry.has(nameOrIdentifier)
-      || this.parent?.has(nameOrIdentifier)
-      || false;
+      || (this.parent?.has(nameOrIdentifier) ?? false);
   }
 
   get(nameOrIdentifier?: string): Descriptor | undefined {
