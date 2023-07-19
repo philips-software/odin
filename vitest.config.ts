@@ -47,7 +47,7 @@ const vitestConfiguration = defineConfig({
         },
       },
     },
-    environment: 'node',
+    environment: 'jsdom',
     globals: false,
     include: defaultInclude.map(include => `test/${include}`),
     exclude: [
