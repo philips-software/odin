@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 
 env:
-  node: 18
   scope: '@odinjs'
 
 permissions:
@@ -24,7 +23,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: npm
-          node-version: ${{ env.node }}
+          check-latest: true
+          node-version-file: .nvmrc
           scope: ${{ env.scope }}
       - run: npm ci
       - run: npm audit signatures
