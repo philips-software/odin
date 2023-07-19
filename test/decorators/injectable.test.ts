@@ -22,15 +22,15 @@ describe('decorators', () => {
       @Injectable({ domain })
       class CircularInjectableA {
         @Inject({ name: 'CircularInjectableB', eager: true })
-        // @ts-expect-error: not initialized
-        circular: CircularInjectableB;
+        // @ts-expect-error: TS7008, implicit any
+        circular;
       }
 
       @Injectable({ domain })
       class CircularInjectableB {
         @Inject({ name: 'CircularInjectableA' })
-        // @ts-expect-error: not initialized
-        circular: CircularInjectableA;
+        // @ts-expect-error: TS7008, implicit any
+        circular;
       }
 
       const container = odin.container(domain);
@@ -45,9 +45,9 @@ describe('decorators', () => {
     test('should throw error when called without any arguments', () => {
       expect(() => {
 
-        // @ts-expect-error: called without any arguments
+        // @ts-expect-error: TS2345, invalid argument type
         @Injectable()
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectableCalledWithoutAnyArguments {}
 
       }).toThrow(`[odin]: The @Injectable decorator cannot be called without any arguments. Add an argument or remove the ().`);
@@ -56,9 +56,9 @@ describe('decorators', () => {
     test('should throw error when called with too many arguments', () => {
       expect(() => {
 
-        // @ts-expect-error: with too many arguments
-        @Injectable(1, 2)
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS2554, too few or too many arguments
+        @Injectable(1, 2, 3)
+        // @ts-expect-error: TS6196, unused class
         class InjectableCalledWithTooManyArguments {}
 
       }).toThrow(`[odin]: The @Injectable decorator cannot be called with more than one argument.`);
@@ -67,9 +67,9 @@ describe('decorators', () => {
     test('should throw error when called with unknown options', () => {
       expect(() => {
 
-        // @ts-expect-error: unknown option
+        // @ts-expect-error: TS2345, invalid argument type
         @Injectable({ something: 123 })
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectableCalledWithUnknownParameters {}
 
       }).toThrow(`[odin]: Invalid decorator options. The unknown options are not allowed: something.`);
@@ -78,9 +78,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class field', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectableDecoratingClassField {
-          // @ts-expect-error: cannot decorate a class field
+          // @ts-expect-error: TS1240, cannot decorate a class field
           @Injectable({})
           field: any;
         }
@@ -91,9 +91,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class method', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectableDecoratingClassMethod {
-          // @ts-expect-error: cannot decorate a class method
+          // @ts-expect-error: TS1241, cannot decorate a class field
           @Injectable
           method(): void {}
         }

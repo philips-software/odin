@@ -10,13 +10,13 @@ describe('bundle', () => {
     const bundle = new Bundle(domain);
     expect(bundle).toBeInstanceOf(Bundle);
 
-    // @ts-expect-error: private readonly field
+    // @ts-expect-error: TS2341, private readonly field
     expect(bundle.domain).toBe(domain);
   });
 
   test('should throw error when creating a new bundle without a domain', () => {
     expect(() => {
-      // @ts-expect-error: missing domain
+      // @ts-expect-error: TS2345, invalid argument type
       new Bundle();
     }).toThrow(`[odin]: Invalid domain. It should be a contentful string.`);
   });
@@ -40,7 +40,7 @@ describe('bundle', () => {
 
   test.each(matrix)('should throw error when creating a new bundle with an unfit parent: %s', (_, parent) => {
     expect(() => {
-      // @ts-expect-error: unknown parent
+      // @ts-expect-error: TS2345, invalid argument type
       new Bundle('domain', parent);
     }).toThrow(`The parent must be or extend Bundle.`);
   });
@@ -49,7 +49,7 @@ describe('bundle', () => {
     const bundle = new Bundle('id');
 
     expect(() => {
-      // @ts-expect-error: missing domain
+      // @ts-expect-error: TS2554, too few or too many arguments
       bundle.child();
     }).toThrow(`[odin]: Invalid domain. It should be a contentful string.`);
   });

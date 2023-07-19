@@ -10,12 +10,15 @@ const eagersSymbol = Symbol('odin-eagers');
 const initializersSymbol = Symbol('odin-initializers');
 const injectsSymbol = Symbol('odin-injects');
 
-type Instance = Record<string, unknown> & {
+interface InstanceSecrets {
   [containerSymbol]?: Container;
   [eagersSymbol]?: string[];
   [initializersSymbol]?: string[];
   [injectsSymbol]?: [string, string, InjectOptions][];
-};
+}
+
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+type Instance = InstanceType<Injectable> & InstanceSecrets;
 
 /**
  * Transfers the eager class field names previously stashed into an injectable instance to the injectable itself.
@@ -24,7 +27,8 @@ type Instance = Record<string, unknown> & {
  * @param instance the injectable instance from where to transfer the eager class field names.
  */
 function applyEagers(injectable: Injectable, instance: Instance): void {
-  const eagers = instance[eagersSymbol] ?? [];
+  const instanceSecrets = instance as InstanceSecrets;
+  const eagers = instanceSecrets[eagersSymbol] ?? [];
 
   for (const name of eagers) {
     logger.decorators.debug('applying eager:', name);
@@ -46,7 +50,8 @@ function applyInitializers(injectable: Injectable, instance: Instance): void {
     throw new Error(logger.createMessage(`The injectable '${injectable.name}' already has an initializer named '${Secrets.getInitializer(injectable)}'.`));
   }
 
-  const initializers = instance[initializersSymbol] ?? [];
+  const instanceSecrets = instance as InstanceSecrets;
+  const initializers = instanceSecrets[initializersSymbol] ?? [];
 
   if (initializers.length > 1) {
     throw new Error(logger.createMessage(`The injectable '${injectable.name}' cannot define more than one @Initializer.`));
@@ -64,7 +69,8 @@ function applyInitializers(injectable: Injectable, instance: Instance): void {
  * @param instance the injectable instance from where to transfer the class field injects.
  */
 function applyInjects(injectable: Injectable, instance: Instance): void {
-  const injects = instance[injectsSymbol] ?? [];
+  const instanceSecrets = instance as InstanceSecrets;
+  const injects = instanceSecrets[injectsSymbol] ?? [];
 
   for (const [propertyName, injectableName, options] of injects) {
     logger.decorators.debug('applying inject:', propertyName, 'for', injectableName);
@@ -121,7 +127,8 @@ function applyInjects(injectable: Injectable, instance: Instance): void {
 function getContainer(instance: Instance): Container | undefined {
   logger.decorators.debug('getting container');
 
-  return instance[containerSymbol];
+  const instanceSecrets = instance as InstanceSecrets;
+  return instanceSecrets[containerSymbol];
 }
 
 /**
@@ -154,7 +161,7 @@ function invokeInitializer(injectable: Injectable, instance: Instance): void {
     const initialize = instance[initializer];
 
     if (typeof initialize === 'function') {
-      initialize();
+      initialize(); // eslint-disable-line @typescript-eslint/no-unsafe-call
     }
   }
 }
@@ -168,7 +175,8 @@ function invokeInitializer(injectable: Injectable, instance: Instance): void {
 function stashContainer(instance: Instance, container: Container): void {
   logger.decorators.debug('stashing container:', typeof container);
 
-  instance[containerSymbol] = container;
+  const instanceSecrets = instance as InstanceSecrets;
+  instanceSecrets[containerSymbol] = container;
 }
 
 /**
@@ -180,8 +188,9 @@ function stashContainer(instance: Instance, container: Container): void {
 function stashEager(instance: Instance, name: string): void {
   logger.decorators.debug('stashing eager:', name);
 
-  instance[eagersSymbol] = instance[eagersSymbol] ?? [];
-  instance[eagersSymbol].push(name);
+  const instanceSecrets = instance as InstanceSecrets;
+  instanceSecrets[eagersSymbol] = instanceSecrets[eagersSymbol] ?? [];
+  instanceSecrets[eagersSymbol].push(name);
 }
 
 /**
@@ -193,8 +202,9 @@ function stashEager(instance: Instance, name: string): void {
 function stashInitializer(instance: Instance, name: string): void {
   logger.decorators.debug('stashing initializer:', name);
 
-  instance[initializersSymbol] = instance[initializersSymbol] ?? [];
-  instance[initializersSymbol].push(name);
+  const instanceSecrets = instance as InstanceSecrets;
+  instanceSecrets[initializersSymbol] = instanceSecrets[initializersSymbol] ?? [];
+  instanceSecrets[initializersSymbol].push(name);
 }
 
 /**
@@ -208,8 +218,9 @@ function stashInitializer(instance: Instance, name: string): void {
 function stashInject(instance: Instance, name: string, id: string, options: InjectOptions): void {
   logger.decorators.debug('stashing inject:', name, 'for', id);
 
-  instance[injectsSymbol] = instance[injectsSymbol] ?? [];
-  instance[injectsSymbol].push([name, id, options]);
+  const instanceSecrets = instance as InstanceSecrets;
+  instanceSecrets[injectsSymbol] = instanceSecrets[injectsSymbol] ?? [];
+  instanceSecrets[injectsSymbol].push([name, id, options]);
 }
 
 export {

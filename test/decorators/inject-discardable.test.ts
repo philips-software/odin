@@ -18,7 +18,7 @@ describe('decorators', () => {
         @Injectable
         class DiscardableSingletonByObjectFixture {
           @Inject({ name: DiscardableSingletonFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 

@@ -15,7 +15,7 @@ describe('decorators', () => {
       expect(() => {
 
         @Configuration({ strict: true })
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationWithStrictTrue {}
 
       }).not.toThrow();
@@ -27,9 +27,9 @@ describe('decorators', () => {
     test('should throw error when used without any arguments', () => {
       expect(() => {
 
-        // @ts-expect-error: used without any arguments
+        // @ts-expect-error: TS2554, too few or too many arguments
         @Configuration
-          // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationUsedWithoutAnyArguments {}
 
       }).toThrow(`[odin]: Invalid decorator options. The option 'strict' is required.`);
@@ -38,9 +38,9 @@ describe('decorators', () => {
     test('should throw error when called without any arguments', () => {
       expect(() => {
 
-        // @ts-expect-error: called without any arguments
+        // @ts-expect-error: TS2554, too few or too many arguments
         @Configuration()
-          // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationCalledWithoutAnyArguments {}
 
       }).toThrow(`[odin]: The @Configuration decorator cannot be called without any arguments. Add an argument or remove the ().`);
@@ -49,9 +49,9 @@ describe('decorators', () => {
     test('should throw error when called with too many arguments', () => {
       expect(() => {
 
-        // @ts-expect-error: too many arguments
-        @Configuration(1, 2)
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS2554, too few or too many arguments
+        @Configuration(1, 2, 3)
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationCalledWithTooManyArguments {}
 
       }).toThrow(`[odin]: The @Configuration decorator cannot be called with more than one argument.`);
@@ -61,7 +61,7 @@ describe('decorators', () => {
       expect(() => {
 
         @Configuration({ strict: true })
-          // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationWithStrictTrue {}
 
       }).not.toThrow();
@@ -70,7 +70,7 @@ describe('decorators', () => {
 
       expect(() => {
         @Configuration({ strict: false })
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationWithStrictFalse {}
 
       }).toThrow(`[odin]: The @Configuration decorator can only be used once.`);
@@ -81,9 +81,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class field', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationDecoratingClassField {
-          // @ts-expect-error: cannot decorate a class field
+          // @ts-expect-error: TS1240, cannot decorate a class field
           @Configuration({})
           field: any;
         }
@@ -94,9 +94,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class method', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class ConfigurationDecoratingClassMethod {
-          // @ts-expect-error: cannot decorate a class method
+          // @ts-expect-error: TS1240, cannot decorate a class field
           @Configuration
           method(): void {}
         }

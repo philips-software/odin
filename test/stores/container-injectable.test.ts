@@ -19,41 +19,48 @@ describe('container', () => {
     });
 
     test('should store container', () => {
-      expect(getContainer(Injectable)).toBeUndefined();
+      const instance = new Injectable();
+      expect(getContainer(instance)).toBeUndefined();
 
-      stashContainer(Injectable, container);
-      expect(getContainer(Injectable)).toStrictEqual(container);
+      stashContainer(instance, container);
+      expect(getContainer(instance)).toStrictEqual(container);
 
-      // @ts-expect-error: undefined is not allowed
-      stashContainer(Injectable, undefined);
-      expect(getContainer(Injectable)).toBeUndefined();
+      // @ts-expect-error: TS2322, invalid argument type
+      stashContainer(instance, undefined);
+      expect(getContainer(instance)).toBeUndefined();
     });
 
     test('should provide FinalValueResolver', () => {
       const resolver = container.provide(Injectable.name);
       expect(resolver).toBeInstanceOf(FinalValueResolver);
 
-      const firstValue = resolver.get();
-      expect(firstValue).toBeInstanceOf(Injectable);
+      if (resolver) {
+        const firstValue = resolver.get();
+        expect(firstValue).toBeInstanceOf(Injectable);
 
-      const secondValue = resolver.get();
-      expect(secondValue).toBe(firstValue);
+        const secondValue = resolver.get();
+        expect(secondValue).toBe(firstValue);
+      }
     });
 
     test('should provide different instances of FinalValueResolver', () => {
       const firstResolver = container.provide(Injectable.name);
       expect(firstResolver).toBeInstanceOf(FinalValueResolver);
 
-      const firstValue = firstResolver.get();
-      expect(firstValue).toBeInstanceOf(Injectable);
+      if (firstResolver) {
+        const firstValue = firstResolver.get();
+        expect(firstValue).toBeInstanceOf(Injectable);
 
-      const secondResolver = container.provide(Injectable.name);
-      expect(secondResolver).toBeInstanceOf(FinalValueResolver);
-      expect(secondResolver).not.toBe(firstResolver);
+        const secondResolver = container.provide(Injectable.name);
+        expect(secondResolver).toBeInstanceOf(FinalValueResolver);
+        expect(secondResolver).not.toBe(firstResolver);
 
-      const secondValue = secondResolver.get();
-      expect(secondValue).toBeInstanceOf(Injectable);
-      expect(secondValue).not.toBe(firstValue);
+        if (secondResolver) {
+          const secondValue = secondResolver.get();
+          expect(secondValue).toBeInstanceOf(Injectable);
+          expect(secondValue).not.toBe(firstValue);
+        }
+      }
     });
 
     test('should return undefined even after provide', () => {

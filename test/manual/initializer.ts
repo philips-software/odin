@@ -12,12 +12,12 @@ class Initializers extends Base {
   @Initializer
   initExpression(): void {}
 
-  // @ts-expect-error: cant call without arguments
+  // @ts-expect-error: TS2554, too few or too many arguments
   @Initializer()
   initCall(): void {}
 
-  // @ts-expect-error: cant call with any arguments
-  @Initializer({ name: 'qwe' })
+  // @ts-expect-error: TS2345, invalid argument type
+  @Initializer({ name: 'name' })
   initOptions(): void {}
 }
 new Initializers('initializers');

@@ -33,7 +33,7 @@ class Logger {
    * Visibility is controlled through the 'debug' package.
    */
   public debug(...data: any[]): void {
-    // @ts-expect-error: TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+    // @ts-expect-error: TS2556, a spread argument must either have a tuple type or be passed to a rest parameter.
     this.debugger(...data);
   }
 

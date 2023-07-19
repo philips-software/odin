@@ -23,15 +23,15 @@ describe('decorators', () => {
         @Injectable({ singleton: true, domain })
         class CircularInjectableButSingletonA {
           @Inject({ name: 'CircularInjectableButSingletonB' })
-          // @ts-expect-error: not initialized
-          circular: CircularInjectableButSingletonB;
+          // @ts-expect-error: TS7008, implicit any
+          circular;
         }
 
         @Injectable({ singleton: true, domain })
         class CircularInjectableButSingletonB {
           @Inject({ name: 'CircularInjectableButSingletonA' })
-          // @ts-expect-error: not initialized
-          circular: CircularInjectableButSingletonA;
+          // @ts-expect-error: TS7008, implicit any
+          circular;
         }
 
         const container = odin.container(domain);

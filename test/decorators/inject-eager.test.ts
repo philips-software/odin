@@ -16,7 +16,7 @@ describe('decorators', () => {
         @Injectable
         class InjectEager {
           @Inject({ name: InjectableFixture.name, eager: true })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 
@@ -35,7 +35,7 @@ describe('decorators', () => {
         @Injectable
         class InjectNonEager {
           @Inject({ name: InjectableFixture.name, eager: false })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 

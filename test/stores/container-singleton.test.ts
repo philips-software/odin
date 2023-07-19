@@ -26,7 +26,7 @@ describe('container', () => {
       stashContainer(Singleton, container);
       expect(getContainer(Singleton)).toStrictEqual(container);
 
-      // @ts-expect-error: undefined is not allowed
+      // @ts-expect-error: TS2322, invalid argument type
       stashContainer(Singleton, undefined);
       expect(getContainer(Singleton)).toBeUndefined();
     });
@@ -35,28 +35,34 @@ describe('container', () => {
       const resolver = container.provide(Singleton.name);
       expect(resolver).toBeInstanceOf(FinalValueResolver);
 
-      const firstValue = resolver.get();
-      expect(firstValue).toBeInstanceOf(Singleton);
+      if (resolver) {
+        const firstValue = resolver.get();
+        expect(firstValue).toBeInstanceOf(Singleton);
 
-      const secondValue = resolver.get();
-      expect(secondValue).toBeInstanceOf(Singleton);
-      expect(secondValue).toStrictEqual(firstValue);
+        const secondValue = resolver.get();
+        expect(secondValue).toBeInstanceOf(Singleton);
+        expect(secondValue).toStrictEqual(firstValue);
+      }
     });
 
     test('should always provide the same resolver', () => {
       const firstResolver = container.provide(Singleton.name);
       expect(firstResolver).toBeInstanceOf(FinalValueResolver);
 
-      const firstValue = firstResolver.get();
-      expect(firstValue).toBeInstanceOf(Singleton);
+      if (firstResolver) {
+        const firstValue = firstResolver.get();
+        expect(firstValue).toBeInstanceOf(Singleton);
 
-      const secondResolver = container.provide(Singleton.name);
-      expect(secondResolver).toBeInstanceOf(FinalValueResolver);
-      expect(secondResolver).toBe(firstResolver);
+        const secondResolver = container.provide(Singleton.name);
+        expect(secondResolver).toBeInstanceOf(FinalValueResolver);
+        expect(secondResolver).toBe(firstResolver);
 
-      const secondValue = secondResolver.get();
-      expect(secondValue).toBeInstanceOf(Singleton);
-      expect(secondValue).toBe(firstValue);
+        if (secondResolver) {
+          const secondValue = secondResolver.get();
+          expect(secondValue).toBeInstanceOf(Singleton);
+          expect(secondValue).toBe(firstValue);
+        }
+      }
     });
 
     test('should always resolve to the same instance', () => {
@@ -72,18 +78,22 @@ describe('container', () => {
       const firstResolver = container.provide(Singleton.name);
       expect(firstResolver).toBeInstanceOf(FinalValueResolver);
 
-      const firstValue = firstResolver.get();
-      expect(firstValue).toBeInstanceOf(Singleton);
+      if (firstResolver) {
+        const firstValue = firstResolver.get();
+        expect(firstValue).toBeInstanceOf(Singleton);
 
-      container.discard(Singleton.name);
+        container.discard(Singleton.name);
 
-      const secondResolver = container.provide(Singleton.name);
-      expect(secondResolver).toBeInstanceOf(FinalValueResolver);
-      expect(secondResolver).toBe(firstResolver);
+        const secondResolver = container.provide(Singleton.name);
+        expect(secondResolver).toBeInstanceOf(FinalValueResolver);
+        expect(secondResolver).toBe(firstResolver);
 
-      const secondValue = secondResolver.get();
-      expect(secondValue).toBeInstanceOf(Singleton);
-      expect(secondValue).toBe(firstValue);
+        if (secondResolver) {
+          const secondValue = secondResolver.get();
+          expect(secondValue).toBeInstanceOf(Singleton);
+          expect(secondValue).toBe(firstValue);
+        }
+      }
     });
   });
 });

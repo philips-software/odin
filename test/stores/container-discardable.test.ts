@@ -22,32 +22,37 @@ describe('container', () => {
     });
 
     test('should store container', () => {
-      expect(getContainer(DiscardableSingleton)).toBeUndefined();
+      const instance = new DiscardableSingleton();
+      expect(getContainer(instance)).toBeUndefined();
 
-      stashContainer(DiscardableSingleton, container);
-      expect(getContainer(DiscardableSingleton)).toStrictEqual(container);
+      stashContainer(instance, container);
+      expect(getContainer(instance)).toStrictEqual(container);
 
-      // @ts-expect-error: undefined is not allowed
-      stashContainer(DiscardableSingleton, undefined);
-      expect(getContainer(DiscardableSingleton)).toBeUndefined();
+      // @ts-expect-error: TS2322, invalid argument type
+      stashContainer(instance, undefined);
+      expect(getContainer(instance)).toBeUndefined();
     });
 
     test('should not keep resolver and instance when discarding', () => {
       const firstResolver = container.provide(DiscardableSingleton.name);
       expect(firstResolver).toBeInstanceOf(ValueResolver);
 
-      const firstValue = firstResolver.get();
-      expect(firstValue).toBeInstanceOf(DiscardableSingleton);
+      if (firstResolver) {
+        const firstValue = firstResolver.get();
+        expect(firstValue).toBeInstanceOf(DiscardableSingleton);
 
-      container.discard(DiscardableSingleton.name);
+        container.discard(DiscardableSingleton.name);
 
-      const secondResolver = container.provide(DiscardableSingleton.name);
-      expect(secondResolver).toBeInstanceOf(ValueResolver);
-      expect(secondResolver).toBe(firstResolver);
+        const secondResolver = container.provide(DiscardableSingleton.name);
+        expect(secondResolver).toBeInstanceOf(ValueResolver);
+        expect(secondResolver).toBe(firstResolver);
 
-      const secondValue = secondResolver.get();
-      expect(secondValue).toBeInstanceOf(DiscardableSingleton);
-      expect(secondValue).not.toBe(firstValue);
+        if (secondResolver) {
+          const secondValue = secondResolver.get();
+          expect(secondValue).toBeInstanceOf(DiscardableSingleton);
+          expect(secondValue).not.toBe(firstValue);
+        }
+      }
     });
   });
 });

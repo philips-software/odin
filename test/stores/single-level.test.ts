@@ -122,7 +122,7 @@ describe('stores', () => {
       });
 
       test(`should not return a descriptor when getting with an empty name or identifier`, () => {
-        // @ts-expect-error: null is not allowed
+        // @ts-expect-error: TS2322, invalid argument type
         expect(store.get(null)).toBeUndefined();
         expect(store.get(undefined)).toBeUndefined();
       });
