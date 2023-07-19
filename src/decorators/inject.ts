@@ -96,7 +96,7 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
       known: knownInjectOptions,
     });
 
-    // @ts-expect-error: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
+    // @ts-expect-error: TS2322, if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return function InjectDecoratorInitializer<This>(this: This, initialValue: unknown): unknown {
       logger.decorators.debug('InjectDecoratorInitializer:', { target, context, initialValue });
 

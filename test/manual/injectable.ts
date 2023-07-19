@@ -12,7 +12,7 @@ class Base {
 class InjectableExpression extends Base {}
 new InjectableExpression('injectable-expression');
 
-// @ts-expect-error: cant call without arguments
+// @ts-expect-error: TS2554, too few or too many arguments
 @Injectable()
 class InjectableCall extends Base {}
 new InjectableCall('injectable-call');

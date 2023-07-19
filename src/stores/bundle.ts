@@ -12,7 +12,7 @@ import { Registry } from './registry.js';
  */
 class Bundle implements Store {
 
-  // @ts-expect-error: never read
+  // @ts-expect-error: TS6133, never read
   private readonly domain: string;
   private readonly parent?: Bundle;
 

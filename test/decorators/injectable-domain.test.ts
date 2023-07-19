@@ -28,7 +28,7 @@ describe('decorators', () => {
         expect(() => {
 
           @Injectable({ domain: 'parent /child' })
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptySpaces {}
 
         }).toThrow(`[odin]: Invalid domain 'parent /child'. It cannot have empty spaces in 'parent '.`);
@@ -36,7 +36,7 @@ describe('decorators', () => {
         expect(() => {
 
           @Injectable({ domain: 'parent/ child' })
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptySpaces {}
 
         }).toThrow(`[odin]: Invalid domain 'parent/ child'. It cannot have empty spaces in ' child'.`);
@@ -46,7 +46,7 @@ describe('decorators', () => {
         expect(() => {
 
           @Injectable({ domain: 'parent//child' })
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptyChunks {}
 
         }).toThrow(`[odin]: Invalid domain 'parent//child'. It cannot have empty chunks.`);

@@ -8,12 +8,12 @@ class Base {
   }
 }
 
-// @ts-expect-error: the configuration options are required
+// @ts-expect-error: TS2554, too few or too many arguments
 @Configuration
 class ConfigurationExpression extends Base {}
 new ConfigurationExpression('configuration-expression');
 
-// @ts-expect-error: the configuration options are required
+// @ts-expect-error: TS2554, too few or too many arguments
 @Configuration()
 class ConfigurationCall extends Base {}
 new ConfigurationCall('configuration-call');

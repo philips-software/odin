@@ -12,14 +12,14 @@ class Injects extends Base {
   @Inject
   injectExpression: any;
 
-  // @ts-expect-error: cant call without arguments
+  // @ts-expect-error: TS2554, too few or too many arguments
   @Inject()
   injectCall: any;
 
-  @Inject('qwe')
+  @Inject('name')
   injectString: any;
 
-  @Inject({ name: 'qwe' })
+  @Inject({ name: 'name' })
   injectOptions: any;
 }
 new Injects('injects');

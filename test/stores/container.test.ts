@@ -12,7 +12,7 @@ describe('container', () => {
   });
 
   test('should return false when checking with an empty name or identifier', () => {
-    // @ts-expect-error: null is not allowed
+    // @ts-expect-error: TS2345, invalid argument type
     expect(container.has(null)).toBe(false);
     expect(container.has(undefined)).toBe(false);
   });
@@ -22,7 +22,7 @@ describe('container', () => {
   });
 
   test('should return undefined when getting with an empty name or identifier', () => {
-    // @ts-expect-error: null is not allowed
+    // @ts-expect-error: TS2345, invalid argument type
     expect(container.get(null)).toBeUndefined();
     expect(container.get(undefined)).toBeUndefined();
   });
@@ -44,7 +44,7 @@ describe('container', () => {
 
   test.each(matrix)('should throw error when creating a new container with an unfit bundle: %s', (_, bundle) => {
     expect(() => {
-      // @ts-expect-error: unknown bundle
+      // @ts-expect-error: TS2345, invalid argument type
       new Container(bundle);
     }).toThrow(`[odin]: The bundle must be or extend Bundle.`);
   });
@@ -53,7 +53,7 @@ describe('container', () => {
     const bundle = new Bundle('domain');
 
     expect(() => {
-      // @ts-expect-error: unknown bundle
+      // @ts-expect-error: TS2345, invalid argument type
       new Container(bundle, provider);
     }).toThrow(`[odin]: The provider must be or extend CustomProvider.`);
   });

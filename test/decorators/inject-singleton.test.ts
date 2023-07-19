@@ -16,15 +16,15 @@ describe('decorators', () => {
         @Injectable
         class SingletonBasedOnStringFixture {
           @Inject(SingletonFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           rightCaseFixture;
 
           @Inject(SingletonFixture.name.toLowerCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           lowerCaseFixture;
 
           @Inject(SingletonFixture.name.toUpperCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           upperCaseFixture;
         }
 
@@ -39,15 +39,15 @@ describe('decorators', () => {
         @Injectable
         class SingletonBasedOnObjectFixture {
           @Inject({ name: SingletonFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           rightCaseFixture;
 
           @Inject({ name: SingletonFixture.name.toLowerCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           lowerCaseFixture;
 
           @Inject({ name: SingletonFixture.name.toUpperCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           upperCaseFixture;
         }
 
@@ -62,11 +62,11 @@ describe('decorators', () => {
         @Injectable
         class MultipleSingletonFixture {
           @Inject(SingletonFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           basedOnStringFixture;
 
           @Inject({ name: SingletonFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           basedOnObjectFixture;
         }
 

@@ -110,7 +110,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     const bundle = odin.bundle(options.domain);
     bundle.register(constructor);
 
-    // @ts-expect-error: if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
+    // @ts-expect-error: TS2322, if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return constructor;
   }
 }

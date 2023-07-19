@@ -83,7 +83,7 @@ describe('core', () => {
 
       expect(container).toBeInstanceOf(Container);
 
-      // @ts-expect-error: private readonly field
+      // @ts-expect-error: TS2341, private readonly field
       expect(container.bundle).toBe(bundle);
     });
 
@@ -94,10 +94,10 @@ describe('core', () => {
 
       expect(container).toBeInstanceOf(Container);
 
-      // @ts-expect-error: private readonly field
+      // @ts-expect-error: TS2341, private readonly field
       expect(container.bundle).toBe(bundle);
 
-      // @ts-expect-error: private readonly field
+      // @ts-expect-error: TS2341, private readonly field
       expect(container.provider).toBe(provider);
     });
 

@@ -45,9 +45,9 @@ describe('decorators', () => {
       expect(() => {
 
         @Injectable
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InitializerCalledWithTooManyArguments {
-          // @ts-expect-error: too many arguments
+          // @ts-expect-error: TS2554, too few or too many arguments
           @Initializer(1)
           oneMethod(): void {}
         }
@@ -80,9 +80,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class', () => {
       expect(() => {
 
-        // @ts-expect-error: cannot decorate a class
+        // @ts-expect-error: TS1238, cannot decorate a class
         @Initializer
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InitializerDecoratingClass {}
 
       }).toThrow(`[odin]: The @Initializer decorator can only decorate a class method. Check the class named 'InitializerDecoratingClass'.`);
@@ -91,9 +91,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class field', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InitializerDecoratingClassField {
-          // @ts-expect-error: cannot decorate a class field
+          // @ts-expect-error: TS1240, cannot decorate a class field
           @Initializer()
           field: any;
         }

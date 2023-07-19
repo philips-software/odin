@@ -42,16 +42,16 @@ describe('custom-provider', () => {
     const resolver = new Resolver();
 
     expect(() => {
-      // @ts-expect-error
+      // @ts-expect-error: TS2345, invalid argument type
       provider.register(Fixture.name, resolver);
     }).toThrow(`[odin]: The resolver '${Fixture.name.toLowerCase()}' must be or extend ValueResolver.`);
   });
 
   test('should report whether it can resolve an injectable or not', () => {
-    // @ts-expect-error: doesn't accept null
+    // @ts-expect-error: TS2345, invalid argument type
     expect(provider.has(null)).toBe(false);
 
-    // @ts-expect-error: doesn't accept undefined
+    // @ts-expect-error: TS2345, invalid argument type
     expect(provider.has(undefined)).toBe(false);
 
     provider.register(Fixture.name, resolver);
@@ -61,10 +61,10 @@ describe('custom-provider', () => {
   });
 
   test('should resolve to the resolver or undefined', () => {
-    // @ts-expect-error: doesn't accept null
+    // @ts-expect-error: TS2345, invalid argument type
     expect(provider.resolve(null)).toBeUndefined();
 
-    // @ts-expect-error: doesn't accept undefined
+    // @ts-expect-error: TS2345, invalid argument type
     expect(provider.resolve(undefined)).toBeUndefined();
 
     // missing

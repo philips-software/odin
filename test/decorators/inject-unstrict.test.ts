@@ -20,7 +20,7 @@ describe('decorators', () => {
       @Injectable
       class InjectableByPropertyFixture {
         @Inject
-        // @ts-expect-error: implicit any
+        // @ts-expect-error: TS7008, implicit any
         fixture;
       }
 
@@ -35,15 +35,15 @@ describe('decorators', () => {
       @Injectable
       class MultipleCaseBasedOnStringFixture {
         @Inject(CaseBasedOnStringFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         rightCaseBasedOnStringFixture;
 
         @Inject(CaseBasedOnStringFixture.name.toLowerCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         lowerCaseBasedOnStringFixture;
 
         @Inject(CaseBasedOnStringFixture.name.toUpperCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         upperCaseBasedOnStringFixture;
       }
 
@@ -61,15 +61,15 @@ describe('decorators', () => {
       @Injectable
       class MultipleCaseBasedOnObjectFixture {
         @Inject({ name: CaseBasedOnObjectFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         rightCaseBasedOnObjectFixture;
 
         @Inject({ name: CaseBasedOnObjectFixture.name.toLowerCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         lowerCaseBasedOnObjectFixture;
 
         @Inject({ name: CaseBasedOnObjectFixture.name.toUpperCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         upperCaseBasedOnObjectFixture;
       }
 

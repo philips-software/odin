@@ -37,7 +37,7 @@ function Configuration<Target extends ClassDecoratorTarget>(target: Configuratio
     throw new Error(logger.createMessage(`The @Configuration decorator cannot be called without any arguments. Add an argument or remove the ().`));
   }
 
-  // @ts-expect-error: yes the type doesn't like it but necessary for consistency and validation
+  // @ts-expect-error: TS2741, yes the type doesn't like it but necessary for consistency and validation
   let options: ConfigurationOptions = {};
 
   if (typeof target === 'function' && context) {

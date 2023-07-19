@@ -15,15 +15,15 @@ describe('decorators', () => {
       @Injectable
       class MultipleCaseBasedOnStringFixture {
         @Inject(CaseBasedOnStringFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         rightCaseBasedOnStringFixture;
 
         @Inject(CaseBasedOnStringFixture.name.toLowerCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         lowerCaseBasedOnStringFixture;
 
         @Inject(CaseBasedOnStringFixture.name.toUpperCase())
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         upperCaseBasedOnStringFixture;
       }
 
@@ -41,15 +41,15 @@ describe('decorators', () => {
       @Injectable
       class MultipleCaseBasedOnObjectFixture {
         @Inject({ name: CaseBasedOnObjectFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         rightCaseBasedOnObjectFixture;
 
         @Inject({ name: CaseBasedOnObjectFixture.name.toLowerCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         lowerCaseBasedOnObjectFixture;
 
         @Inject({ name: CaseBasedOnObjectFixture.name.toUpperCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
         upperCaseBasedOnObjectFixture;
       }
 
@@ -64,10 +64,10 @@ describe('decorators', () => {
       expect(() => {
 
         @Injectable
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
         class StrictWithoutStringNameFixture {
           @Inject
-            // @ts-expect-error: implicit any
+            // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 
@@ -78,10 +78,10 @@ describe('decorators', () => {
       expect(() => {
 
         @Injectable
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
         class StrictWithoutObjectNameFixture {
           @Inject({})
-            // @ts-expect-error: implicit any
+            // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 
@@ -92,11 +92,11 @@ describe('decorators', () => {
       expect(() => {
 
         @Injectable
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
         class Fixture {
-          // @ts-expect-error: called without any arguments
+          // @ts-expect-error: TS2554, too few or too many arguments
           @Inject()
-            // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 
@@ -107,11 +107,11 @@ describe('decorators', () => {
       expect(() => {
 
         @Injectable
-          // @ts-expect-error: unused class
+          // @ts-expect-error: TS6196, unused class
         class Fixture {
-          // @ts-expect-error: too many arguments
+          // @ts-expect-error: TS2554, too few or too many arguments
           @Inject(1, 2)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           fixture;
         }
 
@@ -121,9 +121,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class', () => {
       expect(() => {
 
-        // @ts-expect-error: cannot decorate a class
+        // @ts-expect-error: TS1238, cannot decorate a class
         @Inject({})
-          // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectDecoratingClass {}
 
       }).toThrow(`[odin]: The @Inject decorator can only decorate a class field. Check the class named 'InjectDecoratingClass'.`);
@@ -132,9 +132,9 @@ describe('decorators', () => {
     test('should throw error when decorating a class method', () => {
       expect(() => {
 
-        // @ts-expect-error: unused class
+        // @ts-expect-error: TS6196, unused class
         class InjectDecoratingClassMethod {
-          // @ts-expect-error: cannot decorate a class method
+          // @ts-expect-error: TS1241, cannot decorate a class method
           @Inject({})
           method(): void {}
         }

@@ -79,28 +79,28 @@ describe('common', () => {
       ]);
 
       testValidatorErrorMatrix(validateDecoratorOptions, [
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['a blank string', '[odin]: Invalid decorator options. It must be an object.', ['']],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['a contentful string', '[odin]: Invalid decorator options. It must be an object.', ['contentful']],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['an array', '[odin]: Invalid decorator options. It must be an object.', [[]]],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['false', '[odin]: Invalid decorator options. It must be an object.', [false]],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['null', '[odin]: Invalid decorator options. It must be an object.', [null]],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['true', '[odin]: Invalid decorator options. It must be an object.', [true]],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['undefined', '[odin]: Invalid decorator options. It must be an object.', [undefined]],
 
-        // @ts-expect-error: missing options
+        // @ts-expect-error: TS2322, invalid argument type
         ['an empty object and no options', '[odin]: Invalid validator options. It must be an object.', [{}]],
 
         [
@@ -148,22 +148,22 @@ describe('common', () => {
         ['a contentful string with empty chunks', `[odin]: Invalid domain 'parent//child'. It cannot have empty chunks.`, ['parent//child']],
         ['a contentful string with spaces', `[odin]: Invalid domain 'contentful '. It cannot have empty spaces in 'contentful '.`, ['contentful ']],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['a number', '[odin]: Invalid domain. It should be a contentful string.', [123]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['an array', '[odin]: Invalid domain. It should be a contentful string.', [[]]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['an object', '[odin]: Invalid domain. It should be a contentful string.', [{}]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['false', '[odin]: Invalid domain. It should be a contentful string.', [false]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['null', '[odin]: Invalid domain. It should be a contentful string.', [null]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['true', '[odin]: Invalid domain. It should be a contentful string.', [true]],
 
         ['undefined', '[odin]: Invalid domain. It should be a contentful string.', [undefined]],
@@ -190,22 +190,22 @@ describe('common', () => {
         ['a contentful string with chunks', `[odin]: Invalid name or identifier 'parent/child'. It cannot have chunks.`, ['parent/child']],
         ['a contentful string with spaces', `[odin]: Invalid name or identifier 'contentful '. It cannot have empty spaces.`, ['contentful ']],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['a number', '[odin]: Invalid name or identifier. It should be a contentful string.', [123]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['an array', '[odin]: Invalid name or identifier. It should be a contentful string.', [[]]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['an object', '[odin]: Invalid name or identifier. It should be a contentful string.', [{}]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['false', '[odin]: Invalid name or identifier. It should be a contentful string.', [false]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['null', '[odin]: Invalid name or identifier. It should be a contentful string.', [null]],
 
-        // @ts-expect-error: invalid input type
+        // @ts-expect-error: TS2322, invalid argument type
         ['true', '[odin]: Invalid name or identifier. It should be a contentful string.', [true]],
 
         ['undefined', '[odin]: Invalid name or identifier. It should be a contentful string.', [undefined]],

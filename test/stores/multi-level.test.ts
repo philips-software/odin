@@ -19,15 +19,15 @@ describe('stores', () => {
     });
 
     test('should both be related', () => {
-      // @ts-expect-error: private readonly field
+      // @ts-expect-error: TS2341, private readonly field
       expect(parentBundle.hasChild(childBundle.domain)).toBe(true);
 
-      // @ts-expect-error: private readonly field
+      // @ts-expect-error: TS2341, private readonly field
       expect(childBundle.parent).toBe(parentBundle);
     });
 
     test('should not have child with an empty name or identifier', () => {
-      // @ts-expect-error: doesn't accept null
+      // @ts-expect-error: TS2345, invalid argument type
       expect(parentBundle.hasChild(null)).toBe(false);
       expect(parentBundle.hasChild(undefined)).toBe(false);
     });

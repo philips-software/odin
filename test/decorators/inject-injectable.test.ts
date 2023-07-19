@@ -16,16 +16,16 @@ describe('decorators', () => {
         @Injectable
         class InjectBasedOnStringFixture {
           @Inject(InjectableFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           rightCaseFixture;
 
           @Inject(InjectableFixture.name.toLowerCase())
-          // @ts-expect-error: implicit any
-          lowerCaseFixture: InjectableFixture;
+          // @ts-expect-error: TS7008, implicit any
+          lowerCaseFixture;
 
           @Inject(InjectableFixture.name.toUpperCase())
-          // @ts-expect-error: implicit any
-          upperCaseFixture: InjectableFixture;
+          // @ts-expect-error: TS7008, implicit any
+          upperCaseFixture;
         }
 
         const provided = container.provide<InjectBasedOnStringFixture>(InjectBasedOnStringFixture.name, true);
@@ -39,15 +39,15 @@ describe('decorators', () => {
         @Injectable
         class InjectBasedOnObjectFixture {
           @Inject({ name: InjectableFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           rightCaseFixture;
 
           @Inject({ name: InjectableFixture.name.toLowerCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           lowerCaseFixture;
 
           @Inject({ name: InjectableFixture.name.toUpperCase() })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           upperCaseFixture;
         }
 
@@ -62,11 +62,11 @@ describe('decorators', () => {
         @Injectable
         class MultipleInjectableFixture {
           @Inject(InjectableFixture.name)
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           basedOnStringFixture;
 
           @Inject({ name: InjectableFixture.name })
-          // @ts-expect-error: implicit any
+          // @ts-expect-error: TS7008, implicit any
           basedOnObjectFixture;
         }
 
