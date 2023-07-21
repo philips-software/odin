@@ -12,7 +12,8 @@ import { Registry } from './registry.js';
  */
 class Bundle implements Store {
 
-  // @ts-expect-error: TS6133, never read
+  // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error,@typescript-eslint/ban-ts-comment
+  // @ts-ignore: TS6133, never read
   private readonly domain: string;
   private readonly parent?: Bundle;
 
