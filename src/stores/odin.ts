@@ -1,5 +1,6 @@
 import { normalizeDomain } from '../common/normalizers.js';
 import { validateDomain } from '../common/validators.js';
+import { version } from '../common/version.js';
 import type { CustomProvider } from '../providers/custom-provider.js';
 import type { ValueResolver } from '../resolvers/value-resolver.js';
 import { logger } from '../singletons/logger.js';
@@ -7,6 +8,7 @@ import { Bundle } from '../stores/bundle.js';
 import { Container } from '../stores/container.js';
 
 const bundleSymbol = Symbol('odin-bundle');
+const versionSymbol = Symbol('odin-version');
 
 /**
  * Maintains odin's root bundle and the hierarchy that goes with it.
@@ -16,6 +18,14 @@ const bundleSymbol = Symbol('odin-bundle');
 class Odin {
 
   private readonly [bundleSymbol] = new Bundle('odin');
+  private readonly [versionSymbol] = version;
+
+  /**
+   * Odin's version.
+   */
+  get version(): string {
+    return this[versionSymbol];
+  }
 
   /**
    * Finds or creates a bundle based on the given domain.
