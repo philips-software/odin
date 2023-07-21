@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 
+import { version } from '../../src/common/version.js';
 import { Bundle } from '../../src/stores/bundle.js';
 import { Container } from '../../src/stores/container.js';
 import { CustomProvider } from '../../src/providers/custom-provider.js';
@@ -24,6 +25,10 @@ describe('core', () => {
 
   beforeEach(() => {
     odin = new Odin();
+  });
+
+  test('should have version', () => {
+    expect(odin.version).toBe(version);
   });
 
   describe('bundle', () => {
@@ -76,7 +81,6 @@ describe('core', () => {
   });
 
   describe('container', () => {
-
     test('should create container for a known domain', () => {
       const bundle = odin.bundle(VALID_SIMPLE_DOMAIN);
       const container = odin.container(VALID_SIMPLE_DOMAIN);
