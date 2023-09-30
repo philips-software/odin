@@ -6,8 +6,8 @@
 
 [badge-license]: https://img.shields.io/github/license/philips-software/odin?style=flat-square
 [badge-license-link]: LICENSE.md
-[badge-npm]: https://img.shields.io/npm/v/@odinjs/odin?logo=npm&style=flat-square
-[badge-npm-link]: https://www.npmjs.com/package/@odinjs/odin
+[badge-npm]: https://img.shields.io/npm/v/@philips-software/odin?logo=npm&style=flat-square
+[badge-npm-link]: https://www.npmjs.com/package/@philips-software/odin
 [badge-workflow-ci]: https://img.shields.io/github/actions/workflow/status/philips-software/odin/ci.yml?branch=main&label=ci&logo=github&style=flat-square
 [badge-workflow-ci-link]: https://github.com/philips-software/odin/actions/workflows/ci.yml
 
@@ -71,14 +71,14 @@ In `v1` and `v2` (legacy versions), `odin` used the [experimental stage 2 decora
 
 ## Installation
 ```shell
-npm i --save @odinjs/odin
+npm i --save @philips-software/odin
 ```
 
 ## Getting started
 
 Declare an injectable:
 ```typescript
-import { Injectable } from '@odinjs/odin';
+import { Injectable } from '@philips-software/odin';
 
 @Injectable
 class InjectableExample {
@@ -90,7 +90,7 @@ class InjectableExample {
 
 Inject the injectable into another injectable:
 ```typescript
-import { Inject, Injectable } from '@odinjs/odin';
+import { Inject, Injectable } from '@philips-software/odin';
 
 @Injectable
 class UsageExample {
@@ -106,7 +106,7 @@ class UsageExample {
 
 Use [`odin`](#api) to instantiate the injectable, which will inject its dependencies automagically:
 ```typescript
-import { odin } from '@odinjs/odin';
+import { odin } from '@philips-software/odin';
 
 // creates a container based on the root bundle
 // the container provides instances and dependencies
@@ -140,7 +140,7 @@ When using Odin's [`Injectable` decorator](#injectable-decorator), the injectabl
 
 This snippet shows how to register an injectable manually:
 ```typescript
-import { odin } from '@odinjs/odin';
+import { odin } from '@philips-software/odin';
 
 class Injectable { }
 
@@ -158,7 +158,7 @@ By default, [`odin`](#api) containers can only provide instances of `class`, so 
 
 This snippet shows how to create/obtain a container:
 ```typescript
-import { odin } from '@odinjs/odin';
+import { odin } from '@philips-software/odin';
 
 class Injectable { }
 
@@ -192,7 +192,7 @@ The `CustomProvider` is used to provide values for injects that are not provided
 
 This snippet shows how to create a `CustomProvider` and supply it to a [`container`](#container):
 ```typescript
-import { odin, CustomProvider } from '@odinjs/odin';
+import { odin, CustomProvider } from '@philips-software/odin';
 
 // creates a new provider
 const provider = new CustomProvider();
@@ -206,7 +206,7 @@ This method is used to register a resolver to resolve a name or identifier when 
 
 This snippet shows how to provide a counter that automatically increments itself every time it's injected:
 ```typescript
-import { odin, CustomProvider, ValueResolver } from '@odinjs/odin';
+import { odin, CustomProvider, ValueResolver } from '@philips-software/odin';
 
 // creates a new resolver
 const resolver = new ValueResolver(() => {
@@ -229,7 +229,7 @@ This method is used to request a resolution, returning the resolved value.
 
 This snippet shows a resolver of a counter that automatically increments itself every time it's injected:
 ```typescript
-import { ValueResolver } from '@odinjs/odin';
+import { ValueResolver } from '@philips-software/odin';
 
 let autoIncrementCounter = 0;
 
@@ -246,7 +246,7 @@ This method optionally accepts an instance of an injectable as the argument, whi
 
 This snippet shows a resolver that uses the instance argument:
 ```typescript
-import { odin, CustomProvider, ValueResolver } from '@odinjs/odin';
+import { odin, CustomProvider, ValueResolver } from '@philips-software/odin';
 
 @Injectable({ domain: 'domain' })
 class Injectable {
@@ -279,7 +279,7 @@ This resolver is used to speed up resolution by resolving only once and caching 
 
 This snippet shows the effect this resolver would have on a counter that automatically increments itself every time it's injected:
 ```typescript
-import { FinalValueResolver } from '@odinjs/odin';
+import { FinalValueResolver } from '@philips-software/odin';
 
 let autoIncrementCounter = 0;
 
@@ -301,7 +301,7 @@ This decorator is used to apply a [configuration](#configuration) to [`odin`](#a
 
 This snippet shows how to apply a configuration using the decorator:
 ```typescript
-import { Configuration } from '@odinjs/odin';
+import { Configuration } from '@philips-software/odin';
 
 @Configuration({ strict: true })
 class OdinConfiguration { }
