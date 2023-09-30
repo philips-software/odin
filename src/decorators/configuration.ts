@@ -53,7 +53,7 @@ function Configuration<Target extends ClassDecoratorTarget>(target: Configuratio
   return ConfigurationDecorator;
 
   function ConfigurationDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | undefined {
-    logger.decorators.debug('ConfigurationDecorator:', { target, context });
+    logger.decorators.debug('ConfigurationDecorator:', { target, context, options });
 
     if (context.kind !== 'class') {
       throw new Error(logger.createMessage(`The @Configuration decorator can only decorate a class. Check the ${String(context.kind)} named '${String(context.name)}'.`));

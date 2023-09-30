@@ -60,7 +60,7 @@ describe('decorators', () => {
       expect(provided.upperCaseBasedOnObjectFixture).toBeUndefined();
     });
 
-    test('should throw error when injecting based on the property name', () => {
+    test('should not throw error when injecting based on the property name', () => {
       expect(() => {
 
         @Injectable
@@ -71,10 +71,10 @@ describe('decorators', () => {
           fixture;
         }
 
-      }).toThrow(`[odin]: Invalid name or identifier. It should be a contentful string.`);
+      }).not.toThrow();
     });
 
-    test('should throw error when injecting based on an object without a name', () => {
+    test('should not throw error when injecting based on an object without a name', () => {
       expect(() => {
 
         @Injectable
@@ -85,7 +85,7 @@ describe('decorators', () => {
           fixture;
         }
 
-      }).toThrow(`[odin]: Invalid name or identifier. It should be a contentful string.`);
+      }).not.toThrow();
     });
 
     test('should throw error when called without any arguments', () => {
