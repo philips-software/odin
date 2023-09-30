@@ -38,7 +38,7 @@ const vitestConfiguration = defineConfig({
       },
     },
     deps: {
-      experimentalOptimizer: {
+      optimizer: {
         web: {
           enabled: true,
         },
