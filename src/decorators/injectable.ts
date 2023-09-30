@@ -16,6 +16,11 @@ interface InjectableOptions {
   domain?: string;
 
   /**
+   * The name to use to register the injectable.
+   */
+  name?: string;
+
+  /**
    * Defines the injectable as singleton.
    * If {@link true}, the injected instance will be reused until explicitly discarded.
    *
@@ -26,6 +31,7 @@ interface InjectableOptions {
 
 const knownInjectableOptions: (keyof InjectableOptions)[] = [
   'domain',
+  'name',
   'singleton',
 ];
 
@@ -108,7 +114,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     }
 
     const bundle = odin.bundle(options.domain);
-    bundle.register(constructor);
+    bundle.register(constructor, { name: options.name });
 
     // @ts-expect-error: TS2322, if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return constructor;

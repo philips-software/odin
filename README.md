@@ -34,12 +34,14 @@ In `v1` and `v2` (legacy versions), `odin` used the [experimental stage 2 decora
 
 ## Roadmap
 #### Breaking changes planned for future major versions
-- The [`@Injectable` decorator](#injectable-decorator) will no longer use the class name to register the injectable, which will instead have to be explicitly supplied. This allows build tools to change the class name during optimization and minification.
-  - [`@Injectable` with options](#injectable-with-options) will require the `name`.
+- The [`@Injectable` decorator](#injectable-decorator) will no longer use the class name to register the injectable, which will instead have to be explicitly supplied through `options.name`. This allows build tools to change the class name during optimization and minification.
+  - [`@Injectable` with options](#injectable-with-options) will require `options.name`.
   - [`@Injectable` without any arguments](#injectable-without-any-arguments) will be removed.
+- The [`@Inject` decorator](#inject-decorator) will no longer use the class field name to register the injection. The wanted name will instead have to be explicitly supplied through `options.name`. This allows build tools to change the class field name during optimization and minification.
+  - [`@Inject` with options](#inject-with-options) will require `options.name`.
+  - [`@Inject` with a string](#inject-with-a-string) will be removed, use [`@Inject` with options](#inject-with-options) instead.
+  - [`@Inject` without any arguments](#inject-without-any-arguments) will be removed, use [`@Inject` with options](#inject-with-options) instead.
 - The [`@Configuration` decorator](#configuration-decorator) and its [`configuration`](#configuration) will be removed and the `strict` mode behavior will be the default. Less magic is magic.
-- [`@Inject` with a string](#inject-with-a-string) will be removed, use [`@Inject` with options](#inject-with-options) instead.
-- [`@Inject` without any arguments](#inject-without-any-arguments) will be removed, use [`@Inject` with options](#inject-with-options) instead.
 
 ## Documentation
 - [Installation](#installation)
@@ -127,7 +129,7 @@ The `domain` is used to identify [`bundles`](#bundle) within a hierarchy.
 
 Domains are useful to reduce coupling among different parts of the application by splitting it into smaller parts, making each part of application responsible for managing its own context-bound injectables. Injectables registered within a domain will only be available within the domain itself and its child domains, and not by parent or sibling domains.
 
-Check the [Injectable resolution within domains](#injectable-resolution-within-domains).
+Check the [Resolution lifecycle](#resolution-lifecycle).
 
 > A `domain` is a `string` that represents a chain of [`bundles`](#bundle), hierarchically organized, with just a single level, or multiple levels separated by forward slashes (`/`).
 
@@ -175,7 +177,7 @@ This method provides an `instance` of the injectable matching the `nameOrIdentif
 
 When a new `instance` is created, its dependencies (declared using the [`@Inject` decorator](#inject-decorator)) will be bound to an accessor that will provide their value upon their first access (lazy inject by default). If a dependency is declared as `eager`, it will be bound to its provided value during instantiation.
 
-> See: [Container provide lifecycle](#container-provide-lifecycle).
+> See: [Provisioning lifecycle](#provisioning-lifecycle).
 
 This snippet shows how to provide an instance of a previously registered injectable using the container:
 ```typescript
@@ -310,7 +312,7 @@ This decorator can only decorate injectable classes.
 
 It registers the injectable in a [`bundle`](#bundle) using the class name.
 
-> See: [Injectable instantiation lifecycle](#injectable-instantiation-lifecycle).
+> See: [Instantiation lifecycle](#instantiation-lifecycle).
 
 #### `@Injectable` with options
 This is the recommended use of this decorator. It accepts options that configure the registration behavior. The options can be seen in the [`InjectableOptions` interface](./src/decorators/injectable.ts).
@@ -320,11 +322,16 @@ This snippet shows multiple variations of options and their effect:
 @Injectable({ domain: 'sample' })
 class StandardInjectable { } // registerd in the sample domain, new instance every time
 
+@Injectable({ name: 'Custom' })
+class NamedInjectable { } // registered with the supplied name
+
 @Injectable({ singleton: true })
 class SingletonInjectable { } // registered in the root domain, same instance every time
 ```
 
 #### `@Injectable` without any arguments
+> _Deprecated, to be removed in a future major version. Use [`@Injectable` with options](#injectable-with-options) instead._
+
 This variation is a syntax sugar for [`@Injectable` with options](#injectable-with-options). When no argument is provided, the decorator will use the class name as the `options.name` value.
 
 This snippet shows how the class field name could be used as the name or identifier:
@@ -338,7 +345,7 @@ This decorator can only decorate class fields of injectables. Can be used multip
 
 Learn more about its purpose in the [`container.provide` method](#providenameoridentifier-string-resolve-boolean-instance--resolver--undefined) documentation.
 
-> See: [Injectable instantiation lifecycle](#injectable-instantiation-lifecycle).
+> See: [Instantiation lifecycle](#instantiation-lifecycle).
 
 #### `@Inject` with options
 This is the recommended use of this decorator. It accepts options that configure the inject behavior. The options can be seen in the [`InjectOptions` interface](./src/decorators/inject.ts).
@@ -406,7 +413,7 @@ This decorator can only decorate class methods of injectables. Only one per clas
 
 When a new injectable is created, its default constructor is called before injects are provided. The initializer method is called right after the injects are provided and available for use.
 
-> See: [Injectable instantiation lifecycle](#injectable-instantiation-lifecycle).
+> See: [Instantiation lifecycle](#instantiation-lifecycle).
 
 This snippet shows how to use this decorator to access injected fields after they are initialized:
 ```typescript
@@ -468,9 +475,9 @@ Represents how the decorators are evaluated and used. The code is evaluated by t
 
 ```mermaid
 flowchart TB
-    evaluation[code evaluation by the engine] --> decorator[found a decorator\nregister in odin]
+    evaluation[code evaluation by the engine] --> decorator[found a decorator \n register in odin]
     decorator --> validation[odin validates injectable]
-    validation --> available[injectable registered\navailable for use]
+    validation --> available[injectable registered \n available for use]
     available --> ready([application ready])
     available -.-> decorator
 ```
@@ -484,7 +491,7 @@ The application is responsible for retrieving [`containers`](#container) from [`
 
 ```mermaid
 flowchart TB
-    ready[[application ready]] --> run[container is created\napplication runs]
+    ready[[application ready]] --> run[container is created \n application runs]
     run --> execution[normal execution]
     execution --> requestInjectable[requests injectable instance]
     requestInjectable --> provide[container provides instance]
@@ -503,7 +510,7 @@ Represents the logic flow used in [`container.provide`](#providenameoridentifier
 flowchart TB
     provide[[container.provide]] --> cached{is cached?}
     cached -->|yes| return{should resolve?}
-    cached -->|no| exists{in container?\nresolution}
+    cached -->|no| exists{in container? \n resolution}
     return -->|yes| returnInstance([returns instance/value])
     return -->|no| returnResolver([returns resolver])
     exists -->|yes| instantiate[instantiate]

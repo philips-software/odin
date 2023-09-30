@@ -85,7 +85,7 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
   return InjectDecorator;
 
   function InjectDecorator<This, Target extends ClassFieldDecoratorTarget>(target: Target, context: ClassFieldDecoratorContext<This>): Target | undefined {
-    logger.decorators.debug('InjectDecorator:', { target, context });
+    logger.decorators.debug('InjectDecorator:', { target, context, options });
 
     if (context.kind !== 'field') {
       throw new Error(logger.createMessage(`The @Inject decorator can only decorate a class field. Check the ${String(context.kind)} named '${String(context.name)}'.`));
@@ -98,7 +98,7 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
 
     // @ts-expect-error: TS2322, if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return function InjectDecoratorInitializer<This>(this: This, initialValue: unknown): unknown {
-      logger.decorators.debug('InjectDecoratorInitializer:', { target, context, initialValue });
+      logger.decorators.debug('InjectDecoratorInitializer:', { target, context, initialValue, options });
 
       if (options.eager) {
         stashEager(this as any, String(context.name));

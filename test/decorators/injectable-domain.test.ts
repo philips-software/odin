@@ -31,7 +31,7 @@ describe('decorators', () => {
           // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptySpaces {}
 
-        }).toThrow(`[odin]: Invalid domain 'parent /child'. It cannot have empty spaces in 'parent '.`);
+        }).toThrow(`[odin]: Invalid validator options. Invalid domain 'parent /child'. It cannot have empty spaces in 'parent '.`);
 
         expect(() => {
 
@@ -39,7 +39,7 @@ describe('decorators', () => {
           // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptySpaces {}
 
-        }).toThrow(`[odin]: Invalid domain 'parent/ child'. It cannot have empty spaces in ' child'.`);
+        }).toThrow(`[odin]: Invalid validator options. Invalid domain 'parent/ child'. It cannot have empty spaces in ' child'.`);
       });
 
       test('should throw error when the domain has empty chunks', () => {
@@ -49,7 +49,7 @@ describe('decorators', () => {
           // @ts-expect-error: TS6196, unused class
           class InjectableWithInvalidDomainWithEmptyChunks {}
 
-        }).toThrow(`[odin]: Invalid domain 'parent//child'. It cannot have empty chunks.`);
+        }).toThrow(`[odin]: Invalid validator options. Invalid domain 'parent//child'. It cannot have empty chunks.`);
       });
 
     });

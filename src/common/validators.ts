@@ -1,4 +1,3 @@
-import { configuration } from '../singletons/configuration.js';
 import { logger } from '../singletons/logger.js';
 
 /**
@@ -82,12 +81,18 @@ function validateDecoratorOptions(decoratorOptions: any, options: ValidateDecora
 
   const { allowUnknown = false, known = [], required = [] } = options;
 
-  if (known.includes('domain') && decoratorOptions.domain) {
-    validateDomain(decoratorOptions.domain);
-  }
+  try {
+    if (known.includes('domain') && decoratorOptions.domain) {
+      validateDomain(decoratorOptions.domain);
+    }
 
-  if (known.includes('name') && (decoratorOptions.name || configuration.isStrict())) {
-    validateNameOrIdentifier(decoratorOptions.name);
+    if (known.includes('name') && decoratorOptions.name) {
+      validateNameOrIdentifier(decoratorOptions.name);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(logger.createMessage(`Invalid validator options. ${error.message}`));
+    }
   }
 
   for (const name of required) {

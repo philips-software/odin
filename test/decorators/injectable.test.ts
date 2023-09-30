@@ -42,6 +42,45 @@ describe('decorators', () => {
       expect(providedB.circular).toBeInstanceOf(CircularInjectableA);
     });
 
+    test('should register respecting the name casing based on an object with a name', () => {
+      const name = 'CaseBasedOnObjectFixture';
+
+      @Injectable({ name })
+      class RightCaseBasedOnObjectFixture {}
+
+      @Injectable({ name: name.toLowerCase() })
+      class LowerCaseBasedOnObjectFixture {}
+
+      @Injectable({ name: name.toUpperCase() })
+      class UpperCaseBasedOnObjectFixture {}
+
+      const container = odin.container();
+
+      const rightCaseBasedOnObjectFixture = container.provide(name, true);
+      expect(rightCaseBasedOnObjectFixture).toBeInstanceOf(RightCaseBasedOnObjectFixture);
+
+      const lowerCaseBasedOnObjectFixture = container.provide(name.toLowerCase(), true);
+      expect(lowerCaseBasedOnObjectFixture).toBeInstanceOf(LowerCaseBasedOnObjectFixture);
+
+      const upperCaseBasedOnObjectFixture = container.provide(name.toUpperCase(), true);
+      expect(upperCaseBasedOnObjectFixture).toBeInstanceOf(UpperCaseBasedOnObjectFixture);
+    });
+
+    test('should register with both custom name and the class name', () => {
+      const name = 'CustomNameFixture';
+
+      @Injectable({ name })
+      class OriginalNameFixture {}
+
+      const container = odin.container();
+
+      const customNameFixture = container.provide(name, true);
+      expect(customNameFixture).toBeInstanceOf(OriginalNameFixture);
+
+      const originalNameFixture = container.provide(OriginalNameFixture.name, true);
+      expect(originalNameFixture).toBeInstanceOf(OriginalNameFixture);
+    });
+
     test('should throw error when called without any arguments', () => {
       expect(() => {
 
