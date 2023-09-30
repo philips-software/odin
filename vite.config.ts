@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import type { UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 const sourcesDirectory = 'src';
@@ -33,4 +32,4 @@ export default defineConfig({
       strictOutput: true,
     }),
   ],
-}) as UserConfig;
+});

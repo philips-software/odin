@@ -2,7 +2,6 @@ import ts from 'typescript';
 import { mergeConfig } from 'vite';
 import { vitePluginTypescriptTransform } from 'vite-plugin-typescript-transform';
 import { defaultExclude, defaultInclude, defineConfig } from 'vitest/config';
-import type { UserConfig } from 'vitest/config';
 
 import viteConfiguration from './vite.config.js';
 
@@ -61,7 +60,7 @@ const vitestConfiguration = defineConfig({
       './test/setup/configuration.ts',
     ],
   },
-}) as UserConfig;
+});
 
 export default mergeConfig(
   viteConfiguration,
