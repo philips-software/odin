@@ -30,4 +30,9 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
+      - uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          verbose: true
       - run: npm run build
