@@ -17,6 +17,10 @@ new InjectableExpression('injectable-expression');
 class InjectableCall extends Base {}
 new InjectableCall('injectable-call');
 
-@Injectable({ singleton: true, domain: 'qwe' })
+@Injectable({ domain: 'qwe', singleton: true })
 class InjectableOptions extends Base {}
 new InjectableOptions('injectable-options');
+
+@Injectable({ domain: 'qwe', singleton: true, name: 'name-in-options' })
+class InjectableOptionsWithName extends Base {}
+new InjectableOptionsWithName('injectable-options-with-name');

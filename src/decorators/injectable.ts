@@ -61,9 +61,18 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     throw new Error(logger.createMessage(`The @Injectable decorator cannot be called without any arguments. Add an argument or remove the ().`));
   }
 
-  let options: InjectableOptions = {};
+  let options: InjectableOptions | undefined;
 
   if (typeof target === 'function' && context) {
+    logger.notifyDeprecation({
+      name: '@Injectable decorator without any arguments',
+      nameExample: '@Injectable',
+      since: 'v3.0.0',
+      use: '@Injectable decorator with options',
+      useExample: '@Injectable({ ...options })',
+      whatWillHappen: 'It will be removed',
+    });
+
     return InjectableDecorator(target, context);
   }
 
@@ -71,12 +80,35 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     throw new Error(logger.createMessage(`The @Injectable decorator cannot be called with more than one argument.`));
   }
 
-  options = { ...target } as InjectableOptions;
+  if (typeof target === 'object') {
+    if (Array.isArray(target)) {
+      throw new Error(logger.createMessage(`The @Injectable decorator cannot be called with an array as argument.`));
+    }
+
+    if (Object.getOwnPropertyNames(target).length <= 0) {
+      throw new Error(logger.createMessage(`The @Injectable decorator cannot be called with an empty object as argument.`));
+    }
+
+    options = { ...target } as InjectableOptions;
+  }
 
   return InjectableDecorator;
 
   function InjectableDecorator<Target extends ClassDecoratorTarget>(target: Target, context: ClassDecoratorContext<Target>): Target | undefined {
-    logger.decorators.debug('InjectableDecorator"', { target, context });
+    logger.decorators.debug('InjectableDecorator"', { target, context, options });
+
+    if (options && typeof options.name !== 'string') {
+      logger.notifyDeprecation({
+        name: '@Injectable decorator options without a name',
+        nameExample: '@Injectable({})',
+        since: 'v3.0.0',
+        use: '@Injectable decorator options with a name',
+        useExample: `@Injectable({ name: '${context.name}' })`,
+        whatWillHappen: 'The name option will be required',
+      });
+    }
+
+    options = options ?? {};
 
     if (context.kind !== 'class') {
       throw new Error(logger.createMessage(`The @Injectable decorator can only decorate a class. Check the ${String(context.kind)} named '${String(context.name)}'.`));
@@ -88,7 +120,7 @@ function Injectable<Target extends ClassDecoratorTarget>(target: InjectableOptio
     });
 
     const constructor = function InjectableDecoratorInitializer(...args: any[]): any {
-      logger.decorators.debug('InjectableDecoratorInitializer:', { target, context, args });
+      logger.decorators.debug('InjectableDecoratorInitializer:', { target, context, options, args });
 
       const instance = new target(...args);
 

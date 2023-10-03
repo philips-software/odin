@@ -33,6 +33,14 @@ function Configuration(options: ConfigurationOptions): ClassDecorator;
 function Configuration<Target extends ClassDecoratorTarget>(target: ConfigurationOptions | Target, context?: ClassDecoratorContext<Target>): ClassDecorator | ReturnType<ClassDecorator> {
   logger.decorators.debug('Configuration:', { target, context });
 
+  logger.notifyDeprecation({
+    name: '@Configuration decorator',
+    nameExample: '@Configuration({ ...configuration })',
+    since: 'v3.0.0',
+    use: 'explicit and exact-case names in @Injectable and @Inject decorators',
+    whatWillHappen: 'All configuration will be removed and strict mode will be the default',
+  });
+
   if (arguments.length <= 0) {
     throw new Error(logger.createMessage(`The @Configuration decorator cannot be called without any arguments. Add an argument or remove the ().`));
   }

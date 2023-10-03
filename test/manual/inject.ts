@@ -16,10 +16,13 @@ class Injects extends Base {
   @Inject()
   injectCall: any;
 
-  @Inject('name')
+  @Inject('name-as-string')
   injectString: any;
 
-  @Inject({ name: 'name' })
+  @Inject({})
   injectOptions: any;
+
+  @Inject({ name: 'name-in-options' })
+  injectOptionsWithName: any;
 }
 new Injects('injects');
