@@ -103,13 +103,34 @@ describe('decorators', () => {
       }).toThrow(`[odin]: The @Injectable decorator cannot be called with more than one argument.`);
     });
 
+    test('should throw error when called with an array argument', () => {
+      expect(() => {
+
+        // @ts-expect-error: TS2345, invalid argument type
+        @Injectable([])
+        // @ts-expect-error: TS6196, unused class
+        class InjectableCalledWithArrayArgument {}
+
+      }).toThrow(`[odin]: The @Injectable decorator cannot be called with an array as argument.`);
+    });
+
+    test('should throw error when called with an empty object as options', () => {
+      expect(() => {
+
+        @Injectable({})
+        // @ts-expect-error: TS6196, unused class
+        class InjectableCalledWithEmptyObjectArgument {}
+
+      }).toThrow(`[odin]: The @Injectable decorator cannot be called with an empty object as argument.`);
+    });
+
     test('should throw error when called with unknown options', () => {
       expect(() => {
 
         // @ts-expect-error: TS2345, invalid argument type
         @Injectable({ something: 123 })
         // @ts-expect-error: TS6196, unused class
-        class InjectableCalledWithUnknownParameters {}
+        class InjectableCalledWithUnknownOptions {}
 
       }).toThrow(`[odin]: Invalid decorator options. The unknown options are not allowed: something.`);
     });
@@ -120,7 +141,7 @@ describe('decorators', () => {
         // @ts-expect-error: TS6196, unused class
         class InjectableDecoratingClassField {
           // @ts-expect-error: TS1240, cannot decorate a class field
-          @Injectable({})
+          @Injectable({ name: 'ClassFieldInjectable' })
           field: any;
         }
 
@@ -132,7 +153,7 @@ describe('decorators', () => {
 
         // @ts-expect-error: TS6196, unused class
         class InjectableDecoratingClassMethod {
-          // @ts-expect-error: TS1241, cannot decorate a class field
+          // @ts-expect-error: TS1241, cannot decorate a class method
           @Injectable
           method(): void {}
         }

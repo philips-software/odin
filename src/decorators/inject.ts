@@ -64,9 +64,18 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
     throw new Error(logger.createMessage(`The @Inject decorator cannot be called without any arguments. Add an argument or remove the ().`));
   }
 
-  let options: InjectOptions = {};
+  let options: InjectOptions | undefined;
 
   if (target === undefined && context) {
+    logger.notifyDeprecation({
+      name: '@Inject decorator without any arguments',
+      nameExample: '@Inject',
+      since: 'v3.0.0',
+      use: '@Inject decorator with options',
+      useExample: '@Inject({ ...options })',
+      whatWillHappen: 'It will be removed',
+    });
+
     return InjectDecorator(target, context);
   }
 
@@ -75,10 +84,28 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
   }
 
   if (typeof target === 'string') {
+    logger.notifyDeprecation({
+      name: '@Inject decorator with a string',
+      nameExample: `@Inject('${target}')`,
+      since: 'v3.0.0',
+      use: '@Inject decorator with options',
+      useExample: `@Inject({ name: '${target}' })`,
+      whatWillHappen: 'It will be removed',
+    });
+
+    options = options ?? {};
     options.name = target;
   }
 
   if (typeof target === 'object') {
+    if (Array.isArray(target)) {
+      throw new Error(logger.createMessage(`The @Inject decorator cannot be called with an array as argument.`));
+    }
+
+    if (Object.getOwnPropertyNames(target).length <= 0) {
+      throw new Error(logger.createMessage(`The @Inject decorator cannot be called with an empty object as argument.`));
+    }
+
     options = { ...target } as InjectOptions;
   }
 
@@ -86,6 +113,19 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
 
   function InjectDecorator<This, Target extends ClassFieldDecoratorTarget>(target: Target, context: ClassFieldDecoratorContext<This>): Target | undefined {
     logger.decorators.debug('InjectDecorator:', { target, context, options });
+
+    if (options && typeof options.name !== 'string') {
+      logger.notifyDeprecation({
+        name: '@Inject decorator options without a name',
+        nameExample: '@Inject({})',
+        since: 'v3.0.0',
+        use: '@Inject decorator options with a name',
+        useExample: `@Inject({ name: '${String(context.name)}' })`,
+        whatWillHappen: 'The name option will be required',
+      });
+    }
+
+    options = options ?? {};
 
     if (context.kind !== 'field') {
       throw new Error(logger.createMessage(`The @Inject decorator can only decorate a class field. Check the ${String(context.kind)} named '${String(context.name)}'.`));
@@ -99,6 +139,8 @@ function Inject<This, Target extends ClassFieldDecoratorTarget>(target: string |
     // @ts-expect-error: TS2322, if this initializer is added to the decorator signature, it allows for calling it, and we'd like to avoid it
     return function InjectDecoratorInitializer<This>(this: This, initialValue: unknown): unknown {
       logger.decorators.debug('InjectDecoratorInitializer:', { target, context, initialValue, options });
+
+      options = options as InjectOptions;
 
       if (options.eager) {
         stashEager(this as any, String(context.name));

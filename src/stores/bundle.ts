@@ -41,6 +41,17 @@ class Bundle implements Store {
   }
 
   register(injectable: Injectable, options?: DescriptorOptions): string {
+    if (typeof options?.name !== 'string') {
+      logger.notifyDeprecation({
+        name: 'bundle.register without a name',
+        nameExample: `bundle.register(${injectable.name})`,
+        since: 'v3.0.0',
+        use: 'explicit names when manually registering injectables into the bundle',
+        useExample: `bundle.register(${injectable.name}, { name: '${injectable.name}' })`,
+        whatWillHappen: 'Registering without an explicit name will be removed',
+      });
+    }
+
     this.validateRegistration(injectable, options);
     return this.registry.register(injectable, options);
   }

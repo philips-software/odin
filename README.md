@@ -148,7 +148,7 @@ class Injectable { }
 const bundle = odin.bundle(); // accepts a domain
 
 // registers the injectable
-bundle.register(Injectable);
+bundle.register(Injectable, { name: 'Injectable' });
 ```
 
 ### `Container`
@@ -166,7 +166,7 @@ class Injectable { }
 const bundle = odin.bundle(); // accepts a domain
 
 // registers the injectable
-bundle.register(Injectable);
+bundle.register(Injectable, { name: 'Injectable' });
 
 // creates a new container based on odin's root bundle
 const container = odin.container(); // accepts a domain
@@ -297,7 +297,7 @@ resolver.get(); // returns 1 (cached)
 ### `@Configuration` decorator
 > _Deprecated, to be removed in a future major version. Strict mode will be the default and only behavior._
 
-This decorator is used to apply a [configuration](#configuration) to [`odin`](#api) before the other decorators are evaluated. For it to work, this decorator needs to be evaluated before any other decorator (in the import/evaluation tree). The options can be seen in the [`ConfigurationOptions` interface](./src/decorators/configuration.ts).
+This decorator is used to apply a [configuration](#configuration) to [`odin`](#api) before other decorators are evaluated. For it to work, this decorator needs to be evaluated before any other decorator (in the import/evaluation tree). The options can be seen in the [`ConfigurationOptions` interface](./src/decorators/configuration.ts).
 
 This snippet shows how to apply a configuration using the decorator:
 ```typescript
@@ -471,7 +471,7 @@ class Usage {
 To better understand and use this library, or any other, it's very important to be aware of how things happen under the hood. Thus, being aware of the `odin` lifecycle and what exactly this on-demand feature means, is a good idea.
 
 ### Registration lifecycle
-Represents how the decorators are evaluated and used. The code is evaluated by the JavaScript engine (browser or node), and every time an [`@Injectable` decorator](#injectable-decorator) is found, it's registered in [`odin`](#api). In-class decorators (like [`@Inject`](#inject-decorator) and [`@Initializer`](#initializer-decorator)) are evaluated along with its respective injectable, and used to configure its behavior during the other lifecycles.
+Represents how the decorators are evaluated and used. The code is evaluated by the JavaScript engine (browser or node), and every time an [`@Injectable` decorator](#injectable-decorator) is found, it's registered in [`odin`](#api). In-class decorators (like [`@Inject`](#inject-decorator) and [`@Initializer`](#initializer-decorator)) are evaluated along with its respective injectable, and used to configure its behavior during other lifecycles.
 
 ```mermaid
 flowchart TB

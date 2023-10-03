@@ -1,6 +1,15 @@
 import createDebugger from 'debug';
 import type { Debugger } from 'debug';
 
+interface DeprecationOptions {
+  name: string;
+  nameExample?: string;
+  since: `v${number}.${number}.${number}`;
+  use: string;
+  useExample?: string;
+  whatWillHappen: string;
+}
+
 class Logger {
 
   private readonly debugger: Debugger;
@@ -30,6 +39,25 @@ class Logger {
   public debug(...data: any[]): void {
     // @ts-expect-error: TS2556, a spread argument must either have a tuple type or be passed to a rest parameter.
     this.debugger(...data);
+  }
+
+  /**
+   * Logs a deprecation message.
+   */
+  public notifyDeprecation(options: DeprecationOptions): void {
+    console.warn([
+      `Deprecation notice:`,
+      `The ${options.name}${makeExample(options.nameExample)} has been deprecated since ${options.since}.`,
+      `Use ${options.use} instead${makeExample(options.useExample)}.`,
+      `${options.whatWillHappen} in a future major version.`,
+      ``,
+    ].join('\n'));
+
+    function makeExample(example?: string): string {
+      return example
+        ? ` (example: ${example})`
+        : '';
+    }
   }
 
   /**
@@ -81,4 +109,8 @@ class Logger {
 
 export {
   Logger,
+};
+
+export type {
+  DeprecationOptions,
 };

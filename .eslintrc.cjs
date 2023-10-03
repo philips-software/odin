@@ -108,6 +108,7 @@ function overrideForTypescriptFiles() {
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/non-nullable-type-assertion-style': 'off',
       '@typescript-eslint/semi': ['error', 'always', {
         omitLastInOneLineBlock: false,
       }],
