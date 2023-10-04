@@ -1,14 +1,17 @@
 # odin
 
 [![ci][badge-workflow-ci]][badge-workflow-ci-link]
+[![codecov][badge-codecov]][badge-codecov-link]
 [![npm][badge-npm]][badge-npm-link]
 [![license][badge-license]][badge-license-link]
 
-[badge-license]: https://img.shields.io/github/license/philips-software/odin?style=flat-square
+[badge-codecov]: https://codecov.io/gh/philips-software/odin/graph/badge.svg?token=18EKctyaW9
+[badge-codecov-link]: https://codecov.io/gh/philips-software/odin
+[badge-license]: https://img.shields.io/github/license/philips-software/odin
 [badge-license-link]: LICENSE.md
-[badge-npm]: https://img.shields.io/npm/v/@philips-software/odin?logo=npm&style=flat-square
+[badge-npm]: https://img.shields.io/npm/v/@philips-software/odin?logo=npm
 [badge-npm-link]: https://www.npmjs.com/package/@philips-software/odin
-[badge-workflow-ci]: https://img.shields.io/github/actions/workflow/status/philips-software/odin/ci.yml?branch=main&label=ci&logo=github&style=flat-square
+[badge-workflow-ci]: https://img.shields.io/github/actions/workflow/status/philips-software/odin/ci.yml?branch=main&label=ci&logo=github
 [badge-workflow-ci-link]: https://github.com/philips-software/odin/actions/workflows/ci.yml
 
 Stands for on-demand dependency injection, enables a lazy loading pattern in JavaScript.
