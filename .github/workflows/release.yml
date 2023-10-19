@@ -18,12 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v3
         with:
           cache: npm
+          check-latest: true
           node-version: ${{ env.node }}
           scope: ${{ env.scope }}
       - run: npm ci
+      - run: npm audit signatures
       - run: npm run build
       - run: npm run lint
       - run: npm run test -- --ci
