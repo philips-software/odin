@@ -1,6 +1,6 @@
 branches:
   - { name: main }
-  - { name: v2, range: '2.x' }
+  - { name: v2, range: '2.x', channel: legacy }
   - { name: alpha, prerelease: true }
   - { name: beta, prerelease: true }
   - { name: rc, prerelease: true }
