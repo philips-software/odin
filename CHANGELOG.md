@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/philips-software/odin/compare/v2.0.0...v2.1.0) (2023-10-19)
+
+
+### Features
+
+* rename package to @philips-software/odin ([2365850](https://github.com/philips-software/odin/commit/23658505572c5568fdf8a27b8728695d1507135d))
+
 # [2.0.0](https://github.com/philips-software/odin/compare/v1.5.4...v2.0.0) (2023-06-20)
 
 
