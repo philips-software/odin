@@ -5,7 +5,7 @@ Odin can be configured to use a Strict mode validation for its dependencies.
 This configuration can be done through the `OdinConfig` decorator, as shown in the following example.
 
 ```javascript
-import { OdinConfig } from '@odinjs/odin';
+import { OdinConfig } from '@philips-software/odin';
 
 @OdinConfig({ strict: true })
 class OdinBootstrap {
