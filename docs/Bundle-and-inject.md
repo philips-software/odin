@@ -7,7 +7,7 @@ The main export of Odin works like a facade object that exposes the library meth
 The snippet below shows how to add a dependency to Odin's registry manually:
 
 ```javascript
-  import odin from '@odinjs/odin';
+  import odin from '@philips-software/odin';
 
   class MyInjectable { ... }
 
@@ -21,7 +21,7 @@ The snippet below shows how to add a dependency to Odin's registry manually:
 The snippet below shows how to build a container and how to use it to resolve dependencies:
 
 ```javascript
-  import odin from '@odinjs/odin';
+  import odin from '@philips-software/odin';
 
   const container = odin.container();
   const instance = container.provide('MyInjectble');
@@ -45,7 +45,7 @@ When dealing with manual registration of dependencies, the bundle used to add de
 The snippet below shows how to do that:
 
 ```javascript
-  import odin from '@odinjs/odin';
+  import odin from '@philips-software/odin';
 
   class MyInjectable { ... }
 
@@ -59,7 +59,7 @@ In the other hand, while dealing with Odin's build-in *decorators* `@Injectable`
 The snippet below shows how to do that:
 
 ```javascript
-  import odin, { Injectable } from '@odinjs/odin';
+  import odin, { Injectable } from '@philips-software/odin';
 
   @Injectable({ domain: 'domain1' })
   class Injectable1 { ... };
@@ -69,7 +69,7 @@ The snippet below shows how to do that:
 Find below an example of a `domain` in action, giving a brief overview of its behaviors:
 
 ```javascript
-  import odin, { Injectable } from '@odinjs/odin';
+  import odin, { Injectable } from '@philips-software/odin';
 
   @Injectable
   class Injectable0 { ... };

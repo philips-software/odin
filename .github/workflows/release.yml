@@ -5,7 +5,7 @@ on:
 
 env:
   node: 18
-  scope: '@odinjs'
+  scope: '@philips-software'
 
 permissions:
   contents: write # to be able to publish a GitHub release

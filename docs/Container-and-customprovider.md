@@ -12,7 +12,7 @@ By default, Odin containers can only provide instances of `class` types, i.e., t
 In order to configure a container to use a **Custom Provider**, an instance of such custom provider should be passed as an argument to the container's factory method, as shown below.
 
 ```javascript
-  import odin, { CustomProvider } from '@odinjs/odin';
+  import odin, { CustomProvider } from '@philips-software/odin';
 
   const container = odin.container('domain', new CustomProvider());
 
@@ -30,7 +30,7 @@ The `ValueResolver` must receive a function in the constructor - which is the va
 Besides `ValueResolver`, Odin also provides another implementation of *resolver*: `FinalValueResolver`. It only evaluates the value once and returns always the first invocation value when calling `get` again.
 
 ```javascript
-  import odin, { CustomProvider, ValueResolver, FinalValueResolver } from '@odinjs/odin';
+  import odin, { CustomProvider, ValueResolver, FinalValueResolver } from '@philips-software/odin';
 
   const customProvider = new CustomProvider();
 
@@ -61,7 +61,7 @@ Besides `ValueResolver`, Odin also provides another implementation of *resolver*
 When the *resolver* is invoked by `container.provide(...)`, no arguments is passed. But if invoked by dependency resolution - any use of `@Inject`, the instance which is requiring the dependency will be passed as argument.
 
 ```javascript
-  import odin, { CustomProvider, ValueResolver} from '@odinjs/odin';
+  import odin, { CustomProvider, ValueResolver} from '@philips-software/odin';
 
   ...
 
@@ -96,7 +96,7 @@ When the *resolver* is invoked by `container.provide(...)`, no arguments is pass
 When using `FinalValueResolver`, no matter the context, once evaluated the value never changes.
 
 ```javascript
-  import odin, { CustomProvider, FinalValueResolver} from '@odinjs/odin';
+  import odin, { CustomProvider, FinalValueResolver} from '@philips-software/odin';
 
   ...
 

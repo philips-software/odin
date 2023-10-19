@@ -25,7 +25,7 @@ Since that [`decorators`](https://github.com/tc39/proposal-decorators) is not na
 To use ODIN, execute:
 
 ```
-$ npm i --save @odinjs/odin
+$ npm i --save @philips-software/odin
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ $ npm i --save @odinjs/odin
 To use ODIN is simple. Define a dependecy and inject it in another class. 🙃
 
 ```javascript
-  import { Injectable, Singleton } from '@odinjs/odin';
+  import { Injectable, Singleton } from '@philips-software/odin';
 
   @Singleton
   class MyDependency {
@@ -59,7 +59,7 @@ To use ODIN is simple. Define a dependecy and inject it in another class. 🙃
 To initialize the dependency injector, it's necessary to create a container - that will provide dependencies instances.
 
 ```javascript
-  import odin from '@odinjs/odin';
+  import odin from '@philips-software/odin';
 
   // creates a container based on root bundle
   const container = odin.container();

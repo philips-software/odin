@@ -1,5 +1,5 @@
 {
-  "name": "@odinjs/odin",
+  "name": "@philips-software/odin",
   "version": "2.0.0",
   "description": "On-demand dependency injection",
   "author": "Philips EMR",
@@ -45,6 +45,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "tag": "legacy"
   }
 }
