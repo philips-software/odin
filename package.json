@@ -53,7 +53,7 @@
     "semantic-release-plugin-update-version-in-files": "1.1.0",
     "ts-node": "10.9.1",
     "typescript": "5.2.2",
-    "vite": "4.4.9",
+    "vite": "4.5.2",
     "vite-plugin-dts": "3.6.0",
     "vite-plugin-typescript-transform": "1.2.2",
     "vitest": "0.34.6"
