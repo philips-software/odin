@@ -47,7 +47,7 @@
     "eslint-plugin-jest": "27.4.2",
     "eslint-plugin-jest-formatting": "3.1.0",
     "jsdom": "22.1.0",
-    "rimraf": "5.0.5",
+    "rimraf": "6.1.0",
     "semantic-release": "22.0.5",
     "semantic-release-license": "1.0.3",
     "semantic-release-plugin-update-version-in-files": "1.1.0",
